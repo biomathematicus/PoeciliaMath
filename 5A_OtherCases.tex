@@ -1,0 +1,343 @@
+\chapter{TROJAN X CHROMOSOMES: UNISEXUAL POECILIIDS}\label{chap:POECILIA}
+	The deleterious effects of feminization were explained  in Section \ref{sec:SexRatios}. The present chapter explores the natural occurrence of a species with Trojan X chromosomes, \textit{Poecilia formosa}, that causes in some cases local extinction in \textit{Poecilia mexicana} and \textit{Poecilia latipinna} through sexual parasitism conducive to population feminization. It has been suggested that male mate discrimination against \textit{P. formosa} is a necessary condition for coexistence. In this chapter it is shown that when male mate discrimination exists as a population-dependent function, the speed in which it occurs plays an important role in population dynamics. It is also shown that once the \textit{P. formosa} population surpasses the \textit{P. mexicana} or \textit{P. latipinna} female population, the system is highly sensitive to perturbations. It is shown that stochasticity is a stabilizing force in that case, which explains the high variability of field data. The analysis of the population dynamics of \textit{P. formosa} shows that local extinction can occur by the introduction of Trojan X chromosomes, and offers clues for the reason why Trojan Y chromosomes could be a successful strategy for eradication.  
+%The second case has to do with the introduction of sex-reversed individuals in order to achieve population growth; in this case the name ``Trojan'' is a misnomer, since it has a destructive connotation. The designation ``Ark chromosomes'' is proposed to identify strategies of conservation that have to do with skewing the sex ratio through the introduction of sex-reversed individuals. The analysis method used in this chapter mimics the procedure used in Chapter \ref{chap:ODE}. The analysis of the infinite-dimensional dynamical system is proposed as a direction of future research. This chapter is intended to expand the understanding of the ramifications of the Trojan chromosome hypothesis, and supports some conclusions that will be explored in Chapter \ref{chap:CONCLUSION}
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Introduction to Sperm Parasites}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	Unisexual reproduction has been reported in plants, invertebrates, and more than 50 vertebrates. Unisexual species are all-female populations. There are two mechanisms to sustain unisexual populations: (i) parthenogenesis, i.e. growth and development of embryos occur without fertilization by males, and (ii) gynogenesis, i.e. sperm from a male donor of a different species is necessary to initiate embryo development, but the genetic material of the male is never incorporated into the offspring. Species that reproduce by the second mechanism are known as \textit{sperm parasites}, while the sperm donor species is known as the \textit{sperm host} \cite{Kokko:persist}. Parthenogenesis and gynogenesis require multiple mutations, not necessarily confined to a single chromosome. Nevertheless, gynogenetic species in the context of the present study will be referred to as carriers of Trojan X Chromosomes (TXC). 
+	
+	The first gynogenetic vertebrate, \textit{Poecilia formosa}, was discovered by Hubbs and Hubbs in 1932 \cite{Wetherington:Poeciliopsis}. In this case, sperm from a related bisexual species, e.g. \textit{Poecilia mexicana} or \textit{Poecilia latipinna}, is needed to initiate development of \textit{P. formosa} eggs \cite{Balsano:Poecilia}.  It has been shown unequivocally via mitocondrial DNA that \textit{P. mexicana} is a recent female parent of \textit{P. formosa} \cite{Avise:Formosa}.    
+	
+	\textit{P. formosa} occurs naturally in southeastern Texas and northeastern Mexico. Field data of \textit{P. formosa} in the Soto La Marina drainage of NE Mexico gathered in 20 locations between 1970 and 1978 show a wide range of variation in the proportion of unisexuals with respect to the total population from year to year, even in the same location \cite{Balsano:Poecilia}.  The habitat varies from shallow water flowing over gravel with intermittent pools,  to turbid water flowing over a silty bottom. During the dry season only intermittent disconnected pools remain and during the rainy season these pools connect to each other. The stochastic variation produced by the environment has a clear oscillation between deleterious and additive effects in the populaiton.
+	
+	From the pedigrees in Figure \ref{fig:PoeciliaPedigree}, it is evident that the number of unisexual females ($p$) produced on each mating event between $p$ and a male ($m$) is bigger than the number of bisexual females ($f$) produced by mating between bisexuals. The increase in the number of $p$ adds pressure to the competition between $f$ and $p$ for $m$. As a result of more frequent matings between $p$ and $m$, the numbers of $m$ decrease with a consequent deleterious local effect on the bisexual population.  
+	%--------------------------------
+	\begin{figure}
+		\centering
+			\subfloat[]{\includegraphics[width=1in]{figures/figPedigreePoecilia-mf}}
+			\hspace{10mm}
+			\subfloat[]{\includegraphics[width=1in]{figures/figPedigreePoecilia-pm}}
+		\caption[Pedigrees of unisexual and bisexual organisms]{Pedigrees of unisexual and bisexual organisms. 
+		(a) Mating of a bisexual XX female ($f$) and a bisexual XY male ($m$). A proportion $a$ of the progeny corresponds to females and a proportion $1-a$ of the progeny corresponds to males.
+		(b) Mating of a bisexual XY male ($m$) with a unisexual XX female. Only unisexual females are produced. 
+		}
+		\label{fig:PoeciliaPedigree}
+	\end{figure}
+	%--------------------------------
+	
+	The population dynamics of \textit{P. formosa} has puzzled biologists for nearly eight decades \cite{Schultz:Origin} for several reasons: (i) given the demographic pressure to feminize the population, it is remarkable that in some cases unisexuals coexist with bisexuals, (ii) data gathered from different locations of the same drainage show that there is no pattern to the high seasonal fluctuations in unisexual frequencies \cite[p 280]{Balsano:Poecilia}, and (iii) the lack of genetic recombination imposed by all-female reproduction suggests a high extinction probability. Nevertheless, unisexual poeciliids are remarkably successful \cite{Wetherington:Poeciliopsis}, with a time of origination estimated as more than 100,000 years \cite{Avise:Formosa}.
+	
+	The study of the TXC system is relevant to the study of the TYC eradication strategy because in both cases Trojan individuals skew the sex ratio, potentially causing local extinction. The conditions under which the TXC case leads to local extinction and the conditions under which it leads to coexistence provide clues about when to use the TYC eradication strategy.
+
+	One of the factors that has been proposed to explain the state of coexistence between unisexuals and bisexuals in a gynogenetic complex is male mate discrimination \cite{Kokko:persist, Balsano:Poecilia, Kiester:Gynogenetic, Heubel:extinct}. Males of the host species show population-dependent selective preference for conspecific females: when the unisexual female population is low, males mate with unisexuals at a frequency comparable to the mating between bisexuals, but when unisexual female population is high, males favor mating with conspecifics \cite{Riesch:limitation}. One hypothesis is that the willingness of males to mate with unisexuals may be attributable to their ``foreignness'' \cite{Balsano:Poecilia}. It has also been reported that dominant males show a marked preference for conspecific females, whereas small, subordinate males mate indiscriminately with conspecifics and unisexuals. This behavior could be explained by male dominance hierarchies \cite{Balsano:Poecilia}. 
+	%Schupp and Plath (2005) \cite{Schupp:Male} report that a higher proportion of \textit{P. latipinna} than \textit{P. formosa} had sperm on their genital tract under all conditions even when males were very rare, thus supporting the notion of male preference for conspecifics. 
+	%In the case of females, \textit{P. latipinna} has shown a marked bias in selecting male mates \cite{Ptacek:choice}, but this bias seems to be the same in \textit{P. mexicana}, \textit{P. latipinna}, and \textit{P. formosa} \cite{Marler:preference}. Dries (2003) \cite{Dries:Queen} reported that \textit{P latipinna} and \textit{P. mexicana} males showed no mating discrimination between gynogenetic \textit{P. formosa} and hybrids produced by crosses between \textit{P latipinna} and \textit{P. mexicana}, but suggests that context-dependent male mate choice can stabilize a population.
+
+	There have been several attempts to create mathematical models of gynogenesis. Kiester et al. (1981) \cite{Kiester:Gynogenetic} created a generic sperm-dependent gynogenesis model applicable to a wide range of species. Their results indicate that a sexual discrimination factor is necessary to sustain the population. This model, however, considers neither population-dependent dynamics nor specific factors that affect particular species. Scheley et al. (2004) \cite{Schley:parthenogenesis} created a two-species model that includes competition with Allee effect but not parasitism. They showed that simple dynamics based on purely ecological factors are capable of sustaining coexisting populations. These two models are generic and do not take into account the specifics of poeciliids. 
+	
+	A disadvantage of applying these two models to poeciliids is that both groups use the term ``triploid'' to refer to one of the competing species. For example, in the case of \textit{P. formosa} the unisexual parasite is, mostly, a diploid. The notation is potentially confusing because in some cases \textit{P. formosa} can produce XXY triploid offspring, but the Y chromosome remains silent \cite{Balsano:Poecilia}. Once formed, these female triploids reproduce by gynogenesis giving birth to other triploid females; however, the triploid associate does not influence the population dynamics.  Another disadvantage of applying these two models to poeciliids is that the situation in nature is better described by a three-species model, since bisexual females and males, and unisexual females have been observed to have different dynamics \cite{Balsano:Poecilia}. Peck et al. (1999) \cite{Peck:maintenance} created a simulation model that showed that asexual takeover is likely in a structured environment, and concluded that migration and spatial fragmentation are important factors to sustain bisexual populations. More recent models include the work by Kokko et al. (2008) \cite{Kokko:persist} and Heube et al. (2009) \cite{Heubel:extinct}. The first indicated that spatial dynamics plays an important role in the continued coexistence of the system. The latter showed that male efficiency (fertilization ability) and a sexual discrimination factor can stabilize a gynogenetic species complex.
+	
+	None of the previous models account for two attributes observed in poeciliids: (i) high variability of the proportion of unisexuals found in the field, and (ii) it is shown in Section \ref{sec:PoeciliaMath} that the speed of male mate discrimination is an attribute that controls coexistence. It is therefore the goal of the present modeling effort to produce a dynamical system that exhibits high variability, takes into account male mate discrimination, and also exhibits a coexistence steady state. 
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Mathematical Model}\label{sec:PoeciliaMath}	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	As females compete for the service of the males, sperm is assumed to be a limiting factor. Therefore, the bisexual female population ($f$) that has access to sperm is the total population of bisexual females, minus the portion of unisexuals ($p$) that attract sperm, $f-\gamma p$. From the pedigrees in Figure \ref{fig:PoeciliaPedigree} it is possible to determine the model's kinetics: bisexual matings are reduced by the presence of unisexual organisms; therefore, male population is generated by the product $(1-a)\beta L m (f-\gamma p)$, where $\beta$,  $L$,  $m$, and $f$ have the same meaning as in Section \ref{sec:ODEIntro}, and $\gamma$ and $a$ are explained below. The set of equations that describes the TXC system is
+	%--------------------------------
+	\begin{eqnarray}
+		\frac{d\tilde{f}}{dt} &=& a\tilde{\beta}L\tilde{m}(\tilde{f}-\gamma \tilde{p})-\tilde{\delta}\tilde{f}+\tilde{\eta}_f(t)\tilde{f} \label{eq:PoecFDim}, \\
+		\frac{d\tilde{m}}{dt} &=&(1-a)\tilde{\beta}L\tilde{m}(\tilde{f}-\gamma \tilde{p})-\tilde{\delta}\tilde{m}+\tilde{\eta}_m(t)\tilde{m} \label{eq:PoecMDim}, \\
+		\frac{d\tilde{p}}{dt} &=& \gamma\tilde{\beta}L\tilde{m} \tilde{p} -\tilde{\delta}\tilde{p} + \tilde{\eta}_p(t) \tilde{p} \nonumber,\\ 
+		L & = &  1-\frac{\tilde{f}+\tilde{m}+\tilde{p}}{\tilde{K}}\nonumber, 
+	\end{eqnarray}
+	%--------------------------------
+	where the tilde ($\backsim$) indicates a dimensional variable or coefficient, and
+	%--------------------------------
+	\begin{itemize}
+		\item $\gamma $ represents the sexual discrimination factor, which controls the mating frequency between $m$ and $p$; when it has a maximum value of 1, males have the same probability of mating with $p$ or $f$, and when $\gamma$ is low, males have a preference to mate with $f$,
+		\item $a$ represents the proportion of females produced on each mating event; it has been reported that, for example, the total poeciliid males account for less than 20\% of the population in field studies \cite{Balsano:Poecilia, Snelson:ratio}, thus indicating that the value of $a$ is different from the value $1/2$ expected in other species,
+		\item $\tilde{\eta}(t)$ represents stochasticity introduced through a random variable with the properties described in Section \ref{sec:IntroMathModel}, on page \pageref{eq:GeneralEq}. 
+		\item $\tilde{\beta}$, $\tilde{\delta}$, $\tilde{K}$, and $L$ are as described in Section \ref{sec:ODEIntro}, on page \pageref{item:Variables}.
+	\end{itemize}
+	%--------------------------------
+
+	The vector $\textbf{u}$ with components $u_i$, $i=1,2,3$ is used to represent one of the populations $f$, $m$, or $p$. This system can be non-dimensionalized with the following rescaling:
+	%--------------------------------
+	\begin{eqnarray*}
+		{u_i} & = & \frac{\tilde{u_i}}{\tilde{K}},\\
+		\dot{u_i} & = & \frac{1}{\tilde{\delta} \tilde{K}}\dot{\tilde{u_i}} ,\\
+		{\beta} & = & \frac{\tilde{\beta}  \tilde{K}}{\tilde{\delta}},\\
+		\eta_i(t) & = & \frac{\tilde{\eta}_i(t)}{\tilde{\delta}},
+	\end{eqnarray*}
+	%--------------------------------
+	where ${u_i}$ represents one of the populations $f$, $m$, or $p$. The resulting non-dimensional system is
+	%--------------------------------
+	\begin{eqnarray*}
+		\frac{df}{dt} & = & a \beta{L}{m}(f-\gamma p)-(1-\eta_f) f \label{eq:PoeciliaF}, \\
+		\frac{dm}{dt} & = & (1-a) \beta{L}{m}(f-\gamma p)-(1- \eta_m) m \label{eq:PoeciliaM}, \\
+		\frac{dp}{dt} & = & \gamma\beta{L}m p -(1-\eta_p) p \label{eq:PoeciliaP},\\ 
+		L & = &  1-(f+m+p)\label{eq:PoecilaL}, 
+	\end{eqnarray*}
+	%--------------------------------
+	where the coefficients have the same meaning as symbols with tildes in the previous set of equations, but quantities in this case are dimensionless. Note that $\eta$ could be greater than 1.
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\subsection{Model Analysis}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	The TXC system can be easily analyzed neglecting the effect of stochasticity and letting $\gamma = $ constant. The steady state of this system is the solution of the equation $\dot{\textbf{u}}(\textbf{u}_0) = \textbf{0}$, where $\textbf{u}_0$ is the initial condition of the system. Then,
+	%--------------------------------
+	\begin{eqnarray}
+		a \beta{L}{m_0}(f_0-\gamma p_0)- f_0  & = & 0,\label{eq:SSf} \\
+		(1-a) \beta{L}{m_0}(f_0-\gamma p_0)- m_0 & = & 0,\nonumber \\
+		\gamma\beta{L}m_0 p_0 - p_0 & = & 0. \label{eq:SSp}
+	\end{eqnarray}
+	%--------------------------------
+	From Equation \ref{eq:SSf},
+	%--------------------------------
+	\begin{equation}\label{eq:SS1}
+		f_0 = \frac{\gamma p_0 m_0}{m_0 - \frac{1}{a \beta L}}.		
+	\end{equation}
+	%--------------------------------
+	From Equation \ref{eq:SSp},
+	%--------------------------------
+	\begin{equation}\label{eq:SS2}
+		m_0 = \frac{1}{\gamma \beta L}.		
+	\end{equation}
+	%--------------------------------
+	Substituting Equation \ref{eq:SS2} into Equation \ref{eq:SS1} gives
+	%--------------------------------
+	\begin{equation}\label{eq:GammaSS}
+		\gamma = \frac{a f_0}{a p_0 + f_0}.		
+	\end{equation}
+	%--------------------------------
+	Equation \ref{eq:GammaSS} gives the unique constant value of $\gamma = \gamma_{eq}$ that guarantees coexistence in absence of stochasticity. 
+	
+	The simplified case of $\gamma = $ constant is unrealistic. A better approximation to reality is a population-dependent function that decreases monotonically from a maximum initial value $\gamma_o$ to a minimum steady-state value $\gamma_\infty$, which can be represented by the sigmoid function
+	%--------------------------------
+	\begin{equation}\label{eq:DiscriminationFactor}
+		\gamma_{eq} = \frac{\gamma_o - \gamma_\infty}{1+e^{v p-r}}+\gamma_\infty,		
+	\end{equation}
+	%--------------------------------
+where $v>0$ is the speed of male mate discrimination (i.e. how fast the discrimination goes from $\gamma_o$ to $\gamma_\infty$), and $r>0$ shifts the sigmoid function to the right, determining the value of population $p$ that initiates male mate discrimination. The  sigmoid $\gamma$ function proposed in Equation \ref{eq:DiscriminationFactor} allows a smooth transition from no heterospecific discrimination ($\gamma_o$) to maximum heterospecific discrimination ($\gamma_\infty$) with a nearly linear central regime. Figure \ref{fig:PoeciliaGamma} shows theoretical male mate discrimination curves. It is expected that a low speed of male mate discrimination results in local extinction, and a high speed of male mate discrimination results in coexistence.
+	%--------------------------------
+	\begin{figure}
+		\centering
+		\includegraphics[width=3in]{figures/figPoeciliaGamma}
+		\caption[Speed of male mate discrimination as a function of population $p$]{Speed of male mate discrimination as a function of population $p$. Three speeds of discrimination are shown: 0.05, 0.10, and 0.20. Parameter values are $\gamma_o = 1$, $\gamma_\infty = 0.2$, and $r=5$.}
+		\label{fig:PoeciliaGamma}
+	\end{figure}
+	%--------------------------------
+	
+	An important question is how and under which conditions is the dynamical system dissipative. The following lemma solves this question, and provides very important clues about the behavior of these species. The consequences of the conditions of dissipation are explored in Section \ref{sec:PoeciliaDiscussion}. 
+
+	%--------------------------------
+	\begin{lemma}\label{lem:DissipativePoecilia} \textbf{(TXC Dissipative Stochasticity Lemma)}
+		The TXC dynamical system is dissipative when $\eta_f(t)+\eta_m(t)+\eta_p(t)<3$.
+	\end{lemma}
+	%--------------------------------
+	\begin{proof} 
+	Use the same technique as Lemma \ref{lem:Dissipative} to obtain	
+	\begin{eqnarray}
+		 \nabla \cdot \textbf{F}&=&\frac{\partial\dot{f}}{\partial f}+\frac{\partial \dot{m}}{\partial m}+\frac{\partial\dot{p}}{\partial p}\nonumber\\
+		 												&=& (-{\gamma}mf+am-amp+{\gamma}pf+afp+a{\gamma}p-a{\gamma}{p}^{2}+{\gamma}m-a{m}^{2}+f\nonumber\\
+ 														& & -{f}^{2}-a{\gamma}pm-2fm-fp-{\gamma}p+{\gamma}{p}^{2}-af+a{f}^{2}-{\gamma}{m}^{2}-a{\gamma}pf)\beta\nonumber\\
+ 														& & -3+\eta_f+\eta_m+\eta_p. \label{eq:BetaFactorPoecilia} 
+	\end{eqnarray}	
+	It is necessary to show that the whole right hand side of Equation \ref{eq:BetaFactorPoecilia} is negative. One way of doing this is through the extreme points. In order to find the extreme point, let $P(f,m,p)=\nabla \cdot \textbf{F}$. The local extreme point $\textbf{p}_m$ solves $\nabla P(\textbf{p}_m) = \lambda \nabla g(\textbf{p}_m)$, where  $g(\textbf{p}_m) = f + m + p - 1 = 0$ is a constraint function, and $\lambda$ is a Lagrange multiplier. Hence, the system of equations to be solved is 
+	{\allowdisplaybreaks
+	\begin{eqnarray*}
+		 P_f & = & \left( -{\gamma}m+{\gamma}p+ap+1-2f-2m-p-a+2af-a{\gamma}p \right) \beta=\lambda,  \\
+		 P_m & = & \left( -{\gamma}f+a-ap+{\gamma}-2am-a{\gamma}p-2f-2{\gamma}m \right) \beta=\lambda, \\
+		 P_p & = & \left( -am+{\gamma}f+af+a{\gamma}-2a{\gamma}p-a{\gamma}m-f-{\gamma}+2{\gamma}p-a{\gamma}f \right) \beta=\lambda,  \\
+		 g & = & f + m + p - 1 = 0.  \\
+	\end{eqnarray*}
+	}
+	The solution to this system is $f=0$, $m=0$, $p=1$, and $\lambda=\beta\gamma-a\beta\gamma$. The software used to perform these calculations is listed in the Appendix. Once these values are substituted into Equation \ref{eq:BetaFactorPoecilia}, the extreme point found is
+	\[
+		\nabla \cdot \textbf{F}(\textbf{p}_m) = -3+\eta_f+\eta_m+\eta_p.
+	\]
+	It is necessary to determine whether this extreme point is a maximum or a minimum, and whether this quantity is negative for all values of $f$, $m$, and $p$. This can be determined with the determinant of the bordered Hessian $\bar{H}$ of $P(f,m,p)$ \cite[p. 241]{Marsden:Vector}:
+	\[
+		|\bar{H}| = 
+		\left| 
+		\begin {array}{cccc} 
+			0		& 1												  & 1								 & 1												  \\\noalign{\medskip}
+			1		& -2(\beta-a)							  & -\beta(\gamma+2)	& \beta(\gamma+a-1-a\gamma) \\\noalign{\medskip}
+			1		& -\beta(\gamma+2)					& -2\beta(a+\gamma)	& -a\beta(1+\gamma)				  \\\noalign{\medskip}
+			1		& \beta(\gamma+a-1-a\gamma)	& -a\beta(1+\gamma)	& 2\beta\gamma(1-a)
+		\end {array} 
+		\right|
+		= 1.
+	\]
+ 	Since the determinant of the bordered Hessian is positive (all $\beta$ and $\mu$ terms cancel), the extreme point is a local maximum. In order for the variation of volume in phase space to be negative, $\nabla \cdot \textbf{F}(\textbf{p}_m) < 0$. Therefore, the system is dissipative for all values of the variables and parameters involved as long as
+ 	\[
+ 		\eta_f(t)+\eta_m(t)+\eta_p(t)<3.  
+ 	\]\qed	
+	\end{proof} 
+	%--------------------------------
+		
+	%--------------------------------
+	\begin{definition}
+		The state of the TXC system when $\eta_f(t)+\eta_m(t)+\eta_p(t)<3$ is called \textit{state of dissipative stochasticity}.  
+	\end{definition}
+	%--------------------------------
+	%--------------------------------
+	\begin{definition}
+		The state of the TXC system when $\eta_f(t)+\eta_m(t)+\eta_p(t)>3$ is called \textit{state of non-dissipative stochasticity}.  
+	\end{definition}
+	%--------------------------------
+	%--------------------------------
+	\begin{definition}
+		The state of the TXC system when $\eta_f(t)+\eta_m(t)+\eta_p(t)=3$ is called the \textit{dissipative threshold}.
+	\end{definition}
+	%--------------------------------
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\subsection{Extended Model Specific to \textit{P. formosa}}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	Certain features of the model can be adapted specifically for \textit{P. formosa}. The sigmoid function described in Equation \ref{eq:DiscriminationFactor} has asymptotes at $\gamma_o$ and $\gamma_\infty$. One asymptote occurs at $\gamma=\gamma_o = 1$ which indicates males have equal probability of mating with $p$ or $f$.  The selection of the value for the second asymptote corresponds to the range of parameters reported by Riesch et al. (2008) \cite{Riesch:limitation} and Balsano et al. (1989) \cite{Balsano:Poecilia} and occurs at $\gamma = \gamma_\infty = 0.2$. This value is used only to illustrate the behavior of the system and should not be considered an intrinsic property of $\gamma$.  This value indicates that as $t \rightarrow \infty$ and the $p$ population increases, a male will direct $20\%$ of his mating activity towards unisexuals.  
+	
+	Experimental data of fish association in populations that contain \textit{P. formosa} show that: (i) females show a strong preference to associate in small groups of two or three of their own kind within larger groups that might include all types, (ii) bisexual females are more frequently situated nearest to their own kind than unisexuals, and (iii) dominant males direct one third of their activities toward females (with preference for conspecifics), and two thirds toward other males \cite{Balsano:Poecilia}. Together, these factors create a population-dependent bias in the spatial distribution in which poeciliids tend to cluster. %, most noticeable when the population of unisexuals is large. About two-thirds of the bisexual poeciliids are positioned nearest to their conspecifics, and over half of the time a unisexual was closest to other unisexual \cite{Balsano:Poecilia}. This preference of conspecific bisexuals to cluster creates a population-dependent bias in the spatial distribution. 
+	 In order to understand the effect of this spatial bias, let $V$ be the volume that contains the local population, let $\tau$ be a random volume such that $\tau \subset V$, and $P_\tau$ is the probability of selecting a random point inside of $\tau$. Then
+	\[
+		P_\tau = \frac{\tau}{V}.
+	\]
+	The volume per capita, $\vartheta$, that an individual of a given population of size $n$ occupies inside a volume $V$ is
+	\[
+		\vartheta = \frac{V}{n}.
+	\]
+	The probability of finding an individual inside a volume $\vartheta$ such that $\vartheta \subset V$ is
+	\[
+		P_\vartheta = \frac{\vartheta}{V}.% = \frac{1}{n}.
+	\]		
+	Then, the probability of finding a single individual whose volume per capita is $\vartheta$, inside a random volume $\tau$ such that $\tau \, \subset \, V$ is
+	\[
+		P_{\vartheta, \tau} = P_\vartheta P_\tau = \frac{\vartheta \, \tau}{V^2}.		
+	\]
+	
+	The association data indicates that the volume per capita of \textit{P. formosa} is bigger than the volume per capita of other poeciliids \cite{Balsano:Poecilia}. This can be interpreted as exposure of bisexuals to stochastic effects is reduced as compared to the exposure of \textit{P. formosa}. Stochastic effects can be interpreted as additive or deleterious events in a random volume $\tau$ such that $\tau \, \subset \, V$, thus being proportional to $P_{\vartheta, \tau}$. Therefore,  $\eta_f(t) < \eta_p(t)$ and $\eta_m(t) < \eta_p(t)$. This hypothesis will be used in numerical simulations.
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Methods}	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	Numerical solutions of the dimensional dynamical system, as applied to the \textit{P. formosa} TXC system, were calculated with Matlab's \textit{ode45} solver with the $NonNegative = 1$ option activated. This solution method is a one-step solver based on the Dormand-Prince pair, which is an explicit Runge-Kutta formula. The parameter space was explored varying the parameters $\gamma$ and $v$ in the ranges showed in Table \ref{tab:ICPoecilia}, while the other parameters were fixed at $\tilde{\beta}=0.1$, $\tilde{\delta}=0.1$, $a=0.8$, $\tilde{K}=300$, $r=5$. Initial conditions and parameters were set as described in Section \ref{sec:MethodsODE}. The value $a=0.8$ was based in the proportion of bisexual females in wild populations reported by Balsano et al. (1989) \cite{Balsano:Poecilia}. The value $r=5$ was arbitrarily chosen to cause the $\gamma$ function presented in Equation \ref{eq:DiscriminationFactor} to start decreasing for low values of $p$. 
+	The value of the parameters $\tilde{\eta}_i$ were chosen to reflect association data \cite{Balsano:Poecilia}; other values yield similar results.  
+	The software used to perform these calculations is listed in the Appendix.
+	%--------------------------------
+	\begin{table}
+		\centering
+		\caption[Initial conditions for the TXC ODE system]{Initial conditions for the TXC ODE system.}
+		\label{tab:ICPoecilia}
+		\begin{tabular} {|c||c|}\hline
+			  \textbf{Parameters} 	&  \textbf{Initial Conditions}   \\\hline
+			  $\gamma$	= [0.01, 1]	& $\tilde{f}_0$ =   100 \\\hline
+			  $v$				= [0.01, 1]	&	$\tilde{m}_0$ =   100 \\\hline
+			  											&	$\tilde{p}_0$ =   10 \\\hline
+		\end{tabular}
+	\end{table}
+	%--------------------------------
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Results}	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	Consider first the simplified case $\gamma = $ constant and no stochasticity. Equation \ref{eq:GammaSS} gives the equilibrium state of the system. Figure \ref{fig:PoeciliaConstantGamma} shows that three states of the system are possible.  Figure \ref{fig:PoeciliaConstantGammaA} shows that when heterospecific discrimination is below the equilibrium value of $\gamma_{eq}$ the unisexual species disappears. Figure \ref{fig:PoeciliaConstantGammaB} shows that when heterospecific discrimination has exactly the equilibrium value of $\gamma_{eq}$ both species coexist. Figure \ref{fig:PoeciliaConstantGammaC} shows that when heterospecific discrimination is above the equilibrium value of $\gamma_{eq}$ the bisexual species disappear, followed by extinction of unisexuals. It is also observed in this latter case that once the $\tilde{p}$ population surpasses the $\tilde{f}$ population, the decline of $\tilde{f}$ is very sharp.  %Local extinction of bisexuals and unisexuals occurs when $\gamma > \gamma_{eq}$. Local extinction of unisexuals occur when $\gamma < \gamma_{eq}$. When $\gamma = \gamma_{eq}$, all three populations remain at the level set by the initial conditions.  Thus, there is a saddle node bifurcation in the functional relationship of the parameter $\gamma$ and the variables $f$ and $m$. 
+	\label{page:Exponential}
+	This is important because the variation of population in time, i.e. the derivative of the population function, is very sensitive to perturbations at this stage. 
+	%--------------------------------
+	\begin{figure}
+		\centering
+			\subfloat[]{\includegraphics[width=2.6in]{figures/PoeciliaConstG050}\label{fig:PoeciliaConstantGammaA}}
+			\hspace{2mm}
+			\subfloat[]{\includegraphics[width=2.6in]{figures/PoeciliaConstG072}\label{fig:PoeciliaConstantGammaB}}
+			\hspace{2mm}
+			\subfloat[]{\includegraphics[width=2.6in]{figures/PoeciliaConstG090}\label{fig:PoeciliaConstantGammaC}}
+		\caption[Dynamics of unisexual \textit{P. formosa} and other bisexual poeciliids when $\gamma$ is a constant]{Dynamics of unisexual \textit{P. formosa} and other bisexual poeciliids  when $\gamma$ is a constant. 
+		Dimensional parameter values are $\tilde{\eta}_f=0$, $\tilde{\eta}_m=0$, $\tilde{\eta}_p=0$, $a = 0.2$, $\tilde{\beta} = 0.1$, and $\tilde{\delta}=0.1$. Initial conditions are $\tilde{f}_0 = 100$, $\tilde{m}_0 = 100$, and $\tilde{p}_0=10$. For the parameters and initial conditions given, $\gamma_{eq} = 0.74$. 
+		(a) Case $\gamma = 0.50 \leq \gamma_{eq}$. The unisexual species disappears.
+		(b) Case $\gamma = 0.74 = \gamma_{eq}$. Both species coexist.
+		(c) Case $\gamma = 0.90 \geq \gamma_{eq}$. The bisexual species disappears, followed by the unisexual species.
+		}		
+		\label{fig:PoeciliaConstantGamma}
+	\end{figure}
+	%--------------------------------
+		
+	When there is no stochasticity the more realistic case of $\gamma$ as a sigmoid function (see Figure \ref{fig:PoeciliaNonLinGamma}) behaves qualitatively the same as the cases shown in Figure \ref{fig:PoeciliaConstantGamma} where $\gamma$ is a constant. Since the sigmoid function has a lower asymptote (i.e. $\gamma_\infty > 0$), the unisexual species never disappears. The parameter $v$ in Equation \ref{eq:DiscriminationFactor}, termed ``male mate discrimination speed'', plays a pivotal role in coexistence. Figure \ref{fig:PoeciliaNonLinGammaA} shows that if this discrimination happens slowly, i.e. if adult males mate with a significant number of unisexuals when unisexual population is high, then extinction of bisexuals and unisexuals occurs. In contrast, Figure \ref{fig:PoeciliaNonLinGammaB} shows that if this discrimination happens quickly, i.e. young adults learn early to mate less with unisexuals, then coexistence occurs.  
+	%When the discrimination factor decreases slowly, it allows the unisexual species increase their numbers and cause local extinction, as observed in Figure \ref{fig:PoeciliaNonLinGammaA}. When the discrimination factor decreases rapidly, it allows the bisexual species to keep the numbers of the unisexual parasites low, as observed in Figure \ref{fig:PoeciliaNonLinGammaB}.
+	%--------------------------------
+	\begin{figure}
+		\centering
+		\subfloat[]{\includegraphics[width=2.6in]{figures/PoeciliaNR_V002}\label{fig:PoeciliaNonLinGammaA}}
+		\hspace{2mm}
+		\subfloat[]{\includegraphics[width=2.6in]{figures/PoeciliaNR_V020}\label{fig:PoeciliaNonLinGammaB}}
+		\caption[Dynamics of unisexual \textit{P. formosa} and other bisexual poeciliids when $\gamma$ is a sigmoid function]{Dynamics of unisexual \textit{P. formosa} and other bisexual poeciliids  when $\gamma$ is a sigmoid function.
+		Dimensional  parameter values are $\gamma_o = 1$, $\gamma_\infty = 0.2$, $r=5$, $\tilde{\eta}_f=0$, $\tilde{\eta}_m=0$, $\tilde{\eta}_p=0$,  $a = 0.2$, $\tilde{\beta} = 0.1$, and $\tilde{\delta}=0.1$. Initial conditions are $\tilde{f}_0 = 100$, $\tilde{m}_0 = 100$, and $\tilde{p}_0=10$. 
+		(a) Speed of male mate discrimination is $v=0.02$. Discrimination does not occur fast enough, causing the bisexual species to disappear; the unisexual species follows.
+		(b) Speed of male mate discrimination is $v=0.20$. Both species coexist. Observe that the male population is lower than the female population.
+		}
+		\label{fig:PoeciliaNonLinGamma}		
+	\end{figure}
+	%--------------------------------
+
+	Male mate discrimination is insufficient to explain the high variability of field data, which leads to the consideration of stochasticity. Figure \ref{fig:PoeciliaWNExtinct} shows that when stochastic effects are within the dissipative range then extinction occurs. In this case, the stochastic noise was randomly generated in the range $\tilde{\eta} \in [0,0.1]$, $\tilde{\eta}_f = \frac{2}{3}\tilde{\eta}$, $\tilde{\eta}_m = \frac{2}{3} \tilde{\eta}$, and $\tilde{\eta}_p = \tilde{\eta}$. The largest value that the sum of stochastic terms can reach with this choice of parameter range is 
+	\[
+		\eta_f + \eta_m + \eta_p 	= \frac{\tilde{\eta}_f + \tilde{\eta}_m + \tilde{\eta}_p}{\tilde{\delta}} 
+															= \frac{\frac{2}{3} 0.1 + \frac{2}{3} 0.1 + 0.1}{0.1}	 
+															= \frac{7}{3} < 3.
+	\]
+	With these choices of stochasticity, the system is dissipative by Lemma \ref{lem:DissipativePoecilia}. It must be noted that extinction occurs due to the choice of parameters. A different choice of parameters could result in a state of coexistence similar to the state shown in Figure \ref{fig:PoeciliaNonLinGammaB}, while also being dissipative. Figure \ref{fig:PoeciliaWN} shows that when stochastic effects are within the non-dissipative range then coexistence occurs with high variability.  In this case, the stochastic noise was randomly generated  in the range $\tilde{\eta} \in [0,0.25]$, $\tilde{\eta}_f = \frac{2}{3}\tilde{\eta}$, $\tilde{\eta}_m = \frac{2}{3} \tilde{\eta}$, and $\tilde{\eta}_p = \tilde{\eta}$. The largest value that the sum of stochastic terms can reach with this choice of parameter range is
+	\[
+		\eta_f + \eta_m + \eta_p 	= \frac{\tilde{\eta}_f + \tilde{\eta}_m + \tilde{\eta}_p}{\tilde{\delta}} 
+															= \frac{\frac{2}{3} \cdot 0.25 + \frac{2}{3} \cdot 0.25 + 0.25}{0.1}	 
+															= \frac{175}{30} > 3.
+	\]
+	Then, by Lemma \ref{lem:DissipativePoecilia}, the system is non-dissipative.  How these results relate to the explanation of the field data variability will be given in the following section.
+	%--------------------------------
+	\begin{figure}
+		\centering
+		\subfloat[]{\includegraphics[width=2.6in]{figures/PoeciliaR_V02_W010}\label{fig:PoeciliaWNExtinct}}
+		\hspace{2mm}
+		\subfloat[]{\includegraphics[width=2.6in]{figures/PoeciliaR_V02_W025}\label{fig:PoeciliaWN}}
+		\caption[Effects of stochasticity on coexistence of \textit{P. formosa}.]{Effects of stochasticity on coexistence of \textit{P. formosa}. 
+		Dimensional parameter values are $\gamma_o = 1$, $\gamma_\infty = 0.2$, $r=5$, $v=0.02$, $a = 0.2$, $\tilde{\beta} = 0.1$, and $\tilde{\delta}=0.1$. Initial conditions are $\tilde{f}_0 = 100$, $\tilde{m}_0 = 100$, and $\tilde{p}_0=10$.  
+		(a) Stochastic effects in the dissipative range are $\tilde{\eta} \in [0,0.1]$, $\tilde{\eta}_f = \frac{2}{3}\tilde{\eta}$, $\tilde{\eta}_m = \frac{2}{3} \tilde{\eta}$, and $\tilde{\eta}_p = \tilde{\eta}$. Extinction occurs in this case.
+		(b) Stochastic effects in the non-dissipative range are $\tilde{\eta} \in [0,0.25]$, $\tilde{\eta}_f = \frac{2}{3}\tilde{\eta}$, $\tilde{\eta}_m = \frac{2}{3} \tilde{\eta}$, and $\tilde{\eta}_p = \tilde{\eta}$. Both species coexist and the male population is at levels lower than the other populations.
+		}		
+	\end{figure}
+	%--------------------------------
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Discussion}\label{sec:PoeciliaDiscussion}	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	Local extinction of \textit{P. formosa} and its host species has been extensively reported in the literature \cite{Kokko:persist, Wetherington:Poeciliopsis, Schupp:Male, Heubel:extinct, Balsano:Poecilia}. The continued coexistence of these species has been an unresolved puzzle in ecology \cite{Kokko:persist}. A major debate in the study of \textit{P. formosa} is whether this species is simply a byproduct of an isolated and inefficient ecosystem, or indeed this species has an evolutionary future \cite{Schultz:Origin}.  
+	
+	The results of this chapter indicate a possible answer to the \textit{P. formosa} puzzle: Coexistence of unisexuals and bisexuals could happen because of one evolutionary parameter relating to the species, and another parameter relating to the environment. These parameters are the speed of male mate discrimination and non-dissipative stochasticity. They suggest that \textit{P. formosa} is a success story of a very specialized form of adaptation.
+
+	The speed of male mate discrimination, understood as how fast $\gamma$ drops from $\gamma_o$ to $\gamma_\infty$, is proposed as an evolutionary parameter of the TXC population, i.e. along evolutionary history, the populations that survived were those whose speed of male mate discrimination was within the range that ensured coexistence. This is evident in the change from a state of extinction in Figure \ref{fig:PoeciliaNonLinGammaA} to a state of coexistence in Figure \ref{fig:PoeciliaNonLinGammaB}. Only the parameter $v$ was changed. This result encompasses previous findings related to male mate discrimination \cite{Kokko:persist, Balsano:Poecilia, Kiester:Gynogenetic, Heubel:extinct}. However, this parameter cannot act alone, since it is not sufficient to explain field data variability. 
+	
+	Non-dissipative stochasticity is proposed as an environmental stabilizing force that drives the system toward coexistence, and can explain high variability in field data. It is observed in Figure \ref{fig:PoeciliaWN} that the effects of stochasticity are small until the $\tilde{p}$ population surpasses the $\tilde{f}$ population.  When $\tilde{p} > \tilde{f}$, the factor $\tilde{f}-\gamma \tilde{p}$ in Equation \ref{eq:PoecFDim} and Equation \ref{eq:PoecMDim} becomes negative, thus causing exponential decay of $\tilde{f}$ and $\tilde{m}$. 	At that point the derivative of $\tilde{f}$ and $\tilde{m}$ become very large, and small stochastic perturbations cause high variability in the output of the system. According to the TXC Dissipative Stochasticity Lemma (Lemma \ref{lem:DissipativePoecilia}), stochastic noise can alter the state of the system between dissipative and non-dissipative states. The result is that the system alternates randomly between shrinking and expanding states, creating a de facto noisy state of coexistence.
+	
+	%The two driving forces behind coexistence mentioned so far, dissipative stochasticity and speed of male mate discrimination, need to happen concomitantly. 
+	Considering the same speed of male mate discrimination, a state of local extinction occurs in presence of dissipative stochasticity (Figure \ref{fig:PoeciliaWNExtinct}) or in complete absence of stochasticity (Figure \ref{fig:PoeciliaNonLinGammaA}). The system can reach a state of coexistence just by surpassing the dissipative threshold, thus allowing the system to evolve to a state of non-dissipative stochasticity (Figure \ref{fig:PoeciliaWN}). 
+	According to this analysis, a population of \textit{P. formosa} and \textit{P. mexicana} should collapse in absence of or with very low stochastic effects. This was indeed observed in experiments in which a research tank containing a stable \textit{P. mexicana} population was accidentally contaminated with \textit{P. formosa}. The entire population collapsed in less than a year (Joseph Travis, personal communication). 
+	%A comparison between Figure \ref{fig:PoeciliaWNExtinct} and Figure \ref{fig:PoeciliaNonLinGammaA}, which have the same speed of male mate discrimination, shows that when stochastic noise is non-dissipative, then there is little qualitative difference between the case with and without stochasticity. 
+	
+	The study of the TXC system is presented in the context of native species. However, the study of this case is important to the study of the TYC eradication strategy for several reasons: (i) local extinction in the TXC system has been widely reported, so understanding its mechanisms in practice could shed light into the still theoretical TYC eradication strategy, (ii) coexistence of the Trojan individual and the host population occurs in practice, so it is important to understand under which conditions a Trojan chromosome eradication strategy could be successful, and (iii) there is a large corpus related to \textit{P. formosa}, so it is possible to calibrate models and test hypothesis with the data available. 
+	
+	The TXC system indicates that environments with high stochasticity should be studied carefully, because non-dissipative stochasticity could lead to coexistence. 
+	%On the other hand, dissipative stochasticity should have little or no effect in the TYC eradication strategy. 
+	The TXC case also raises the question of whether male or female mate discrimination could interfere with the TYC eradication strategy. Dissipative stochasticity and speed of male mate discrimination need to be accounted for in experimental settings and in future research in this area. 
+	
+		%The study of \textit{P. formosa} provides a strong indication that the TYC strategy could work. In this case, using the same modeling principles and parameter space, the model produces results that match well-documented cases. Similarities between the two models are striking: the introduction of a population or individuals that skew the sex ratio cause local extinction. As opposed to TYC, TXC does not require constant a influx provided by external forces to drive the system to extinction; once it mates with a bisexual population, \textit{P. formosa} keeps producing its own individuals. 	
+	
+	%The parameter $v$ in equation \ref{eq:DiscriminationFactor} plays an important role to determine whether there is coexistence, extinctions of the unisexual species, or extinction of the bisexual species. This ``speed of learning'' to discriminate unisexuals is clearly an evolutionary filter: in the past, only the populations in which $v$ was big enough (concomitant to stochasticity) have survived. This gives a clue to help controlling invasive species. The invasive species \textit{Poecilia reticulata} could be controlled with a unisex sperm parasite. \textit{P. reticulata} is considered a hazard to native cyprinids and killifishes in the United States. It has been implicated in the decline of native fishes in Nevada and Wyoming, and of native damselflies in Hawaii. It is a known carrier of trematode parasites, which may affect native fish populations.  \textit{P. reticulata} could, in principle, be eradicated locally by the addition of \textit{P. formosa}. 	Provided that there is a \textit{P. formosa} capable of mating with \textit{P. reticulata} (or that it could be selectively produced), the use of  \textit{P. formosa} to control \textit{P. reticulata} could be a clean biological control. There are reasons to reject a TXC eradication strategy: (i) under the existence of native poeciliids that could potentially be affected, because introduction of TXC is non-reversible, and (ii) if the environment in which invasion by \textit{P. reticulata} has occurred has a high level of stochastic noise, because a state of coexistence could be reached; however, in practice, evolution is unlikely to happen in the short periods of time required for an eradication program. 
+	%FOt eh gambusia, a parasite attractive to the gambusia should have a power of seducvtion high enough to ensure extinciton... little attracvtion coiuld result in coexistence ot extinciton of the parasiote 	
+	%meniton the role of wlbachia	
+	%Species in which a gynogen is vaible... insects and fish are feasible targets... which are invasive in mamny cases.
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section {Summary}\label{sec:PoeciliaSummary}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	The TXC dynamical system was presented in this chapter. The kinetics of the system were determined following the traditional mass-action approach. The resulting dimensional system was non-dimensionalized for analysis purposes. It was rigorously proved that the TXC system is dissipative as a function of stochastic noise. Numerical experiments with dimensional quantities were conducted to illustrate the behavior of the system. A sigmoid function was proposed to model sexual discrimination as a function of $p$. It was established that in addition to the existence of male mate discrimination, the speed at which discrimination occurs plays an important role in extinction and coexistence. It was also established that the high field data variability can be explained by stochasticity, which causes the TXC system to alternate between dissipative and non-dissipative states.  The study of the TXC system could shed light into the conditions that could cause the TYC eradication strategy to fail or succeed.
+
+\endinput
