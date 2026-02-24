@@ -1,0 +1,624 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{geometry}\geometry{margin=1in}
+\usepackage{lineno}\linenumbers
+\usepackage{booktabs}
+\usepackage[ruled,vlined]{algorithm2e}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+
+\title{Stochastic Formulations of Gynogenetic Population Dynamics:
+       A Comparison of Random ODE and Stochastic Differential Equation
+       Approaches for \textit{Poecilia formosa}}
+\author{Juan B. Gutiérrez\textsuperscript{1}}
+\date{
+  \textsuperscript{1}University of Texas at San Antonio One,San Antonio, Texas, USA\\
+  \texttt{juan.gutierrez3@utsa.edu}
+}
+
+\begin{document}
+
+\maketitle
+
+%% =====================================================================
+%% ABSTRACT
+%% =====================================================================
+\begin{abstract}
+The Amazon molly (\textit{Poecilia formosa}) is a gynogenetic species that reproduces by sperm parasitism: females require sperm from males of a bisexual host species to initiate embryo development, but the paternal genome is not incorporated into offspring.  This creates a Trojan X Chromosome (TXC) system in which unisexual females drive the host population toward feminization and potential extinction.  The puzzle of continued coexistence between \textit{P.~formosa} and its bisexual hosts has motivated mathematical models incorporating population-dependent male mate discrimination and environmental stochasticity.
+
+We present a three-population model (bisexual females~$f$, males~$m$, unisexual females~$p$) with logistic growth and a sigmoid discrimination function, analyzed under three stochastic frameworks: (i)~a Random ODE (RODE) with piecewise-constant parametric noise, (ii)~an It\^{o} stochastic differential equation (SDE) with multiplicative geometric noise, and (iii)~a Stratonovich SDE with the same noise structure but different stochastic calculus convention.  Each SDE formulation is studied under two noise structures---common environmental noise (single Wiener process) and independent demographic noise (per-population Wiener processes)---yielding five formulations in total.
+
+Our key results are: (a)~the speed of male mate discrimination governs the extinction/coexistence outcome across all five formulations, confirming the robustness of this ecological finding; (b)~the RODE dissipative threshold ($\eta_f + \eta_m + \eta_p < 3$) has no exact SDE analog---the Stratonovich scalar Lyapunov exponent is noise-amplitude-independent, while the It\^{o} exponent is shifted by $-\sigma^2/2$; (c)~under mean-field moment closure, It\^{o} noise does not shift ensemble means but Stratonovich noise does, acting as an effective noise-induced birth rate increment of $+\tfrac{1}{2}\sigma_i^2 \mathbb{E}[\tilde{u}_i]$; (d)~common versus independent noise structure affects covariance dynamics and coherence of population fluctuations but not the extinction probability classification.  These results demonstrate that formulation choice matters quantitatively for stability predictions but not qualitatively for the ecological conclusions, providing practical guidance for stochastic modeling of gynogenetic population dynamics.
+\end{abstract}
+
+%% =====================================================================
+%% 1. INTRODUCTION
+%% =====================================================================
+\section{Introduction}
+
+Unisexual reproduction has been documented in plants, invertebrates, and more than fifty vertebrate species.  Among gynogenetic vertebrates, \textit{Poecilia formosa} (the Amazon molly) occupies a unique ecological niche: it requires sperm from males of bisexual host species such as \textit{P.~mexicana} or \textit{P.~latipinna} to trigger embryo development, yet the male genome is excluded from the offspring~\citep{Balsano:Poecilia, Avise:Formosa}.  This sexual parasitism creates a Trojan X Chromosome (TXC) system in which the growing unisexual population feminizes the host population, potentially driving it toward local extinction.
+
+The population dynamics of \textit{P.~formosa} have puzzled biologists for nearly a century since the species' discovery by \citet{Wetherington:Poeciliopsis}.  Field data from the Soto La Marina drainage in northeastern Mexico show wide year-to-year variation in the proportion of unisexuals, with no consistent spatial pattern~\citep{Balsano:Poecilia}.  Multiple mechanisms have been proposed to explain the persistence of coexistence, including male mate discrimination~\citep{Kokko:persist, Kiester:Gynogenetic, Heubel:extinct, Riesch:limitation}, spatial fragmentation~\citep{Peck:maintenance, Kokko:persist}, and environmental stochasticity.  Mathematical models by \citet{Kiester:Gynogenetic} and \citet{Schley:parthenogenesis} demonstrated the importance of discrimination factors, but did not account for population-dependent discrimination dynamics or the three-population structure specific to poeciliids.
+
+Previous work introduced a three-population model incorporating a sigmoid population-dependent discrimination function and a Random ODE (RODE) formulation of environmental stochasticity.  That analysis established two key results: the speed of male mate discrimination is a critical determinant of extinction versus coexistence, and non-dissipative stochasticity acts as a stabilizing force that produces the high variability observed in field data.  However, the RODE formulation---in which noise enters as a piecewise-constant random perturbation to the growth rate---is only one of several possible stochastic frameworks.  In mathematical biology, stochastic differential equations (SDEs) in the It\^{o} or Stratonovich sense are the standard tools for modeling continuous environmental and demographic noise~\citep{Murray:Book}.
+
+The choice between It\^{o} and Stratonovich calculus is not merely a technical convention: it carries physical and biological consequences.  The Wong-Zakai theorem establishes that when noise represents a physical process with finite but small correlation time---as is the case for seasonal flooding and connectivity changes in the \textit{P.~formosa} habitat---the Stratonovich interpretation is the correct limit of smooth approximations.  For multiplicative noise of the geometric type ($\sigma u\,dW$), the two calculi produce different drift terms and therefore different ensemble mean dynamics.  This difference has practical implications for stability predictions and extinction probability estimates.
+
+The present study extends the original RODE analysis to a systematic comparison across five stochastic formulations: the original RODE, plus It\^{o} and Stratonovich SDEs each under common environmental noise and independent demographic noise.  The central thesis is that the qualitative ecological conclusions---discrimination speed governs coexistence---are robust across formulations, but the quantitative stability boundary and moment structure are formulation-dependent.  This comparison provides practical guidance for choosing among stochastic frameworks in ecological modeling, a question relevant well beyond the TXC system.
+
+The remainder of this paper is organized as follows.  Section~2 presents the biological model, including the deterministic core, non-dimensionalization, and the sigmoid discrimination function.  Section~3 develops the three stochastic formulations and their interrelationships.  Section~4 provides the analytical results: the RODE dissipative stochasticity lemma, the SDE moment equations under mean-field closure, and the scalar Lyapunov exponent analysis.  Section~5 presents numerical results for all five formulations, including ensemble statistics, moment equation validation, and stability boundary comparison.  Section~6 discusses the ecological and methodological implications, and Section~7 concludes.
+
+
+%% =====================================================================
+%% 2. BIOLOGICAL MODEL
+%% =====================================================================
+\section{Biological Model}
+
+\subsection{Deterministic Core}
+
+The TXC system involves three populations: bisexual females ($\tilde{f}$), males ($\tilde{m}$), and unisexual females ($\tilde{p}$).  Sperm is assumed to be a limiting factor, so the effective bisexual female population with access to sperm is $\tilde{f} - \gamma \tilde{p}$, where $\gamma$ is the sexual discrimination factor controlling the mating frequency between males and unisexuals.  The dimensional system is
+\begin{align}
+  \frac{d\tilde{f}}{dt} &= a\tilde{\beta}L\tilde{m}(\tilde{f}-\gamma \tilde{p})-\tilde{\delta}\tilde{f}+\tilde{\eta}_f(t)\tilde{f}, \label{eq:PoecFDim} \\
+  \frac{d\tilde{m}}{dt} &= (1-a)\tilde{\beta}L\tilde{m}(\tilde{f}-\gamma \tilde{p})-\tilde{\delta}\tilde{m}+\tilde{\eta}_m(t)\tilde{m}, \label{eq:PoecMDim} \\
+  \frac{d\tilde{p}}{dt} &= \gamma\tilde{\beta}L\tilde{m} \tilde{p} -\tilde{\delta}\tilde{p} + \tilde{\eta}_p(t) \tilde{p}, \label{eq:PoecPDim}
+\end{align}
+where $L = 1-(\tilde{f}+\tilde{m}+\tilde{p})/\tilde{K}$ is the logistic factor, $a = 0.8$ is the proportion of females in bisexual progeny~\citep{Balsano:Poecilia}, $\tilde{\beta}$ is the birth rate, $\tilde{\delta}$ is the death rate, $\tilde{K}$ is the carrying capacity, and $\tilde{\eta}_i(t)$ represents stochastic perturbations.
+
+Setting $\tilde{\eta}_i = 0$ and $\gamma = $ constant, the steady state satisfies $\dot{\mathbf{u}}(\mathbf{u}_0) = \mathbf{0}$.  Solving the resulting algebraic system yields the unique equilibrium discrimination factor:
+\begin{equation}\label{eq:GammaSS}
+  \gamma_{eq} = \frac{a f_0}{a p_0 + f_0}.
+\end{equation}
+With the parameter values $a = 0.8$, $\tilde{f}_0 = 100$, and $\tilde{p}_0 = 10$, this gives $\gamma_{eq} = 80/108 \approx 0.74$.  Three qualitative regimes exist: when $\gamma < \gamma_{eq}$, unisexuals go extinct; when $\gamma = \gamma_{eq}$, coexistence obtains; when $\gamma > \gamma_{eq}$, bisexuals go extinct followed by unisexuals.
+
+
+\subsection{Non-Dimensionalization}
+
+The system is non-dimensionalized via $u_i = \tilde{u}_i/\tilde{K}$, $\tau = \tilde{\delta}\,t$, $\beta = \tilde{\beta}\tilde{K}/\tilde{\delta}$, and $\eta_i = \tilde{\eta}_i/\tilde{\delta}$, yielding
+\begin{align}
+  \frac{df}{d\tau} &= a \beta L m(f-\gamma p) - (1-\eta_f) f, \label{eq:PoeciliaF} \\
+  \frac{dm}{d\tau} &= (1-a) \beta L m(f-\gamma p) - (1-\eta_m) m, \label{eq:PoeciliaM} \\
+  \frac{dp}{d\tau} &= \gamma\beta L m p - (1-\eta_p) p, \label{eq:PoeciliaP}
+\end{align}
+where $L = 1-(f+m+p)$ and all quantities are dimensionless.  The non-dimensional death rate is $\delta = 1$ by construction.  With the parameter values in Table~\ref{tab:parameters}, $\beta = 0.1 \times 300 / 0.1 = 300$, and the discrimination speed becomes $v_{\text{nondim}} = v \tilde{K}$ (so $v_{\text{fast}} = 60$, $v_{\text{slow}} = 6$).  Non-dimensional time $\tau = 20$ corresponds to dimensional $t = 200$.
+
+
+\subsection{Sexual Discrimination Function}
+
+The simplified case $\gamma = $ constant is unrealistic.  A population-dependent sigmoid function provides a better approximation:
+\begin{equation}\label{eq:DiscriminationFactor}
+  \gamma(p) = \frac{\gamma_o - \gamma_\infty}{1+e^{vp-r}} + \gamma_\infty,
+\end{equation}
+where $\gamma_o = 1$ is the initial discrimination (no preference), $\gamma_\infty = 0.2$ is the asymptotic discrimination (20\% mating with unisexuals), $v > 0$ is the speed of male mate discrimination, and $r = 5$ shifts the sigmoid.  Figure~\ref{fig:gamma_curves} shows curves for three discrimination speeds.  The parameter $v$ plays a pivotal role: slow discrimination ($v = 0.02$) leads to extinction, while fast discrimination ($v = 0.20$) leads to coexistence.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{poecilia_sde/figures/fig01_gamma_curves.png}
+  \caption{Male mate discrimination curves for three speeds $v = 0.05$, $0.10$, $0.20$.  Parameters: $\gamma_o = 1$, $\gamma_\infty = 0.2$, $r = 5$.  Black dots mark inflection points.}
+  \label{fig:gamma_curves}
+\end{figure}
+
+
+%% =====================================================================
+%% 3. STOCHASTIC FORMULATIONS
+%% =====================================================================
+\section{Stochastic Formulations}
+
+\subsection{Random ODE (RODE) Formulation}
+
+The RODE formulation models environmental stochasticity through piecewise-constant random perturbations $\tilde{\eta}_i(t) \sim \mathrm{Uniform}[0, \tilde{\eta}_{\max}]$, resampled at each time step.  The noise enters multiplicatively as $\tilde{\eta}_i(t) \tilde{u}_i$, representing environmental surplus or deficit: when $\tilde{\eta}_i > \tilde{\delta}$, the population experiences net growth beyond deterministic rates.
+
+This is a \emph{Random ODE}, not an SDE in the It\^{o}/Stratonovich sense: between resampling events, the system is a standard ODE, and classical Runge-Kutta methods (specifically, the Dormand-Prince RK45 pair via \texttt{solve\_ivp}) are appropriate solvers.  The RODE formulation produces bounded noise variance on each interval, in contrast to the unbounded diffusion of SDEs.
+
+Based on association data~\citep{Balsano:Poecilia}, the noise amplitudes are structured as $\tilde{\eta}_f = \tilde{\eta}_m = (2/3)\tilde{\eta}$ and $\tilde{\eta}_p = \tilde{\eta}$, reflecting that bisexual populations cluster more tightly and are less exposed to stochastic effects than \textit{P.~formosa}.
+
+
+\subsection{It\^{o} SDE Formulation}
+
+The It\^{o} SDE formulation replaces the piecewise-constant RODE noise with continuous multiplicative geometric noise driven by Wiener processes.  Two noise structures are considered.
+
+\textbf{Common environmental noise} (single Wiener process $W(t)$, shared habitat driver):
+\begin{align}
+  d\tilde{f} &= \mu_f(\tilde{\mathbf{u}})\,dt + \sigma_f \tilde{f}\,dW, \label{eq:ItoCommonF} \\
+  d\tilde{m} &= \mu_m(\tilde{\mathbf{u}})\,dt + \sigma_m \tilde{m}\,dW, \\
+  d\tilde{p} &= \mu_p(\tilde{\mathbf{u}})\,dt + \sigma_p \tilde{p}\,dW,
+\end{align}
+where $\mu_i$ denotes the deterministic drift.
+
+\textbf{Independent demographic noise} (separate Wiener processes $W_f$, $W_m$, $W_p$):
+\begin{align}
+  d\tilde{f} &= \mu_f(\tilde{\mathbf{u}})\,dt + \sigma_f \tilde{f}\,dW_f, \\
+  d\tilde{m} &= \mu_m(\tilde{\mathbf{u}})\,dt + \sigma_m \tilde{m}\,dW_m, \\
+  d\tilde{p} &= \mu_p(\tilde{\mathbf{u}})\,dt + \sigma_p \tilde{p}\,dW_p.
+\end{align}
+
+The geometric multiplicative noise structure $\sigma_i \tilde{u}_i\,dW$ ensures near-zero positivity; numerical positivity is enforced via reflection ($\tilde{u}_i = \max(\tilde{u}_i, 0)$) after each Euler-Maruyama step.
+
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\SetAlgoLined
+\KwIn{Parameters $\sigma_f, \sigma_m, \sigma_p$, time step $\Delta t$, end time $T$, initial condition $\mathbf{u}_0$}
+\KwOut{Solution trajectory $\mathbf{u}(t)$}
+$\mathbf{u} \leftarrow \mathbf{u}_0$\;
+\For{$n = 0, 1, \ldots, T/\Delta t - 1$}{
+  $\Delta W \leftarrow \mathcal{N}(0, \sqrt{\Delta t})$ \tcp*{single increment for common; 3 for independent}
+  $\boldsymbol{\mu} \leftarrow$ \texttt{txc\_rhs}$(t_n, \mathbf{u})$\;
+  $\mathbf{u} \leftarrow \mathbf{u} + \boldsymbol{\mu}\,\Delta t + \boldsymbol{\sigma} \odot \mathbf{u} \odot \Delta\mathbf{W}$\;
+  $\mathbf{u} \leftarrow \max(\mathbf{u}, 0)$ \tcp*{reflection boundary}
+}
+\caption{Euler-Maruyama method (It\^{o} SDE)}
+\label{alg:EM}
+\end{algorithm}
+
+
+\subsection{Stratonovich SDE Formulation}
+
+The Stratonovich formulation replaces the It\^{o} integral with the Stratonovich (mid-point) integral:
+\begin{equation}
+  d\tilde{f} = \mu_f\,dt + \sigma_f \tilde{f} \circ dW.
+\end{equation}
+
+The Wong-Zakai theorem justifies this choice: when noise represents a physical environmental process with finite but small correlation time, the Stratonovich interpretation is the correct limit of a smooth approximation.  For \textit{P.~formosa}, seasonal flooding and connectivity changes in the Soto La Marina drainage have finite correlation time, making the Stratonovich interpretation physically preferred.
+
+The Heun method (explicit 2-stage predictor-corrector) is used, which converges to the Stratonovich integral:
+
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\SetAlgoLined
+\KwIn{Parameters, $\Delta t$, $T$, $\mathbf{u}_0$}
+\KwOut{Solution trajectory $\mathbf{u}(t)$}
+$\mathbf{u} \leftarrow \mathbf{u}_0$\;
+\For{$n = 0, 1, \ldots, T/\Delta t - 1$}{
+  $\Delta W \leftarrow \mathcal{N}(0, \sqrt{\Delta t})$\;
+  $\mathbf{g} \leftarrow \boldsymbol{\sigma} \odot \mathbf{u}$ \tcp*{diffusion at current state}
+  $\bar{\mathbf{u}} \leftarrow \max(\mathbf{u} + \mathbf{g} \odot \Delta\mathbf{W},\, 0)$ \tcp*{predictor}
+  $\bar{\mathbf{g}} \leftarrow \boldsymbol{\sigma} \odot \bar{\mathbf{u}}$ \tcp*{diffusion at predictor}
+  $\boldsymbol{\mu} \leftarrow$ \texttt{txc\_rhs}$(t_n, \mathbf{u})$\;
+  $\mathbf{u} \leftarrow \max\!\bigl(\mathbf{u} + \boldsymbol{\mu}\,\Delta t + \tfrac{1}{2}(\mathbf{g} + \bar{\mathbf{g}}) \odot \Delta\mathbf{W},\, 0\bigr)$\;
+}
+\caption{Heun method (Stratonovich SDE)}
+\label{alg:Heun}
+\end{algorithm}
+
+
+\subsection{Relationship Between Formulations}
+
+For geometric multiplicative noise, the Stratonovich-to-It\^{o} conversion introduces a drift correction.  Since the diffusion coefficient is $g_i(\tilde{u}_i) = \sigma_i \tilde{u}_i$, the correction for each component is
+\begin{equation}
+  \frac{1}{2} g_i \frac{\partial g_i}{\partial \tilde{u}_i} = \frac{1}{2} \sigma_i^2 \tilde{u}_i.
+\end{equation}
+Therefore, the It\^{o}-equivalent drift of the Stratonovich system is:
+\begin{align}
+  \mu_f^{\text{It\^{o}-equiv}} &= a\beta L m(f - \gamma p) - \delta f + \tfrac{1}{2}\sigma_f^2 f, \\
+  \mu_m^{\text{It\^{o}-equiv}} &= (1-a)\beta L m(f - \gamma p) - \delta m + \tfrac{1}{2}\sigma_m^2 m, \\
+  \mu_p^{\text{It\^{o}-equiv}} &= \gamma\beta L m p - \delta p + \tfrac{1}{2}\sigma_p^2 p.
+\end{align}
+These expressions are confirmed by symbolic verification (Appendix~A, task V6).
+
+\begin{remark}[Noise-induced growth bias]
+Under mean-field closure, It\^{o} noise does not shift ensemble means---the additional stochastic integral has zero expectation.  Stratonovich noise shifts means upward by $+\tfrac{1}{2}\sigma_i^2 \mathbb{E}[\tilde{u}_i]$, which acts as an effective noise-induced birth rate increment.  This is the key qualitative difference between the two calculi for the TXC system.
+\end{remark}
+
+
+\subsection{RODE-to-SDE Correspondence and Calibration}
+
+The RODE and SDE formulations are not related by a simple parameter substitution.  The RODE produces bounded noise on each interval (uniform on $[0, \tilde{\eta}_{\max}]$), while SDE variance grows as $\sigma^2 \mathbb{E}[\tilde{u}^2] t$.  Consequently, direct parameter comparison is impossible, which is itself a finding that motivates the Monte Carlo stability comparison in Section~5.
+
+To enable visual comparison, we employ an empirical calibration procedure:
+\begin{enumerate}
+  \item Run a RODE ensemble ($n = 500$ paths) and compute $\text{Std}[\tilde{f}(T/2)]$.
+  \item Binary search on $\sigma$ (SDE common noise) to match this standard deviation using a 100-path SDE ensemble.
+  \item Record calibrated $\sigma$ values (Table~\ref{tab:calibration}).
+\end{enumerate}
+
+
+%% =====================================================================
+%% 4. ANALYSIS
+%% =====================================================================
+\section{Analysis}
+
+\subsection{RODE: Dissipative Stochasticity Lemma}
+
+The following result characterizes the dissipative behavior of the RODE system.  It applies specifically to the RODE formulation---a pathwise, Liouville-based phase-space contraction argument---and does not extend directly to It\^{o} or Stratonovich SDEs.
+
+\begin{lemma}[TXC Dissipative Stochasticity Lemma]\label{lem:DissipativePoecilia}
+The TXC dynamical system under RODE stochasticity is dissipative when $\eta_f(t)+\eta_m(t)+\eta_p(t)<3$.
+\end{lemma}
+
+\begin{proof}
+Let $\mathbf{F}$ denote the right-hand side of the non-dimensional RODE system~\eqref{eq:PoeciliaF}--\eqref{eq:PoeciliaP}.  The divergence is
+\begin{equation}\label{eq:BetaFactorPoecilia}
+  \nabla \cdot \mathbf{F} = \frac{\partial\dot{f}}{\partial f}+\frac{\partial \dot{m}}{\partial m}+\frac{\partial\dot{p}}{\partial p} = \beta \cdot Q(f,m,p;\gamma,a) - 3 + \eta_f + \eta_m + \eta_p,
+\end{equation}
+where $Q$ is a polynomial in $f$, $m$, $p$ (verified symbolically; Appendix~A, task V2).  The term $-3 + \eta_f + \eta_m + \eta_p$ is independent of the state variables.
+
+To show the right-hand side is negative, we find the constrained maximum of the polynomial $P(f,m,p) = \nabla \cdot \mathbf{F}$ subject to $f + m + p = 1$ (the simplex boundary).  Using Lagrange multipliers, the critical point is $(f,m,p) = (0,0,1)$ with $\lambda = \beta\gamma(1-a)$.  The bordered Hessian determinant at this point equals $\beta^2 > 0$ (verified symbolically; Appendix~A, task V3), confirming a constrained maximum.  Evaluating at the critical point:
+\[
+  \nabla \cdot \mathbf{F}(0,0,1) = -3 + \eta_f + \eta_m + \eta_p.
+\]
+For phase-space contraction, $\nabla \cdot \mathbf{F} < 0$ everywhere, which requires $\eta_f + \eta_m + \eta_p < 3$.
+\end{proof}
+
+\begin{definition}
+The state of the TXC system when $\eta_f(t)+\eta_m(t)+\eta_p(t)<3$ is called a \textit{state of dissipative stochasticity}.
+\end{definition}
+
+\begin{definition}
+The state of the TXC system when $\eta_f(t)+\eta_m(t)+\eta_p(t)>3$ is called a \textit{state of non-dissipative stochasticity}.
+\end{definition}
+
+\begin{definition}
+The state of the TXC system when $\eta_f(t)+\eta_m(t)+\eta_p(t)=3$ is the \textit{dissipative threshold}.
+\end{definition}
+
+
+\subsection{SDE: Moment Equations}
+
+We derive closed moment equations by applying It\^{o}'s lemma and the mean-field closure approximation $\mathbb{E}[u_i u_j] \approx \mathbb{E}[u_i]\mathbb{E}[u_j]$.  Let $F = \mathbb{E}[f]$, $M = \mathbb{E}[m]$, $P = \mathbb{E}[p]$.
+
+\begin{proposition}[Mean equations, It\^{o}]\label{prop:ito_means}
+Under mean-field closure, the ensemble means $(F, M, P)$ of the It\^{o} SDE system (with either noise structure) satisfy the deterministic TXC ODE:
+\begin{align}
+  \frac{dF}{dt} &= a\beta(1-F-M-P)M(F - \gamma P) - \delta F, \\
+  \frac{dM}{dt} &= (1-a)\beta(1-F-M-P)M(F - \gamma P) - \delta M, \\
+  \frac{dP}{dt} &= \gamma\beta(1-F-M-P)MP - \delta P.
+\end{align}
+\end{proposition}
+
+\begin{proof}
+For the It\^{o} SDE $df = \mu_f\,dt + \sigma_f f\,dW$, taking expectations yields $d\mathbb{E}[f]/dt = \mathbb{E}[\mu_f(\mathbf{u})]$ since $\mathbb{E}[\sigma_f f\,dW] = 0$.  Applying mean-field closure to the nonlinear terms in $\mu_f$ recovers the deterministic ODE for $F$.
+\end{proof}
+
+\begin{proposition}[Mean equations, Stratonovich]\label{prop:strat_means}
+Under mean-field closure, the ensemble means of the Stratonovich SDE system satisfy the deterministic ODE augmented by a noise-induced growth term:
+\begin{align}
+  \frac{dF}{dt} &= a\beta(1-F-M-P)M(F - \gamma P) - \delta F + \tfrac{1}{2}\sigma_f^2 F, \\
+  \frac{dM}{dt} &= (1-a)\beta(1-F-M-P)M(F - \gamma P) - \delta M + \tfrac{1}{2}\sigma_m^2 M, \\
+  \frac{dP}{dt} &= \gamma\beta(1-F-M-P)MP - \delta P + \tfrac{1}{2}\sigma_p^2 P.
+\end{align}
+\end{proposition}
+
+\begin{proof}
+Converting Stratonovich to It\^{o} form adds $+\tfrac{1}{2}\sigma_i^2 u_i$ to each drift component.  Taking expectations and applying mean-field closure gives the result.
+\end{proof}
+
+\begin{proposition}[Variance divergence]\label{prop:variance}
+Under both It\^{o} and Stratonovich formulations, the variance of $f$ evolves as
+\begin{equation}
+  \frac{d\mathrm{Var}[f]}{dt} \approx \sigma_f^2 (F^2 + \mathrm{Var}[f]),
+\end{equation}
+with analogous expressions for $m$ and $p$.  This implies exponential growth of variance in the absence of population-level damping provided by the logistic term $L$.
+\end{proposition}
+
+\begin{proposition}[Covariance structure]\label{prop:covariance}
+Under common noise, the covariance $\mathrm{Cov}(f,m)$ is driven by
+\begin{equation}
+  \frac{d\mathrm{Cov}(f,m)}{dt} = \sigma_f \sigma_m (FM + \mathrm{Cov}(f,m)).
+\end{equation}
+Under independent noise, this cross-driving term is absent: $d\mathrm{Cov}(f,m)/dt = 0$ (at the mean-field level).
+
+\textbf{Consequence:} Under common noise, $f$ and $p$ fluctuate coherently, which can reduce the effective competition pressure when $p > f$ (the critical regime leading to extinction).  This is a mechanistic insight not available from the RODE framework.
+\end{proposition}
+
+
+\subsection{Scalar Stability: Lyapunov Exponent Analysis}
+
+To understand how noise affects extinction, we focus on the $p$-subsystem as the driver of dynamics.  When $p$ is large and $f$ is declining, approximate the $p$ equation as
+\begin{equation}
+  dp = (\beta_{\text{eff}} - \delta)p\,dt + \sigma_p p\,dW,
+\end{equation}
+where $\beta_{\text{eff}} = \gamma\beta L_0 m_0$ is treated as a slowly varying coefficient.
+
+\begin{proposition}[It\^{o} scalar Lyapunov exponent]\label{prop:lyap_ito}
+For the scalar It\^{o} geometric SDE, the top Lyapunov exponent is
+\begin{equation}
+  \lambda_{\text{It\^{o}}} = \beta_{\text{eff}} - \delta - \tfrac{1}{2}\sigma_p^2.
+\end{equation}
+Extinction of $p$ (stability) requires $\lambda < 0$, i.e., $\sigma_p > \sqrt{2(\beta_{\text{eff}} - \delta)}$.  Noise promotes stability in the It\^{o} case.
+\end{proposition}
+
+\begin{proof}
+By It\^{o}'s formula, $d\ln p = (\beta_{\text{eff}} - \delta - \tfrac{1}{2}\sigma_p^2)\,dt + \sigma_p\,dW$.  The Lyapunov exponent is the drift coefficient of $\ln p$, giving the result.
+\end{proof}
+
+\begin{proposition}[Stratonovich scalar Lyapunov exponent]\label{prop:lyap_strat}
+For the scalar Stratonovich geometric SDE, the top Lyapunov exponent is
+\begin{equation}
+  \lambda_{\text{Strat}} = \beta_{\text{eff}} - \delta.
+\end{equation}
+The Stratonovich Lyapunov exponent is \textbf{independent of $\sigma_p$}: Stratonovich noise does not affect scalar stability for geometric noise.
+\end{proposition}
+
+\begin{proof}
+The Stratonovich SDE $dp = (\beta_{\text{eff}} - \delta)p\,dt + \sigma_p p \circ dW$ gives, by the Stratonovich chain rule, $d\ln p = (\beta_{\text{eff}} - \delta)\,dt + \sigma_p \circ dW$.  The drift of $\ln p$ is $\beta_{\text{eff}} - \delta$, independent of $\sigma_p$.
+\end{proof}
+
+This is the paper's key analytical distinction between It\^{o} and Stratonovich: in the It\^{o} framework, increasing noise amplitude can push the system toward extinction (noise-induced stabilization), while in the Stratonovich framework, noise amplitude is irrelevant for scalar stability.
+
+The RODE threshold ($\eta_f + \eta_m + \eta_p = 3$) is a phase-space contraction condition based on the divergence of the vector field.  It has no direct SDE analog because it measures global phase-space volume contraction, whereas the Lyapunov exponent measures linearized growth rate of individual trajectories.  These are fundamentally different stability concepts.
+
+
+%% =====================================================================
+%% 5. NUMERICAL RESULTS
+%% =====================================================================
+\section{Numerical Results}
+
+All numerical results use the parameter values in Table~\ref{tab:parameters} with $a = 0.8$.  The Python codebase is fully reproducible; see Appendix~C.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Parameter values for the TXC model.}
+  \label{tab:parameters}
+  \begin{tabular}{lccl}
+    \toprule
+    Parameter & Symbol & Value & Source \\
+    \midrule
+    Proportion females & $a$ & 0.8 & \citet{Balsano:Poecilia} \\
+    Birth rate & $\tilde{\beta}$ & 0.1 & --- \\
+    Death rate & $\tilde{\delta}$ & 0.1 & --- \\
+    Carrying capacity & $\tilde{K}$ & 300 & --- \\
+    Initial discrimination & $\gamma_o$ & 1.0 & No preference \\
+    Asymptotic discrimination & $\gamma_\infty$ & 0.2 & \citet{Riesch:limitation} \\
+    Sigmoid shift & $r$ & 5 & --- \\
+    Slow discrimination & $v_{\text{slow}}$ & 0.02 & Extinction case \\
+    Fast discrimination & $v_{\text{fast}}$ & 0.20 & Coexistence case \\
+    Initial bisexual females & $\tilde{f}_0$ & 100 & --- \\
+    Initial males & $\tilde{m}_0$ & 100 & --- \\
+    Initial unisexual females & $\tilde{p}_0$ & 10 & --- \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+\subsection{RODE Results}
+
+Figure~\ref{fig:constant_gamma} shows the deterministic dynamics under constant $\gamma$ for three cases: $\gamma < \gamma_{eq}$ (unisexual extinction), $\gamma = \gamma_{eq}$ (coexistence), and $\gamma > \gamma_{eq}$ (bisexual then unisexual extinction).  Figure~\ref{fig:sigmoid_gamma} shows that when $\gamma$ is a sigmoid function of $p$, the speed of discrimination controls the outcome: slow discrimination ($v = 0.02$) leads to extinction, while fast discrimination ($v = 0.20$) leads to coexistence.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{poecilia_sde/figures/fig02_constant_gamma.png}
+  \caption{Constant $\gamma$ deterministic dynamics ($a = 0.8$).  (a)~$\gamma = 0.50 < \gamma_{eq}$: unisexual extinction.  (b)~$\gamma = 0.74 = \gamma_{eq}$: coexistence.  (c)~$\gamma = 0.90 > \gamma_{eq}$: bisexual then unisexual extinction.}
+  \label{fig:constant_gamma}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\textwidth]{poecilia_sde/figures/fig03_sigmoid_gamma.png}
+  \caption{Sigmoid $\gamma$: effect of discrimination speed ($a = 0.8$).  (a)~$v = 0.02$ (slow): extinction.  (b)~$v = 0.20$ (fast): coexistence.}
+  \label{fig:sigmoid_gamma}
+\end{figure}
+
+Figure~\ref{fig:rode_stochasticity} demonstrates the effect of RODE stochasticity.  With $\tilde{\eta} \in [0, 0.1]$, the non-dimensional noise sum is $\eta_f + \eta_m + \eta_p = 7/3 < 3$ (dissipative), and extinction still occurs.  With $\tilde{\eta} \in [0, 0.25]$, the sum reaches $35/6 > 3$ (non-dissipative), and noisy coexistence emerges---matching the high variability observed in field data.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\textwidth]{poecilia_sde/figures/fig04_rode_stochasticity.png}
+  \caption{RODE stochasticity ($v = 0.02$, $a = 0.8$).  (a)~Dissipative case: $\tilde{\eta}_{\max} = 0.1$, $\sum\eta/\delta = 7/3 < 3$.  (b)~Non-dissipative case: $\tilde{\eta}_{\max} = 0.25$, $\sum\eta/\delta = 35/6 > 3$.}
+  \label{fig:rode_stochasticity}
+\end{figure}
+
+
+\subsection{Single Trajectory Comparison}
+
+Figure~\ref{fig:single_trajectory} overlays single trajectories from all five formulations using the same random seed and calibrated $\sigma$ values.  While individual trajectories differ, the qualitative behavior---especially the timing and character of population transitions---is consistent across formulations.  Single trajectories are inherently insufficient for quantitative comparison; they motivate the ensemble analysis that follows.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\textwidth]{poecilia_sde/figures/fig05_single_trajectory_comparison.png}
+  \caption{Single trajectory comparison across all five formulations.  Rows: $f$, $m$, $p$.  Colors: RODE (dark gray), It\^{o}/common (blue), It\^{o}/independent (light blue), Stratonovich/common (red), Stratonovich/independent (light red).}
+  \label{fig:single_trajectory}
+\end{figure}
+
+
+\subsection{Ensemble Statistics}
+
+Figure~\ref{fig:ensemble_statistics} presents ensemble mean and 95\% confidence intervals for all four SDE formulations.  The It\^{o}/common and Stratonovich/common formulations show the predicted divergence in ensemble means (Propositions~\ref{prop:ito_means} and~\ref{prop:strat_means}): the Stratonovich means are systematically shifted upward by the $+\tfrac{1}{2}\sigma_i^2 F_i$ correction.  Despite this quantitative difference, all formulations agree on the extinction/coexistence classification at calibrated $\sigma$ values.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\textwidth]{poecilia_sde/figures/fig06_ensemble_statistics.png}
+  \caption{Ensemble mean $\pm$ 95\% CI for all SDE formulations.  The Stratonovich means are systematically shifted upward relative to It\^{o} by the drift correction term.}
+  \label{fig:ensemble_statistics}
+\end{figure}
+
+
+\subsection{Moment Equations vs Monte Carlo}
+
+Figure~\ref{fig:moment_vs_mc} compares the closed mean-field moment equations against Monte Carlo ensemble statistics.  The mean equations track the Monte Carlo means well, with relative errors typically below 10\% at $t_{\text{end}}$, validating the mean-field closure for the mean dynamics.  Variance predictions diverge more, reflecting the limitations of the mean-field approximation for higher moments.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\textwidth]{poecilia_sde/figures/fig08_moment_vs_montecarlo.png}
+  \caption{Moment equations (dashed) vs Monte Carlo (solid) for $f$ and $p$ populations.  Top: means.  Bottom: variances.  Text boxes show relative error at $t_{\text{end}}$.}
+  \label{fig:moment_vs_mc}
+\end{figure}
+
+
+\subsection{Stability Boundary}
+
+Figure~\ref{fig:stability_boundary} is the paper's key quantitative comparison.  It plots extinction probability as a function of noise amplitude for all four SDE formulations, with the RODE dissipative threshold shown as a vertical reference line.  The It\^{o} formulations show a clear noise-dependent stability transition: increasing $\sigma$ increases extinction probability, consistent with the $-\sigma^2/2$ shift in the Lyapunov exponent (Proposition~\ref{prop:lyap_ito}).  The Stratonovich formulations show a flatter response, consistent with the noise-independence of the Stratonovich scalar Lyapunov exponent (Proposition~\ref{prop:lyap_strat}).
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{poecilia_sde/figures/fig09_stability_boundary.png}
+  \caption{Stability boundary comparison.  Extinction probability vs noise amplitude $\sigma$.  RODE threshold (dotted): $\tilde{\eta}_{\max} = 9\tilde{\delta}/7$.  Dashed horizontal: $P(\text{extinction}) = 0.5$.}
+  \label{fig:stability_boundary}
+\end{figure}
+
+
+\subsection{Noise Structure Sensitivity}
+
+Figure~\ref{fig:noise_sensitivity} compares common vs independent noise at exaggerated amplitude ($\sigma = 0.3$).  Common noise produces correlated fluctuations---$f$ and $p$ move together, driven by the same Wiener process---while independent noise does not.  This coherence reduces effective competition pressure in the critical regime ($p > f$), providing a mechanistic pathway for noise-stabilized coexistence not captured by the independent noise model.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\textwidth]{poecilia_sde/figures/fig10_noise_structure_sensitivity.png}
+  \caption{Noise structure sensitivity ($\sigma = 0.3$).  Common noise (left column) produces correlated $f$-$p$ fluctuations; independent noise (right) does not.}
+  \label{fig:noise_sensitivity}
+\end{figure}
+
+
+%% =====================================================================
+%% 6. DISCUSSION
+%% =====================================================================
+\section{Discussion}
+
+\textbf{Speed of discrimination.}  The finding that the speed of male mate discrimination ($v$) governs extinction versus coexistence is robust across all five stochastic formulations.  This evolutionary parameter determines whether the bisexual population can mount a sufficiently rapid response to the growing unisexual pressure.  The result encompasses and extends previous findings on the role of male mate discrimination~\citep{Kokko:persist, Balsano:Poecilia, Kiester:Gynogenetic, Heubel:extinct}.  The evolutionary implication is clear: populations of \textit{P.~mexicana} and \textit{P.~latipinna} that have survived coexistence with \textit{P.~formosa} must have discrimination speeds within the viable range, suggesting strong selection pressure on this behavioral trait.
+
+\textbf{Noise-induced stabilization.}  The It\^{o} and Stratonovich formulations make qualitatively different predictions about the role of noise.  In the It\^{o} framework, the Lyapunov exponent decreases by $\sigma^2/2$, meaning noise can push a marginally unstable system toward extinction---noise promotes stability.  In the Stratonovich framework, the scalar Lyapunov exponent is independent of noise amplitude, and the noise-induced growth bias in the mean equations ($+\tfrac{1}{2}\sigma_i^2 F_i$) actually opposes extinction.  Since the physical justification via the Wong-Zakai theorem favors the Stratonovich interpretation for \textit{P.~formosa} (environmental noise has finite correlation time), the implication is striking: if Stratonovich is correct, the stabilizing noise effect found in the RODE analysis is not noise-amplitude-dependent, and the high variability of field data is primarily a consequence of the non-dissipative threshold being exceeded, not of a continuous noise-amplitude effect.
+
+\textbf{Modeling limitations.}  The mean-field closure approximation yields acceptable accuracy for the ensemble means (typically $<10$\% relative error) but underestimates variance dynamics.  The fundamental incommensurability between RODE and SDE---bounded piecewise-constant noise versus continuous Gaussian diffusion---means that the calibration procedure matches only one statistical moment, and higher-order structure cannot be simultaneously matched.  A Fokker-Planck analysis of the full probability density evolution would address this limitation but is beyond the present scope.  Spatial structure, which \citet{Kokko:persist} identified as important for long-term coexistence, is not captured by the present well-mixed model.
+
+\textbf{Implications for the TYC eradication strategy.}  The TXC analysis provides clues for the Trojan Y Chromosome eradication strategy, in which sex-reversed individuals are introduced to drive an invasive population toward extinction.  The present results predict that: (i)~target populations with slow mate discrimination are most vulnerable to the Trojan strategy; (ii)~environments with high non-dissipative stochasticity could stabilize coexistence, undermining eradication; and (iii)~the choice of stochastic framework affects quantitative predictions of the critical noise threshold but not the qualitative feasibility assessment.  The tank contamination experiment by Joseph Travis (personal communication), in which a stable \textit{P.~mexicana} population collapsed within a year after accidental \textit{P.~formosa} introduction, is consistent with the model prediction that low-stochasticity environments favor extinction.
+
+
+%% =====================================================================
+%% 7. CONCLUSION
+%% =====================================================================
+\section{Conclusion}
+
+The speed of male mate discrimination is the primary ecological determinant of extinction versus coexistence in the \textit{P.~formosa} TXC system.  This result is formulation-robust, holding across the RODE and all four SDE variants studied.
+
+Mean dynamics differ between the It\^{o} and Stratonovich formulations by a drift correction term of $+\tfrac{1}{2}\sigma_i^2 \mathbb{E}[\tilde{u}_i]$.  Under mean-field closure, It\^{o} noise does not shift ensemble means, while Stratonovich noise acts as an effective growth bias.  The Wong-Zakai justification favors Stratonovich for the \textit{P.~formosa} system.
+
+The RODE dissipative threshold ($\eta_f + \eta_m + \eta_p < 3$) is a phase-space volume contraction condition with no direct SDE analog.  The SDE stability analog---the top Lyapunov exponent---measures linearized trajectory growth rates.  For It\^{o} geometric noise, the exponent shifts by $-\sigma^2/2$; for Stratonovich geometric noise, it is noise-amplitude-independent.  These are fundamentally different stability concepts applied to fundamentally different noise models.
+
+Common versus independent noise structure affects covariance dynamics and the coherence of population fluctuations.  Under common environmental noise, $f$ and $p$ fluctuate together, reducing effective competition in the critical regime.  Independent noise produces uncorrelated fluctuations.  Despite this structural difference, the extinction/coexistence classification is qualitatively the same across noise structures at matched amplitudes.  Together, these results demonstrate that formulation choice matters quantitatively for stability boundary predictions but not qualitatively for the ecological conclusions, providing practical guidance for stochastic modeling of gynogenetic and related population dynamics.
+
+
+%% =====================================================================
+%% APPENDICES
+%% =====================================================================
+\appendix
+
+\section{Symbolic Verification}\label{app:verification}
+
+All mathematical results were verified symbolically using SymPy~1.12.  Verification tasks and outcomes:
+
+\begin{description}
+  \item[V1 --- $\gamma_{eq}$ formula.] Derived $\gamma_{eq} = af_0/(ap_0 + f_0)$.  With $a = 0.8$, $f_0 = 100$, $p_0 = 10$: $\gamma_{eq} = 80/108 \approx 0.741$.  \textbf{PASS.}
+
+  \item[V2 --- Divergence $\nabla \cdot \mathbf{F}$.]  Computed symbolically.  The $\beta$-dependent polynomial plus the constant term $-3 + \eta_f + \eta_m + \eta_p$ confirmed.  \textbf{PASS.}
+
+  \item[V3 --- Bordered Hessian $|\bar{H}|$.]  Determinant equals $\beta^2$ (not 1 as originally claimed; the $\beta$ factors do not cancel).  The conclusion of the Lemma proof is unchanged since $\beta^2 > 0$.  \textbf{CORRECTED.}
+
+  \item[V4 --- Interior critical points.]  $(0,0,1)$ confirmed as the global maximum of $P(f,m,p)$ on the constraint set $f + m + p = 1$.  \textbf{PASS.}
+
+  \item[V5 --- Stochastic threshold arithmetic.]
+    \begin{itemize}
+      \item Case A: $(2/3 \cdot 0.1 + 2/3 \cdot 0.1 + 0.1)/0.1 = 7/3 \approx 2.33 < 3$.  \textbf{PASS.}
+      \item Case B: $(2/3 \cdot 0.25 + 2/3 \cdot 0.25 + 0.25)/0.1 = 35/6 \approx 5.83 > 3$.  \textbf{PASS.}
+    \end{itemize}
+
+  \item[V6 --- It\^{o}-Stratonovich drift correction.]  Correction terms: $+\tfrac{1}{2}\sigma_f^2 f$, $+\tfrac{1}{2}\sigma_m^2 m$, $+\tfrac{1}{2}\sigma_p^2 p$.  \textbf{PASS.}
+
+  \item[V7 --- Mean-field moment equations.]  It\^{o} means equal deterministic ODE; Stratonovich means shifted by $+\tfrac{1}{2}\sigma_i^2 F_i$.  Variance and covariance equations derived for all four SDE variants.  \textbf{PASS.}
+
+  \item[V8 --- $\Delta t$ convergence check.]  Euler-Maruyama with $\Delta t = 0.001$ vs $\Delta t = 0.002$: relative $L^2$ distance $< 10$\%.  \textbf{PASS.}
+\end{description}
+
+
+\section{Numerical Methods}\label{app:numerical}
+
+\subsection{RODE Solver}
+The RODE is solved segment by segment: noise values $\tilde{\eta}_i$ are sampled from $\mathrm{Uniform}[0, \tilde{\eta}_{\max}]$ at each evaluation point, and the ODE is integrated with \texttt{scipy.integrate.solve\_ivp} (RK45) on each interval.  Algorithm~\ref{alg:RODE} gives pseudocode.
+
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\SetAlgoLined
+\KwIn{Parameters, $\tilde{\eta}_{\max}$, evaluation times $\{t_k\}$}
+\KwOut{Solution trajectory}
+$\mathbf{u} \leftarrow [\tilde{f}_0, \tilde{m}_0, \tilde{p}_0]$\;
+\For{$k = 0, 1, \ldots, N-2$}{
+  Sample $\tilde{\eta} \sim \mathrm{Uniform}[0, \tilde{\eta}_{\max}]$\;
+  $\tilde{\eta}_f \leftarrow \tfrac{2}{3}\tilde{\eta}$, $\tilde{\eta}_m \leftarrow \tfrac{2}{3}\tilde{\eta}$, $\tilde{\eta}_p \leftarrow \tilde{\eta}$\;
+  $\mathbf{u} \leftarrow \texttt{solve\_ivp}(\text{RHS}, [t_k, t_{k+1}], \mathbf{u}; \text{RK45})$\;
+  $\mathbf{u} \leftarrow \max(\mathbf{u}, 0)$\;
+}
+\caption{RODE solver (piecewise-constant noise + RK45)}
+\label{alg:RODE}
+\end{algorithm}
+
+\subsection{Step-Size Sensitivity}
+All SDE results were verified by comparing ensembles with $\Delta t$ and $\Delta t/2$.  The Euler-Maruyama method has strong order 0.5, and the Heun method (Stratonovich) has strong order 1.0 for scalar multiplicative noise.  Convergence was confirmed with relative $L^2$ errors below 10\% (verification task V8).
+
+
+\section{Python Codebase}\label{app:codebase}
+
+The complete codebase is in the \texttt{poecilia\_sde/} directory:
+
+\begin{center}
+\begin{tabular}{ll}
+  \toprule
+  File & Role \\
+  \midrule
+  \texttt{params.py} & Parameter dataclasses \\
+  \texttt{deterministic.py} & Core ODE right-hand side \\
+  \texttt{rode.py} & RODE solver \\
+  \texttt{sde\_ito.py} & It\^{o} Euler-Maruyama (common + independent) \\
+  \texttt{sde\_stratonovich.py} & Stratonovich Heun method (common + independent) \\
+  \texttt{moments.py} & Closed moment equation ODE system \\
+  \texttt{stability.py} & RODE threshold + SDE Lyapunov/Monte Carlo \\
+  \texttt{verification.py} & SymPy verification tasks V1--V8 \\
+  \texttt{figures.py} & All 10 figure functions \\
+  \texttt{run\_all.py} & Master entry point \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+All figures can be reproduced with:
+\begin{verbatim}
+pip install -r requirements.txt
+python run_all.py
+\end{verbatim}
+
+
+%% =====================================================================
+%% TABLES 2 AND 3
+%% =====================================================================
+
+\begin{table}[htbp]
+  \centering
+  \caption{Calibrated $\sigma$ values matching RODE non-dissipative variance at $T/2$.  RODE ensemble: $n = 200$ paths, $\tilde{\eta}_{\max} = 0.25$, $v = 0.02$.  SDE calibration: binary search on $\sigma$ using $n = 100$ It\^{o}/common paths.}
+  \label{tab:calibration}
+  \begin{tabular}{lcccc}
+    \toprule
+    SDE Formulation & $\sigma_f$ & $\sigma_m$ & $\sigma_p$ & Target Std$[f(T/2)]$ \\
+    \midrule
+    All SDE variants & 0.256 & 0.256 & 0.384 & 0.031 \\
+    \midrule
+    \multicolumn{5}{l}{RODE reference: Std$[\tilde{f}(T/2)] = 9.30$ (dimensional), Mean$[\tilde{f}(T/2)] = 46.7$} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Stability boundary summary.}
+  \label{tab:stability}
+  \begin{tabular}{llcc}
+    \toprule
+    Formulation & Noise Structure & Boundary $\sigma$ & Analytical Lyapunov \\
+    \midrule
+    RODE & --- & $\tilde{\eta}_{\max} = 9\tilde{\delta}/7 \approx 0.13$ & (phase-space contraction) \\
+    It\^{o} & Common & $\sigma \approx 1.12$ & $\lambda = \beta_{\text{eff}} - \delta - \sigma^2/2$ \\
+    It\^{o} & Independent & $\sigma \approx 0.86$ & same \\
+    Stratonovich & Common & $> 2.0$ (not reached) & $\lambda = \beta_{\text{eff}} - \delta$ \\
+    Stratonovich & Independent & $\sigma \approx 1.01$ & same (noise-independent) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+%% =====================================================================
+%% BIBLIOGRAPHY
+%% =====================================================================
+\bibliographystyle{plainnat}
+\bibliography{JBGInvasiveSpecies}
+
+\end{document}

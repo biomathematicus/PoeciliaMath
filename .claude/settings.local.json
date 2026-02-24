@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip install:*)",
+      "Bash(python:*)",
+      "Bash(set:*)",
+      "Bash(tasklist:*)",
+      "Bash(ls:*)"
+    ]
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "V1": {
+    "formula": "a*f0/(a*p0 + f0)",
+    "a08_value": 0.7407407407407407,
+    "a08_approx_074": true,
+    "a02_value": 0.19607843137254902,
+    "status": "PASS"
+  },
+  "V2": {
+    "divergence_full": "a*beta*f**2 - a*beta*f*gamma*p + a*beta*f*p - a*beta*f - a*beta*gamma*m*p - a*beta*gamma*p**2 + a*beta*gamma*p - a*beta*m**2 - a*beta*m*p + a*beta*m - beta*f**2 - beta*f*gamma*m + beta*f*gamma*p - 2*beta*f*m - beta*f*p + beta*f - beta*gamma*m**2 + beta*gamma*m + beta*gamma*p**2 - beta*gamma*p + eta_f + eta_m + eta_p - 3",
+    "divergence_collected": "beta*(a*f**2 - a*f*gamma*p + a*f*p - a*f - a*gamma*m*p - a*gamma*p**2 + a*gamma*p - a*m**2 - a*m*p + a*m - f**2 - f*gamma*m + f*gamma*p - 2*f*m - f*p + f - gamma*m**2 + gamma*m + gamma*p**2 - gamma*p) + eta_f + eta_m + eta_p - 3",
+    "constant_part": "eta_f + eta_m + eta_p - 3",
+    "status": "PASS"
+  },
+  "V3": {
+    "bordered_hessian_det": "beta**2",
+    "det_equals_1": false,
+    "status": "CORRECTED",
+    "actual_value": "beta**2"
+  },
+  "V4": {
+    "P_at_001": "-3",
+    "gradient_P": {
+      "Pf": "beta*(2*a*f - a*gamma*p + a*p - a - 2*f - gamma*m + gamma*p - 2*m - p + 1)",
+      "Pm": "beta*(-a*gamma*p - 2*a*m - a*p + a - f*gamma - 2*f - 2*gamma*m + gamma)",
+      "Pp": "beta*(-a*f*gamma + a*f - a*gamma*m - 2*a*gamma*p + a*gamma - a*m + f*gamma - f + 2*gamma*p - gamma)"
+    },
+    "critical_point_is_001": true,
+    "status": "PASS"
+  },
+  "V5": {
+    "case_A_sum": "7/3",
+    "case_A_value": 2.3333333333333335,
+    "case_A_less_than_3": true,
+    "case_B_sum": "35/6",
+    "case_B_value": 5.833333333333333,
+    "case_B_greater_than_3": true,
+    "status": "PASS"
+  },
+  "V6": {
+    "stratonovich_drift_f": "a*beta*m*(f - gamma*p)*(-f - m - p + 1) - delta*f",
+    "stratonovich_drift_m": "beta*m*(1 - a)*(f - gamma*p)*(-f - m - p + 1) - delta*m",
+    "stratonovich_drift_p": "beta*gamma*m*p*(-f - m - p + 1) - delta*p",
+    "correction_f": "f*sigma_f**2/2",
+    "correction_m": "m*sigma_m**2/2",
+    "correction_p": "p*sigma_p**2/2",
+    "ito_equivalent_drift_f": "-a*beta*f**2*m + a*beta*f*gamma*m*p - a*beta*f*m**2 - a*beta*f*m*p + a*beta*f*m + a*beta*gamma*m**2*p + a*beta*gamma*m*p**2 - a*beta*gamma*m*p - delta*f + f*sigma_f**2/2",
+    "ito_equivalent_drift_m": "a*beta*f**2*m - a*beta*f*gamma*m*p + a*beta*f*m**2 + a*beta*f*m*p - a*beta*f*m - a*beta*gamma*m**2*p - a*beta*gamma*m*p**2 + a*beta*gamma*m*p - beta*f**2*m + beta*f*gamma*m*p - beta*f*m**2 - beta*f*m*p + beta*f*m + beta*gamma*m**2*p + beta*gamma*m*p**2 - beta*gamma*m*p - delta*m + m*sigma_m**2/2",
+    "ito_equivalent_drift_p": "-beta*f*gamma*m*p - beta*gamma*m**2*p - beta*gamma*m*p**2 + beta*gamma*m*p - delta*p + p*sigma_p**2/2",
+    "status": "PASS"
+  },
+  "V7": {
+    "ito_mean_equations": {
+      "dF_dt": "-F**2*M*a*beta - F*M**2*a*beta + F*M*P*a*beta*gamma - F*M*P*a*beta + F*M*a*beta - F*delta + M**2*P*a*beta*gamma + M*P**2*a*beta*gamma - M*P*a*beta*gamma",
+      "dM_dt": "F**2*M*a*beta - F**2*M*beta + F*M**2*a*beta - F*M**2*beta - F*M*P*a*beta*gamma + F*M*P*a*beta + F*M*P*beta*gamma - F*M*P*beta - F*M*a*beta + F*M*beta - M**2*P*a*beta*gamma + M**2*P*beta*gamma - M*P**2*a*beta*gamma + M*P**2*beta*gamma + M*P*a*beta*gamma - M*P*beta*gamma - M*delta",
+      "dP_dt": "-F*M*P*beta*gamma - M**2*P*beta*gamma - M*P**2*beta*gamma + M*P*beta*gamma - P*delta"
+    },
+    "stratonovich_mean_equations": {
+      "dF_dt": "-F**2*M*a*beta - F*M**2*a*beta + F*M*P*a*beta*gamma - F*M*P*a*beta + F*M*a*beta - F*delta + F*sigma_f**2/2 + M**2*P*a*beta*gamma + M*P**2*a*beta*gamma - M*P*a*beta*gamma",
+      "dM_dt": "F**2*M*a*beta - F**2*M*beta + F*M**2*a*beta - F*M**2*beta - F*M*P*a*beta*gamma + F*M*P*a*beta + F*M*P*beta*gamma - F*M*P*beta - F*M*a*beta + F*M*beta - M**2*P*a*beta*gamma + M**2*P*beta*gamma - M*P**2*a*beta*gamma + M*P**2*beta*gamma + M*P*a*beta*gamma - M*P*beta*gamma - M*delta + M*sigma_m**2/2",
+      "dP_dt": "-F*M*P*beta*gamma - M**2*P*beta*gamma - M*P**2*beta*gamma + M*P*beta*gamma - P*delta + P*sigma_p**2/2"
+    },
+    "variance_equations": {
+      "dVF_dt": "sigma_f**2*(F**2 + VF)",
+      "dVM_dt": "sigma_m**2*(M**2 + VM)",
+      "dVP_dt": "sigma_p**2*(P**2 + VP)"
+    },
+    "covariance_common": {
+      "dCovFM_dt": "sigma_f*sigma_m*(CovFM + F*M)",
+      "dCovFP_dt": "sigma_f*sigma_p*(CovFP + F*P)",
+      "dCovMP_dt": "sigma_m*sigma_p*(CovMP + M*P)"
+    },
+    "covariance_independent": {
+      "dCovFM_dt": "0",
+      "dCovFP_dt": "0",
+      "dCovMP_dt": "0"
+    },
+    "key_finding_ito_means_equal_deterministic": true,
+    "key_finding_stratonovich_shifts_means": true,
+    "status": "PASS"
+  },
+  "V8": {
+    "dt_fine": 0.001,
+    "dt_coarse": 0.002,
+    "t_end": 50.0,
+    "n_paths": 50,
+    "l2_distance": 0.0010560001452789498,
+    "l2_relative": 0.0024510608605489053,
+    "convergence_acceptable": "True",
+    "status": "PASS"
+  },
+  "sigma_calibration": {
+    "rode_std_f_T2_dimensional": 9.296578147290262,
+    "rode_std_f_T2_nondimensional": 0.030988593824300872,
+    "rode_mean_f_T2_dimensional": 46.69948858481013,
+    "sigma_f_calibrated": 0.25621597290039066,
+    "sigma_m_calibrated": 0.25621597290039066,
+    "sigma_p_calibrated": 0.384323959350586,
+    "n_rode_paths": 200,
+    "n_sde_paths_calibration": 100
+  }
+}
