@@ -54,11 +54,11 @@
 \begin{abstract}
 The Amazon molly (\textit{Poecilia formosa}) is a gynogenetic species that reproduces by sperm parasitism: females require sperm from males of a bisexual host species to initiate embryo development, but the paternal genome is not incorporated into offspring.  This creates a gynogenetic system in which unisexual females drive the host population toward feminization and potential extinction.  The puzzle of continued coexistence between \textit{P.~formosa} and its bisexual hosts has motivated mathematical models incorporating population-dependent male mate discrimination and environmental stochasticity.
 
-We present a three-population model (bisexual females~$f$, males~$m$, unisexual females~$p$) with logistic growth and a sigmoid discrimination function, analyzed under three stochastic frameworks: (i)~a Random ODE (RODE) with piecewise-constant parametric noise, (ii)~an It\^{o} stochastic differential equation (SDE) with multiplicative geometric noise, and (iii)~a Stratonovich SDE with the same noise structure but different stochastic calculus convention.  Each SDE formulation is studied under two noise structures---common environmental noise (single Wiener process) and independent demographic noise (per-population Wiener processes)---yielding five formulations in total.
+We present a three-population model (bisexual females~$f$, males~$m$, unisexual females~$p$) with logistic growth and a sigmoid discrimination function, analyzed under three stochastic frameworks: (i)~a Random ODE (RODE) with piecewise-constant parametric noise, (ii)~an It\^{o} stochastic differential equation (SDE) with multiplicative geometric noise, and (iii)~a Stratonovich SDE with the same noise structure but different stochastic calculus convention.  Each SDE formulation is studied under two noise structures---common environmental noise (single Wiener process) and independent multiplicative noise (per-population Wiener processes)---yielding five formulations in total.
 
 Our key results are: (a)~the speed of male mate discrimination governs the extinction/coexistence outcome across all five formulations, confirming the robustness of this ecological finding; (b)~the RODE boundary dissipativity condition ($\eta_f + \eta_m + \eta_p
 < 3$) characterises phase-space contraction at the population ceiling and
-has no exact SDE analog---the Stratonovich scalar Lyapunov exponent is noise-amplitude-independent, while the It\^{o} exponent is shifted by $-\sigma^2/2$; (c)~under mean-field moment closure, It\^{o} noise does not shift ensemble means but Stratonovich noise does, acting as an effective noise-induced birth rate increment of $+\tfrac{1}{2}\sigma_i^2 \mathbb{E}[\tilde{u}_i]$; (d)~common versus independent noise structure affects covariance dynamics and coherence of population fluctuations but not the extinction probability classification.  These results demonstrate that formulation choice matters quantitatively for stability predictions but not qualitatively for the ecological conclusions, providing practical guidance for stochastic modeling of gynogenetic population dynamics.
+has no exact SDE analog---the Stratonovich scalar Lyapunov exponent is noise-amplitude-independent, while the It\^{o} exponent is shifted by $-\sigma^2/2$; (c)~under mean-field moment closure, It\^{o} noise does not shift ensemble means but Stratonovich noise does, acting as an effective noise-induced birth rate increment of $+\tfrac{1}{2}\sigma_i^2 \mathbb{E}[\tilde{u}_i]$; (d)~under independent multiplicative noise the diffusion cross-driving between populations vanishes, though deterministic coupling can still generate covariance through the shared nonlinear drift.  These results demonstrate that formulation choice matters quantitatively for stability predictions but not qualitatively for the ecological conclusions, providing practical guidance for stochastic modeling of gynogenetic population dynamics.
 \end{abstract}
 
 %% =====================================================================
@@ -79,7 +79,7 @@ Several mathematical models have addressed gynogenetic population dynamics.  \ci
 Male mate discrimination is one of the principal mechanisms proposed to explain coexistence between unisexuals and bisexuals~\citep{Kokko2008, Balsano1989, Kiester1981, Heubel2009}.  Males of the host species show a population-dependent selective preference for conspecific females: when the unisexual population is low, males mate with parasites at a frequency comparable to mating between bisexuals, but when the unisexual population is high, males strongly favor conspecific females~\citep{Riesch2008}.  Two explanations for this behavior exist in the literature.  The first is ``foreignness'': males are more willing to mate with unfamiliar females, so that when unisexuals are rare they are perceived as novel, but when unisexuals become common they lose this advantage~\citep{Balsano1989}.  The second is dominance hierarchies: dominant males show a marked preference for conspecific females, whereas small, subordinate males mate indiscriminately with both conspecifics and unisexuals~\citep{Balsano1989}.  Field observations indicate that bisexual poeciliids account for less than 20\% males in natural populations~\citep{Balsano1989, Snelson1980}, suggesting that the proportion of females in bisexual progeny is approximately $a \approx 0.8$.  The present model captures population-dependent discrimination through a sigmoid function $\gamma(p)$ that transitions smoothly from no heterospecific discrimination to strong conspecific preference as the parasite population grows.
 
 % Paragraph 5 --- Stochastic modeling choice and contribution
-The present study introduces three stochastic frameworks for the gynogenetic three-population model---a Random ODE (RODE) with piecewise-constant parametric noise, an It\^{o} SDE with multiplicative geometric noise, and a Stratonovich SDE with the same noise structure---and studies each SDE under two noise architectures: common environmental noise (a single Wiener process shared by all populations) and independent demographic noise (separate Wiener processes for each population), yielding five formulations in total.  The comparison matters because different biological interpretations of noise lead to different mathematical properties: RODE paths are smooth between resampling events, while SDE paths are nowhere differentiable; the It\^{o} integral evaluates the integrand at the left endpoint, while the Stratonovich integral uses the midpoint, producing different drift terms for multiplicative noise.  These are not merely technical distinctions---they carry biological consequences for stability predictions and extinction probability estimates.  The Wong-Zakai theorem establishes that when environmental forcing has finite correlation time, as is the case for seasonal flooding in the \textit{P.~formosa} habitat, the Stratonovich interpretation is the correct mathematical limit of smooth noise approximations~\citep{Oksendal2003}.  The choice of stochastic framework is therefore not a matter of convention but a modeling decision with quantitative implications.
+The present study introduces three stochastic frameworks for the gynogenetic three-population model---a Random ODE (RODE) with piecewise-constant parametric noise, an It\^{o} SDE with multiplicative geometric noise, and a Stratonovich SDE with the same noise structure---and studies each SDE under two noise architectures: common environmental noise (a single Wiener process shared by all populations) and independent multiplicative noise (separate Wiener processes for each population), yielding five formulations in total.  The comparison matters because different biological interpretations of noise lead to different mathematical properties: RODE paths are smooth between resampling events, while SDE paths are nowhere differentiable; the It\^{o} integral evaluates the integrand at the left endpoint, while the Stratonovich integral uses the midpoint, producing different drift terms for multiplicative noise.  These are not merely technical distinctions---they carry biological consequences for stability predictions and extinction probability estimates.  The Wong-Zakai theorem establishes that when environmental forcing has finite correlation time, as is the case for seasonal flooding in the \textit{P.~formosa} habitat, the Stratonovich interpretation is the correct mathematical limit of smooth noise approximations~\citep{Oksendal2003}.  The choice of stochastic framework is therefore not a matter of convention but a modeling decision with quantitative implications.
 
 % Paragraph 6 --- Paper structure
 The remainder of this paper is organized as follows.  Section~2 presents the biological model, including the deterministic core equations, non-dimensionalization, and the sigmoid discrimination function.  Section~3 develops the three stochastic formulations and their interrelationships, including the It\^{o}--Stratonovich conversion and the empirical RODE-to-SDE calibration procedure.  Section~4 provides the analytical results: the RODE Dissipative Stochasticity Lemma, the SDE moment equations under mean-field closure, and the scalar Lyapunov exponent analysis for both It\^{o} and Stratonovich interpretations.  Section~5 presents numerical results for all five formulations, including ensemble statistics, moment equation validation, and stability boundary comparison.  Section~6 discusses the ecological and methodological implications, and Section~7 concludes with a summary of findings, their significance, and testable predictions for future work.
@@ -357,6 +357,22 @@ This is a \emph{Random ODE}, not an SDE in the It\^{o}/Stratonovich sense: betwe
 
 Experimental data on fish association in populations containing \textit{P.~formosa} show that bisexual females associate preferentially in small groups of their own kind, and dominant males direct approximately one third of their activity toward females with preference for conspecifics~\citep{Balsano1989}.  These spatial clustering patterns create a population-dependent bias in exposure to environmental perturbations: bisexual populations cluster more tightly and are less exposed to stochastic effects than \textit{P.~formosa}.  To reflect this, the noise amplitudes are structured as $\tilde{\eta}_f = \tilde{\eta}_m = (2/3)\tilde{\eta}$ and $\tilde{\eta}_p = \tilde{\eta}$.
 
+\begin{remark}
+The uniform distribution $\tilde\eta_i(t)\sim\mathrm{Uniform}[0,\tilde\eta_{\max}]$
+has positive mean $\mathbb{E}[\tilde\eta_i]=\tilde\eta_{\max}/2$, so the RODE
+introduces both variance and a positive mean growth bias compared to a
+mean-zero noise model.  For the parameter values used here
+($\tilde\eta_{\max}=0.1$, $\tilde\delta=0.1$ in the dissipative case),
+the mean noise contribution equals the death rate; in the
+threshold-exceeding case ($\tilde\eta_{\max}=0.25$) it exceeds it.
+This positive bias is a feature of the random-environment model: it
+represents a habitat whose average condition favours growth above the
+baseline death rate.  Comparisons between RODE trajectories and SDE
+trajectories therefore reflect both differences in stochastic formalism
+and differences in mean drift; this distinction is acknowledged
+throughout the Results.
+\end{remark}
+
 
 %---------------------------------------------------------------
 \subsection{It\^{o} SDE Formulation}
@@ -373,15 +389,15 @@ A single Wiener process $W(t)$ represents a shared habitat driver affecting all 
 \end{align}
 where $\mu_i$ denotes the deterministic drift.
 
-% Independent demographic noise
-Separate Wiener processes $W_f$, $W_m$, $W_p$ model independent demographic fluctuations in each population:
+% Independent multiplicative noise
+Separate Wiener processes $W_f$, $W_m$, $W_p$ model independent multiplicative fluctuations in each population:
 \begin{align}
   d\tilde{f} &= \mu_f(\tilde{\mathbf{u}})\,dt + \sigma_f \tilde{f}\,dW_f, \\
   d\tilde{m} &= \mu_m(\tilde{\mathbf{u}})\,dt + \sigma_m \tilde{m}\,dW_m, \\
   d\tilde{p} &= \mu_p(\tilde{\mathbf{u}})\,dt + \sigma_p \tilde{p}\,dW_p.
 \end{align}
 
-The geometric multiplicative noise structure $\sigma_i \tilde{u}_i\,dW$ ensures near-zero positivity; numerical positivity is enforced via reflection ($\tilde{u}_i = \max(\tilde{u}_i, 0)$) after each Euler-Maruyama step.
+The geometric multiplicative noise structure $\sigma_i \tilde{u}_i\,dW$ ensures near-zero positivity; numerical positivity is enforced via nonnegative clipping ($\tilde{u}_i = \max(\tilde{u}_i, 0)$) after each Euler-Maruyama step.
 
 \begin{algorithm}[H]
 \DontPrintSemicolon
@@ -393,7 +409,7 @@ $\mathbf{u} \leftarrow \mathbf{u}_0$\;
   $\Delta W \leftarrow \mathcal{N}(0, \sqrt{\Delta t})$ \tcp*{single increment for common; 3 for independent}
   $\boldsymbol{\mu} \leftarrow$ \texttt{txc\_rhs}$(t_n, \mathbf{u})$\;
   $\mathbf{u} \leftarrow \mathbf{u} + \boldsymbol{\mu}\,\Delta t + \boldsymbol{\sigma} \odot \mathbf{u} \odot \Delta\mathbf{W}$\;
-  $\mathbf{u} \leftarrow \max(\mathbf{u}, 0)$ \tcp*{reflection boundary}
+  $\mathbf{u} \leftarrow \max(\mathbf{u}, 0)$ \tcp*{nonnegative clipping}
 }
 \caption{Euler-Maruyama method (It\^{o} SDE)}
 \label{alg:EM}
@@ -413,7 +429,10 @@ The Stratonovich formulation replaces the It\^{o} integral with the Stratonovich
   d\tilde{f} = \mu_f\,dt + \sigma_f \tilde{f} \circ dW.
 \end{equation}
 
-The Wong-Zakai theorem justifies this choice: when noise represents a physical environmental process with finite but small correlation time, the Stratonovich interpretation is the correct limit of a smooth approximation~\citep{Oksendal2003}.  For \textit{P.~formosa}, seasonal flooding and connectivity changes in the Soto La Marina drainage have finite correlation time (on the order of weeks to months), making the Stratonovich interpretation physically preferred.
+The Wong-Zakai theorem justifies this choice: when noise represents a physical environmental process with finite but small correlation time, the Stratonovich interpretation is the correct limit of a smooth approximation~\citep{Oksendal2003}.  For \textit{P.~formosa}, seasonal flooding and connectivity changes in the Soto La Marina drainage have finite correlation time (on the order of weeks to months), the Stratonovich interpretation is natural when the environmental noise
+arises as the white-noise limit of smooth fast-varying forcing; for
+environmental drivers with longer correlation times an explicit
+random-environment (RODE-type) model may be more appropriate.
 
 The Heun method (explicit 2-stage predictor-corrector) is used, which converges to the Stratonovich integral:
 
@@ -486,82 +505,62 @@ To enable visual comparison, we employ an empirical calibration procedure:
 The following result characterizes the dissipative behavior of the RODE system at the population ceiling.  It applies specifically to the RODE formulation---a pathwise, Liouville-based phase-space contraction argument---and does not extend directly to It\^{o} or Stratonovich SDEs.
 
 \begin{lemma}[RODE Boundary Dissipativity Lemma]\label{lem:DissipativePoecilia}
-On the population ceiling $f + m + p = 1$ (where $L = 0$), the RODE
-gynogenetic system is dissipative---that is, $\nabla \cdot \mathbf{F} < 0$
-on that face---if and only if $\eta_f(t)+\eta_m(t)+\eta_p(t)<3$.
+On the population ceiling $f+m+p=1$, the non-dimensional RODE system satisfies
+$\nabla\cdot\mathbf{F} \le \eta_f(t)+\eta_m(t)+\eta_p(t)-3$.
+In particular, the system is dissipative on that face whenever
+$\eta_f(t)+\eta_m(t)+\eta_p(t)<3$.
 \end{lemma}
 
 \begin{proof}
-We wish to establish conditions under which the RODE system contracts
-phase-space volume at the population ceiling $f + m + p = 1$.  At this
-boundary face the logistic factor $L = 0$ and all birth terms vanish;
-consequently, only the noise-amplitude terms and the linear death terms
-contribute to the divergence.  By Liouville's theorem, phase-space volume
-contracts on this face when $\nabla \cdot \mathbf{F} < 0$ there.  Here $\mathbf{F}$ denotes the right-hand side of the non-dimensional RODE system~\eqref{eq:PoeciliaF}--\eqref{eq:PoeciliaP}.
-
-We compute each partial derivative of $\mathbf{F}$ individually.  The first component of $\mathbf{F}$ is $\dot{f} = a\beta L m (f - \gamma p) - (1-\eta_f)f$.  Differentiating with respect to $f$:
-\begin{equation}
-  \frac{\partial \dot{f}}{\partial f} = a\beta m\bigl[(1-2f-m-p)(f-\gamma p) + L(f-\gamma p) + Lm\cdot 1 - m(f-\gamma p)\bigr] - (1-\eta_f).
+We establish that $\nabla\cdot\mathbf{F} < 0$ on the population ceiling
+$f+m+p=1$.  On this face the logistic factor $L = 1-f-m-p = 0$, so every
+birth term vanishes---each contains $L$ as a multiplicative factor.  The
+non-dimensional system therefore reduces to the pure death system
+$\dot{f}=-(1-\eta_f)f$, $\dot{m}=-(1-\eta_m)m$, $\dot{p}=-(1-\eta_p)p$
+augmented by the logistic structure.  More precisely, at any point on the
+face we compute the partial derivatives using the product rule with
+$\partial L/\partial f = \partial L/\partial m = \partial L/\partial p = -1$:
+\begin{align}
+  \frac{\partial\dot{f}}{\partial f}\bigg|_{L=0}
+    &= a\beta m\bigl[0 - (f-\gamma p)\bigr] - (1-\eta_f)
+     = -a\beta m(f-\gamma p) - (1-\eta_f), \\
+  \frac{\partial\dot{m}}{\partial m}\bigg|_{L=0}
+    &= (1-a)\beta m\bigl[0 - (f-\gamma p)\bigr] - (1-\eta_m)
+     = -(1-a)\beta m(f-\gamma p) - (1-\eta_m), \\
+  \frac{\partial\dot{p}}{\partial p}\bigg|_{L=0}
+    &= \gamma\beta m\bigl[0 - p\bigr] - (1-\eta_p)
+     = -\gamma\beta mp - (1-\eta_p).
+\end{align}
+Summing these three contributions:
+\begin{equation}\label{eq:divF_face}
+  \nabla\cdot\mathbf{F}\big|_{f+m+p=1}
+  = -\beta m\bigl[(f-\gamma p)+(1-a)(f-\gamma p)/a \cdot a + \gamma p\bigr]
+    - 3 + \eta_f+\eta_m+\eta_p.
 \end{equation}
-This term accounts for the rate at which an increase in $f$ affects its own growth rate: additional bisexual females both contribute to reproduction and increase competition through the logistic factor $L = 1 - f - m - p$.
-
-The second component of $\mathbf{F}$ is $\dot{m} = (1-a)\beta L m (f - \gamma p) - (1-\eta_m)m$.  Differentiating with respect to $m$:
-\begin{equation}
-  \frac{\partial \dot{m}}{\partial m} = (1-a)\beta\bigl[L(f-\gamma p) - m(f-\gamma p) + Lm\cdot 0\bigr] - (1-\eta_m).
-\end{equation}
-This term represents how male population growth responds to changes in male density: more males increase mating opportunities but also increase logistic competition.
-
-The third component of $\mathbf{F}$ is $\dot{p} = \gamma\beta L m p - (1-\eta_p)p$.  Differentiating with respect to $p$:
-\begin{equation}
-  \frac{\partial \dot{p}}{\partial p} = \gamma\beta\bigl[Lm - mp\bigr] - (1-\eta_p).
-\end{equation}
-This term captures the growth rate response of the parasite population to its own density: additional parasites benefit from mating with males but also increase logistic pressure.
-
-Summing these three partial derivatives, the divergence takes the form
+Collecting the $m$-bracket:
+$a(f-\gamma p)+(1-a)(f-\gamma p)+\gamma p = (f-\gamma p)+\gamma p = f$, so
 \begin{equation}\label{eq:BetaFactorPoecilia}
-  \nabla \cdot \mathbf{F} = \frac{\partial\dot{f}}{\partial f}+\frac{\partial \dot{m}}{\partial m}+\frac{\partial\dot{p}}{\partial p} = \beta \cdot Q(f,m,p;\gamma,a) - 3 + \eta_f + \eta_m + \eta_p,
+  \nabla\cdot\mathbf{F}\big|_{f+m+p=1} = -\beta m f - 3 + \eta_f+\eta_m+\eta_p.
 \end{equation}
-where $Q$ is a polynomial in $f$, $m$, $p$ that collects all state-dependent terms (verified symbolically; Appendix~A).  A key algebraic fact is that on the constraint surface $f + m + p = 1$
-(i.e.\ substituting $p = 1-f-m$), the coefficient of $\beta$ in the
-divergence reduces to $-fm \leq 0$ for all $f, m \geq 0$.  Therefore, on
-this face, the $\beta$-dependent terms are non-positive and do not
-contribute to expanding phase-space volume.  The maximum of
-$\nabla \cdot \mathbf{F}$ on this face is therefore determined entirely by
-the state-independent part $-3 + \eta_f + \eta_m + \eta_p$.
-
-To establish that the divergence is negative everywhere in the feasible region, we must show that the maximum of $\nabla \cdot \mathbf{F}$ over the feasible set is negative.  We find this maximum by optimizing the polynomial $P(f,m,p) = \nabla \cdot \mathbf{F}$ subject to the constraint $g(f,m,p) = f + m + p - 1 = 0$ (the boundary of the unit simplex).  Using Lagrange multipliers, we solve $\nabla P = \lambda \nabla g$.  The resulting system yields the critical point $(f,m,p) = (0,0,1)$ with Lagrange multiplier $\lambda = \beta\gamma(1-a)$.
-
-The analysis requires confirming that this critical point is a genuine constrained maximum of $P(\mathbf{u}) = \nabla \cdot \mathbf{F}$, and not merely a saddle point or local minimum.  For unconstrained optimization, the standard second-order test examines the Hessian matrix of the objective function: if the Hessian is negative definite at a critical point, that point is a local maximum.  When, however, the optimization is constrained---here, to the invariant boundary face $f + m + p = 1$---the unconstrained Hessian is no longer the correct tool, because it ignores the geometry of the constraint.  The appropriate generalization is the \textit{bordered Hessian} $\bar{H}$, which augments the Hessian of $P$ with an additional row and column encoding the gradient of the constraint.  Specifically, if the constraint is $g(\mathbf{u}) = c$, the bordered Hessian is the $(n+1) \times (n+1)$ matrix
+Since $\beta>0$, $m\ge 0$, and $f\ge 0$ throughout the feasible region, the
+term $-\beta mf \le 0$.  Therefore
 \begin{equation}
-  \bar{H} = \begin{pmatrix} 0 & \nabla g^\top \\ \nabla g & H_P \end{pmatrix},
+  \nabla\cdot\mathbf{F}\big|_{f+m+p=1}
+  \;\le\; -3 + \eta_f+\eta_m+\eta_p,
 \end{equation}
-where $H_P$ is the Hessian of $P$ and $\nabla g$ is the constraint gradient arranged as a column vector.  The sign of the determinant $|\bar{H}|$ determines the nature of the constrained critical point: for a single equality constraint in three variables, a positive determinant $|\bar{H}| > 0$ confirms a constrained maximum~\citep{Marsden:Vector}.  In the present case, one can verify that $|\bar{H}| = \beta^2 > 0$, since $\beta > 0$ by biological assumption.  This confirms that the identified critical point is indeed the constrained maximum of $P$ on the boundary, completing the second-order verification.
-
-Evaluating the divergence at this constrained maximum:
-\begin{equation}
-  \nabla \cdot \mathbf{F}(0,0,1) = -3 + \eta_f + \eta_m + \eta_p.
-\end{equation}
-Since this is the maximum value of $\nabla \cdot \mathbf{F}$ on the face $f+m+p=1$, the divergence is negative on that face if and only if
-\begin{equation}
-  -3 + \eta_f + \eta_m + \eta_p < 0,
-\end{equation}
-which rearranges to the dissipative condition:
-\begin{equation}
-  \eta_f(t) + \eta_m(t) + \eta_p(t) < 3.
-\end{equation}
-In biological terms, this threshold states that the total non-dimensional noise amplitude across all three populations must remain below three times the non-dimensional death rate (which equals unity by construction).  When this condition holds, the system contracts phase-space volume at the population ceiling, ensuring that trajectories reaching the carrying capacity are drawn inward rather than expanding outward.  When the condition is violated, the system can expand phase-space volume at the ceiling, allowing trajectories to explore larger regions and producing the high variability observed in field data.  Therefore, the system is dissipative at the population ceiling when $\eta_f + \eta_m + \eta_p < 3$, which completes the proof.
-\end{proof}
+with equality on the edges $\{f=0\}$ or $\{m=0\}$ of the ceiling face.
+This upper bound is negative if and only if $\eta_f+\eta_m+\eta_p < 3$.
 
 \begin{remark}
-The boundary dissipativity condition $\eta_f + \eta_m + \eta_p < 3$
-characterizes contraction at the population ceiling.  In the interior of
-the feasible simplex, where $L > 0$, the divergence can be positive for
-the parameter regime used here; global phase-space contraction would
-require a parameter-dependent bound involving $\beta$, $a$, and $\gamma$.
-The boundary result is the ecologically relevant condition: it governs
-whether stochastic fluctuations that drive populations toward the carrying
-capacity are dissipated or amplified.
+This result is specific to the population ceiling $f+m+p=1$.  In the
+interior of the feasible simplex where $L>0$, the birth terms contribute
+positive terms to $\nabla\cdot\mathbf{F}$, and the condition
+$\eta_f+\eta_m+\eta_p<3$ does not imply global phase-space contraction.
+The boundary result is the ecologically meaningful condition: it governs
+whether stochastic fluctuations that drive populations toward the
+carrying capacity are dissipated (absorbed back) or amplified.
 \end{remark}
+\end{proof}
 
 \begin{definition}
 The state of the gynogenetic system when $\eta_f(t)+\eta_m(t)+\eta_p(t)<3$ is called a \textit{state of dissipative stochasticity}.
@@ -821,12 +820,12 @@ Figure~\ref{fig:constant_gamma} shows the deterministic dynamics under constant 
   \label{fig:sigmoid_gamma}
 \end{figure}
 
-Figure~\ref{fig:rode_stochasticity} demonstrates the effect of RODE stochasticity.  With $\tilde{\eta} \in [0, 0.1]$, the non-dimensional noise sum is $\eta_f + \eta_m + \eta_p = 7/3 < 3$ (dissipative), and extinction still occurs.  With $\tilde{\eta} \in [0, 0.25]$, the sum reaches $35/6 > 3$ (non-dissipative), and noisy coexistence emerges---matching the high variability observed in field data.
+Figure~\ref{fig:rode_stochasticity} demonstrates the effect of RODE stochasticity.  With $\tilde{\eta} \in [0, 0.1]$, the non-dimensional noise sum is $\eta_f + \eta_m + \eta_p = 7/3 < 3$ (dissipative), and extinction still occurs.  With $\tilde{\eta} \in [0, 0.25]$, the sum reaches $35/6 > 3$ (threshold-exceeding), and noisy coexistence emerges---matching the high variability observed in field data.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.85\textwidth]{poecilia_sde/figures/fig04_rode_stochasticity.png}
-  \caption{RODE stochasticity ($v = 0.02$, $a = 0.8$).  (a)~Dissipative case: $\tilde{\eta}_{\max} = 0.1$, $\sum\eta/\delta = 7/3 < 3$.  (b)~Non-dissipative case: $\tilde{\eta}_{\max} = 0.25$, $\sum\eta/\delta = 35/6 > 3$.}
+  \caption{RODE stochasticity ($v = 0.02$, $a = 0.8$).  (a)~Dissipative case: $\tilde{\eta}_{\max} = 0.1$, $\sum\eta/\delta = 7/3 < 3$.  (b)~Threshold-exceeding noise range: $\tilde{\eta}_{\max} = 0.25$, $\sum\eta/\delta = 35/6 > 3$.}
   \label{fig:rode_stochasticity}
 \end{figure}
 
@@ -835,7 +834,7 @@ Figure~\ref{fig:rode_stochasticity} demonstrates the effect of RODE stochasticit
 \subsection{Single Trajectory Comparison}
 %---------------------------------------------------------------
 
-Figure~\ref{fig:single_trajectory} overlays single trajectories from all five formulations using the same random seed and calibrated $\sigma$ values.  While individual trajectories differ, the qualitative behavior---especially the timing and character of population transitions---is consistent across formulations.  Single trajectories are inherently insufficient for quantitative comparison; they motivate the ensemble analysis that follows.
+Figure~\ref{fig:single_trajectory} overlays single trajectories from all five formulations using the same random seed and calibrated $\sigma$ values.  While individual trajectories differ, the qualitative behavior---especially the timing and character of population transitions---is consistent across formulations.  Because the RODE noise is strictly positive-valued, RODE trajectories reflect a higher mean growth environment than the SDEs and are not expected to match SDE trajectories in absolute magnitude; the comparison targets qualitative regime membership (extinction versus coexistence) rather than quantitative agreement.  Single trajectories are inherently insufficient for quantitative comparison; they motivate the ensemble analysis that follows.
 
 \begin{figure}[htbp]
   \centering
@@ -910,13 +909,13 @@ Figure~\ref{fig:noise_sensitivity} compares common vs independent noise at exagg
 The finding that the speed of male mate discrimination ($v$) governs extinction versus coexistence is robust across all five stochastic formulations tested in this study.  This parameter represents the rate at which males of the host species shift from indiscriminate mating (equal probability of mating with conspecific and parasitic females) to strong conspecific preference as the parasite population grows.  Biologically, the speed of discrimination could arise through several mechanisms: it may be a learned behavior, in which males exposed to increasing numbers of unisexual females develop discrimination through experience during their lifetime; it may be an evolved trait, in which populations with faster discrimination have been selected over evolutionary time because they are more likely to persist; or it may be a developmental response, in which environmental cues during maturation calibrate the discrimination response.  The mathematical result is unambiguous: below some critical speed the system converges to extinction regardless of initial conditions, and above this critical speed coexistence is the attractor.  This finding connects directly to field observations that some populations of \textit{P.~mexicana} coexist stably with \textit{P.~formosa} while others in nearby locations do not~\citep{Balsano1989}.  The variation in discrimination speed across field populations could be driven by several factors: local population density (higher densities may promote faster learning), prior exposure history (populations with longer coexistence histories may have evolved faster discrimination), resource availability (well-fed males may be more selective), and temperature (warmer water may accelerate learning rates).  The fact that this result is formulation-robust---it holds identically for the RODE, for both It\^{o} variants, and for both Stratonovich variants---means that the conclusion is unlikely to be an artifact of modeling choices.  Any reasonable stochastic framework applied to this system will identify discrimination speed as the master variable controlling the coexistence outcome.  This result encompasses and extends previous findings on the role of male mate discrimination~\citep{Kokko2008, Balsano1989, Kiester1981, Heubel2009}.  \citet{Heubel2009} showed that male mating efficiency matters for gynogenetic complexes; the present work sharpens this finding by demonstrating that it is the \emph{shape} of the discrimination function---specifically, the steepness of the sigmoid transition---rather than merely its asymptotic value that determines the ecological outcome.
 
 % Noise structure and formulation-dependence
-The It\^{o} and Stratonovich formulations make qualitatively different predictions about the role of noise in stabilizing or destabilizing the gynogenetic system.  In the It\^{o} framework, the Lyapunov exponent decreases by $\sigma^2/2$ with increasing noise amplitude, meaning that sufficiently intense noise can push a marginally unstable system toward extinction of the parasite---noise promotes stability of the host.  In the Stratonovich framework, the scalar Lyapunov exponent is independent of noise amplitude, and the noise-induced growth bias in the mean equations ($+\tfrac{1}{2}\sigma_i^2 F_i$) actually opposes extinction by providing an effective additional birth rate.  Which interpretation is biologically correct?  The Wong-Zakai theorem provides theoretical guidance: when the environmental signal driving population fluctuations has finite correlation time, the Stratonovich interpretation is the correct mathematical limit.  For \textit{P.~formosa} in the Soto La Marina drainage, the habitat connectivity fluctuations---pools connecting and disconnecting across the dry and wet seasons---have a correlation time on the order of weeks to months, far from the infinitesimally short correlation required for It\^{o} noise to be the natural limit.  This favors the Stratonovich interpretation.  The implication is sobering for conservation: if Stratonovich is the correct physical model, then noise-induced stabilization of the host is not available as a mechanism, and the only stabilizing force is discrimination speed.  Environmental noise of the Stratonovich type does not shift the stability boundary, so increasing environmental variability (e.g., through climate change) would not be expected to alter the extinction/coexistence outcome.  The RODE dissipative threshold provides yet a third perspective.  The threshold $\eta_f + \eta_m + \eta_p = 3$ is based on phase-space contraction at the population ceiling---a boundary property of the vector field---rather than the linearized growth rate of a single population component near zero.  The RODE and SDE stability concepts therefore disagree fundamentally on where the boundary lies.  This disagreement is not a modeling failure: it reveals that ``stability'' is not a single concept, and different stability measures---boundary phase-space contraction, linearized growth rates, ensemble extinction probabilities---give genuinely different answers for the same biological system.  This multiplicity of stability concepts has practical implications for any ecological modeling effort that uses stochastic differential equations or random ODEs: researchers must explicitly state which stability criterion they are using and justify why that criterion is biologically relevant.
+The It\^{o} and Stratonovich formulations make qualitatively different predictions about the role of noise in stabilizing or destabilizing the gynogenetic system.  In the It\^{o} framework, the Lyapunov exponent decreases by $\sigma^2/2$ with increasing noise amplitude, meaning that sufficiently intense noise can push a marginally unstable system toward extinction of the parasite---noise promotes stability of the host.  In the Stratonovich framework, the scalar Lyapunov exponent is independent of noise amplitude, and the noise-induced growth bias in the mean equations ($+\tfrac{1}{2}\sigma_i^2 F_i$) actually opposes extinction by providing an effective additional birth rate.  Which interpretation is biologically correct?  The Wong-Zakai theorem provides theoretical guidance: when the environmental signal driving population fluctuations has finite correlation time, the Stratonovich interpretation is the correct mathematical limit.  For \textit{P.~formosa} in the Soto La Marina drainage, the habitat connectivity fluctuations---pools connecting and disconnecting across the dry and wet seasons---have a correlation time on the order of weeks to months, far from the infinitesimally short correlation required for It\^{o} noise to be the natural limit.  This favors the Stratonovich interpretation, though for environmental drivers with longer correlation times an explicit random-environment (RODE-type) model may be more appropriate.  True demographic noise in birth--death count models typically scales as $\sqrt{u_i}$ in the diffusion-approximation literature; the independent multiplicative ($\sigma_i u_i$) scaling used here is appropriate for independent environmental variation in per-capita rates rather than individual birth--death events.  The implication is sobering for conservation: if Stratonovich is the correct physical model, then noise-induced stabilization of the host is not available as a mechanism, and the only stabilizing force is discrimination speed.  Environmental noise of the Stratonovich type does not shift the stability boundary, so increasing environmental variability (e.g., through climate change) would not be expected to alter the extinction/coexistence outcome.  The RODE dissipative threshold provides yet a third perspective.  The threshold $\eta_f + \eta_m + \eta_p = 3$ is based on phase-space contraction at the population ceiling---a boundary property of the vector field---rather than the linearized growth rate of a single population component near zero.  The RODE and SDE stability concepts therefore disagree fundamentally on where the boundary lies.  This disagreement is not a modeling failure: it reveals that ``stability'' is not a single concept, and different stability measures---boundary phase-space contraction, linearized growth rates, ensemble extinction probabilities---give genuinely different answers for the same biological system.  This multiplicity of stability concepts has practical implications for any ecological modeling effort that uses stochastic differential equations or random ODEs: researchers must explicitly state which stability criterion they are using and justify why that criterion is biologically relevant.
 
 % Field data and model validation
-The Balsano et al.\ (1989) field data from the Soto La Marina drainage provide the primary empirical benchmark for the model~\citep{Balsano1989}.  Across 20 locations sampled over eight years (1970--1978), the proportion of unisexuals varied from near zero to near unity, with no consistent spatial pattern and high year-to-year fluctuation even at the same site.  The ensemble variance produced by the non-dissipative RODE case, and by the high-$\sigma$ It\^{o} SDE case, is qualitatively consistent with this level of variability: the model produces trajectories in which the unisexual fraction swings widely, driven by the alternation between dissipative and non-dissipative stochastic states.  However, the model in its current form makes no prediction about which locations will be in which regime---such a prediction would require spatially resolved data on discrimination speed and habitat connectivity, which are not yet available for the Soto La Marina system.  The Travis personal communication provides an important qualitative validation (J.~Travis, personal communication): a research tank containing a stable \textit{P.~mexicana} population was accidentally contaminated with \textit{P.~formosa}, and the entire population collapsed within a year.  This observation is consistent with the model's prediction that in the absence of sufficient stochasticity (a controlled laboratory tank has minimal environmental noise), the parasitic takeover is rapid and irreversible once the parasite population exceeds the discrimination threshold.  The model has several limitations that must be acknowledged.  It does not include spatial structure; \citet{Kokko2008} demonstrated that spatial dynamics plays an important role in long-term coexistence by allowing local extinction and recolonization through a metapopulation mechanism.  The absence of spatial fragmentation is particularly relevant for the Soto La Marina system, where the seasonal cycle of pool connectivity and disconnection creates a natural spatial structure that could buffer against local extinction.  The model does not include predation, which could differentially affect the conspicuous \textit{P.~formosa} relative to the more cryptic host species, nor does it include parasite load or disease, which could further modulate population fitness in species-specific ways.  It assumes logistic growth with a single carrying capacity shared by all three populations, whereas in reality the three population types may have different resource requirements, microhabitat preferences, and competitive abilities.  Finally, the mean-field closure approximation yields acceptable accuracy for ensemble means (typically less than 10\% relative error) but underestimates variance dynamics, particularly near the extinction boundary where population distributions become highly non-Gaussian and skewed.  A Fokker-Planck analysis of the full probability density evolution would be needed to address this limitation rigorously.
+The Balsano et al.\ (1989) field data from the Soto La Marina drainage provide the primary empirical benchmark for the model~\citep{Balsano1989}.  Across 20 locations sampled over eight years (1970--1978), the proportion of unisexuals varied from near zero to near unity, with no consistent spatial pattern and high year-to-year fluctuation even at the same site.  The ensemble variance produced by the threshold-exceeding RODE case, and by the high-$\sigma$ It\^{o} SDE case, is qualitatively consistent with this level of variability: the model produces trajectories in which the unisexual fraction swings widely, driven by the alternation between dissipative and threshold-exceeding stochastic states.  However, the model in its current form makes no prediction about which locations will be in which regime---such a prediction would require spatially resolved data on discrimination speed and habitat connectivity, which are not yet available for the Soto La Marina system.  The Travis personal communication provides an important qualitative validation (J.~Travis, personal communication): a research tank containing a stable \textit{P.~mexicana} population was accidentally contaminated with \textit{P.~formosa}, and the entire population collapsed within a year.  This observation is consistent with the model's prediction that in the absence of sufficient stochasticity (a controlled laboratory tank has minimal environmental noise), the parasitic takeover is rapid and irreversible once the parasite population exceeds the discrimination threshold.  The model has several limitations that must be acknowledged.  It does not include spatial structure; \citet{Kokko2008} demonstrated that spatial dynamics plays an important role in long-term coexistence by allowing local extinction and recolonization through a metapopulation mechanism.  The absence of spatial fragmentation is particularly relevant for the Soto La Marina system, where the seasonal cycle of pool connectivity and disconnection creates a natural spatial structure that could buffer against local extinction.  The model does not include predation, which could differentially affect the conspicuous \textit{P.~formosa} relative to the more cryptic host species, nor does it include parasite load or disease, which could further modulate population fitness in species-specific ways.  It assumes logistic growth with a single carrying capacity shared by all three populations, whereas in reality the three population types may have different resource requirements, microhabitat preferences, and competitive abilities.  Finally, the mean-field closure approximation yields acceptable accuracy for ensemble means (typically less than 10\% relative error) but underestimates variance dynamics, particularly near the extinction boundary where population distributions become highly non-Gaussian and skewed.  A Fokker-Planck analysis of the full probability density evolution would be needed to address this limitation rigorously.
 
 % Implications for the gynogenetic eradication strategy
-The analysis of the gynogenetic system provides practical insights for population management strategies based on sex-ratio manipulation.  If sperm parasites can be controlled by manipulating the discrimination speed or the noise environment, several intervention strategies become conceivable.  First, the model predicts that increasing the discrimination speed past the critical threshold should shift the system from the extinction basin to the coexistence basin.  This is a testable prediction: in aquarium experiments, populations of host males that have been pre-exposed to unisexual females (and thus have had the opportunity to develop discrimination) should show higher coexistence rates than na\"ive populations.  Second, manipulating habitat connectivity to reduce effective population size would increase the effective noise experienced by the population.  Under the It\^{o} interpretation, this would shift the stability boundary and could promote host survival; under the Stratonovich interpretation, it would have no effect on the extinction/coexistence boundary.  Mesocosm experiments comparing connected and fragmented habitat configurations could in principle distinguish between these predictions.  Third, the model shows that stochasticity alone, without sufficient discrimination speed, is insufficient for coexistence in any framework: even non-dissipative stochasticity cannot indefinitely prevent extinction if discrimination is too slow.  This narrows the intervention target: discrimination speed is the essential variable, and environmental manipulation is at best a complementary tool.  The sex-biased eradication strategy---in which sex-reversed individuals are introduced to drive an invasive population toward extinction by skewing the sex ratio---relies on the same dynamical mechanisms studied here.  The present results predict that target populations with slow mate discrimination are most vulnerable to such a strategy, that environments with high non-dissipative stochasticity could stabilize coexistence and thereby undermine eradication efforts, and that the choice of stochastic framework affects quantitative predictions of the critical noise threshold but not the qualitative feasibility assessment.  These findings provide a quantitative foundation for experimental design in both conservation biology and invasive species management.
+The analysis of the gynogenetic system provides practical insights for population management strategies based on sex-ratio manipulation.  If sperm parasites can be controlled by manipulating the discrimination speed or the noise environment, several intervention strategies become conceivable.  First, the model predicts that increasing the discrimination speed past the critical threshold should shift the system from the extinction basin to the coexistence basin.  This is a testable prediction: in aquarium experiments, populations of host males that have been pre-exposed to unisexual females (and thus have had the opportunity to develop discrimination) should show higher coexistence rates than na\"ive populations.  Second, manipulating habitat connectivity to reduce effective population size would increase the effective noise experienced by the population.  Under the It\^{o} interpretation, this would shift the stability boundary and could promote host survival; under the Stratonovich interpretation, it would have no effect on the extinction/coexistence boundary.  Mesocosm experiments comparing connected and fragmented habitat configurations could in principle distinguish between these predictions.  Third, the model shows that stochasticity alone, without sufficient discrimination speed, is insufficient for coexistence in any framework: even threshold-exceeding stochasticity cannot indefinitely prevent extinction if discrimination is too slow.  This narrows the intervention target: discrimination speed is the essential variable, and environmental manipulation is at best a complementary tool.  The sex-biased eradication strategy---in which sex-reversed individuals are introduced to drive an invasive population toward extinction by skewing the sex ratio---relies on the same dynamical mechanisms studied here.  The present results predict that target populations with slow mate discrimination are most vulnerable to such a strategy, that environments with high-amplitude (threshold-exceeding) stochasticity could stabilize coexistence and thereby undermine eradication efforts, and that the choice of stochastic framework affects quantitative predictions of the critical noise threshold but not the qualitative feasibility assessment.  These findings provide a quantitative foundation for experimental design in both conservation biology and invasive species management.
 
 
 %% =====================================================================
@@ -1030,13 +1029,13 @@ All SDE results were verified by comparing ensembles with $\Delta t$ and $\Delta
 
 \begin{table}[htbp]
   \centering
-  \caption{Calibrated $\sigma$ values matching RODE non-dissipative variance at $T/2$.  RODE ensemble: $n = 200$ paths, $\tilde{\eta}_{\max} = 0.25$, $v = 0.02$.  SDE calibration: binary search on $\sigma$ using $n = 100$ It\^{o}/common paths.}
+  \caption{Calibrated $\sigma$ values matching RODE threshold-exceeding variance at $T/2$.  RODE ensemble: $n = 200$ paths, $\tilde{\eta}_{\max} = 0.25$, $v = 0.02$.  SDE calibration: binary search on $\sigma$ using $n = 100$ It\^{o}/common paths.  The calibration targets the It\^{o}/common-noise variant; the same $\sigma$ tuple is then used for the remaining three SDE variants to hold noise amplitude constant across formulations.}
   \label{tab:calibration}
   \begin{tabular}{lcccc}
     \toprule
     SDE Formulation & $\sigma_f$ & $\sigma_m$ & $\sigma_p$ & Target Std$[f(T/2)]$ \\
     \midrule
-    All SDE variants & 0.256 & 0.256 & 0.384 & 0.031 \\
+    SDE variants (calibrated against It\^{o}/common; same $\sigma$ applied to other variants for cross-formulation comparison) & 0.256 & 0.256 & 0.384 & 0.031 \\
     \midrule
     \multicolumn{5}{l}{RODE reference: Std$[\tilde{f}(T/2)] = 9.30$ (dimensional), Mean$[\tilde{f}(T/2)] = 46.7$} \\
     \bottomrule

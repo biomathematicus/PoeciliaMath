@@ -1,0 +1,715 @@
+%\documentclass[handout]{beamer}
+\documentclass{beamer}
+\usepackage{setspace}
+\usepackage{sansmathaccent}
+\usepackage{tipa}
+\usepackage{twemojis}
+\pdfmapfile{+sansmathaccent.map}
+
+\usepackage{tikz}
+\definecolor{homepage}{RGB}{2,213,206}
+\definecolor{cblue}{RGB}{217,243,253}
+
+\usepackage{amsmath,amsthm,amssymb,beamerthemesplit,multimedia,hyperref,graphicx,booktabs,prettyref}
+\usetikzlibrary{shapes.geometric, arrows}% required to draw in tikz
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\f}{|f|^2_2}
+\newcommand{\fdt}{\frac{d \f}{d t}}
+\newcommand{\Gf}{|\nabla f|^2_2}
+\newcommand{\Df}{|\Delta f|^2_2}
+\newcommand{\ve}{\varepsilon}
+\newcommand{\lp}{|p|^2_2}
+\newcommand{\bfx}{{\bf x}}
+\newcommand{\bfn}{{\bf n}}
+\newcommand{\bfy}{{\bf y}}
+\newcommand{\bfz}{{\bf z}}
+\newcommand{\bfu}{{\bf u}}
+\newcommand{\bfv}{{\bf v}}
+\newcommand{\low}{\textnormal{\tiny\textit{low}}\hspace{-5pt}}
+\newcommand{\high}{\textnormal{\tiny \textit{high}}\hspace{-5pt}}
+\newcommand{\itn}{\textnormal{\tiny\text{ITN}}\hspace{-5pt}}
+
+\newtheorem{R0}{Definition}
+\newtheorem{R0Formal}{Definition}
+
+\usetheme{Frankfurt}% AnnArbor}% Default}% Warsaw}% CambridgeUS}% Berlin}% Antibes}% Berkeley}% Szeged}% Madrid}% 
+\usecolortheme{beaver}% crane}% orchid}% rose}% seahorse}% whale}% wolverine}% dolphin}% lily}% 
+\title{A Mathematical Theory of Discursive Networks}
+\subtitle{}
+\author{Prof. Juan B. Gutiérrez}
+\institute[UTSA]{\textsc{The University of Texas at San Antonio}}
+\date{\footnotesize January 6, 2025}
+\setbeamertemplate{footline}[page number]{}
+
+\begin{document}
+
+%-------------------------------------------------
+%\frame{\titlepage}	
+\begin{frame}
+    \titlepage
+    \vspace{-0.5cm}
+    \begin{center}
+		\includegraphics[height=1.5cm]{NIGMS.png} \hspace{2.5cm} 
+		\includegraphics[height=1.6cm]{NSF.png} \\ 
+		\footnotesize
+		\hspace{-1.2cm} 1R25GM151182 \hspace{2.8cm} 2518973
+	\end{center}
+\end{frame}
+
+%-------------------------------------------------
+\begin{frame}{Reference Material}	  
+
+	We will not show detailed proofs in this talk. \\
+	There is much to cover and not enough time. \\
+	All detailed proofs are in the manuscript.
+
+	\begin{columns}[T] % top alignment
+	\begin{column}{0.5\textwidth}
+			\includegraphics[width=\linewidth]{QR_arXiv.2507.06565.png}
+			\footnotesize QR: Version 5 posted on 7/23/2025.
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\vspace{0.3in}
+		``\emph{A Mathematical Theory of Discursive Networks},'' \href{https://arxiv.org/abs/2507.06565}{arXiv:2507.06565 [cs.CL]}
+
+		\vspace{0.2in}
+		\texttwemoji{1f916} The first manuscript in the history of science that cites itself meaningfully, written entirely by AI agents \texttwemoji{1f916}.
+	\end{column}
+	\end{columns}
+\end{frame}
+
+%%-------------------------------------------------
+\section{Intro}
+\stepcounter{subsection} 
+%-------------------------------------------------
+\frame {
+ 	\frametitle{Discursive Networks: Interactions between many humans and many machines}
+	
+	\begin{columns}[T] % top alignment
+
+		\begin{column}{0.5\textwidth}
+			
+			%\vspace{-0.1in}
+			A \textbf{discursive network} is a large-scale ecosystem of human and machine agents whose utterances circulate, reinforce, and mutate through repeated exchange. 
+
+			\vspace{0.5cm}
+
+			Machines participate in this exchange through large language models (\textbf{LLMs}), which are large artificial neural networks capable of producing linguistic outputs essentially indistinguishable from human discourse. 
+
+		\end{column}
+
+		\begin{column}{0.5\textwidth}
+			\includegraphics[width=1.1\linewidth]{figures/DiscursiveNetwork.png}
+			{\tiny \copyright 2025 Juan B. Gutiérrez. Generation: GPT API}
+		\end{column}
+
+	\end{columns}
+ 	  
+}
+
+%-------------------------------------------------
+\frame {
+ 	\frametitle{Engaging LLMs}
+	
+	\begin{columns}[T] % top alignment
+
+		\begin{column}{0.5\textwidth}
+			\vspace{0.7cm}
+			LLMs support a range of functional output types that can be systematically grouped into three core categories: 
+			\begin{itemize}
+				\item \textbf{ideation} (constructive synthesis),
+				\item \textbf{critique} (diagnostic evaluation), and 
+				\item \textbf{product-oriented generation} (goal-directed deliverables).
+			\end{itemize}
+
+		\end{column}
+
+		\begin{column}{0.5\textwidth}
+			\vspace{-1cm}
+			\includegraphics[width=\linewidth]{figures/EngagingLLMs.png}
+			{\tiny \copyright 2025 Juan B. Gutiérrez. Generation: GPT API}
+		\end{column}
+
+	\end{columns}
+ 	  
+}
+
+%-------------------------------------------------
+\frame {
+ 	\frametitle{From Hallucination to Invalidation}
+	
+	\begin{columns}[T] % top alignment
+
+		\begin{column}{0.6\textwidth}
+			\vspace{0.5cm}\hspace{-2.1cm}
+			\includegraphics[width=1.3\linewidth]{figures/LLMInvalidations.png} \\
+			{\tiny \copyright 2025 Juan B. Gutiérrez. Generation: GPT API}
+		\end{column}
+
+		\begin{column}{0.4\textwidth}
+			\vspace{0.5cm}
+			LLMs are prone to generating false or misleading statements, a phenomenon often referred to as ``\textbf{hallucinations}''.
+
+			\vspace{0.5cm}
+
+			The metaphor of hallucination is limited: it implies a private sensory distortion, whereas an unfounded LLM assertion can be circulated, cited, and acted upon as fact.
+
+		\end{column}
+
+	\end{columns}
+ 	  
+}
+
+%-------------------------------------------------
+\begin{frame}{From Hallucination to Invalidation}
+\textbf{Invalidation} = Any output violating constraints of facts, logic, norms, formats
+
+\begin{columns}[T] % top alignment
+  \begin{column}{0.5\textwidth}
+    \includegraphics[width=1.1\linewidth]{invalidations.png}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+	\vspace{-0.1in}
+    \begin{itemize}
+      \item \textbf{Hallucination}: content introduced without grounding
+      \item \textbf{Contradiction}: statements that conflict
+      \item \textbf{Deductive error}: conclusion failing to follow from premises
+      \item \textbf{Pragmatic impropriety}: output violating norms
+      \item \textbf{Format violation}: output breaking format constraints
+    \end{itemize}
+  \end{column}
+\end{columns}
+\end{frame}
+
+%-------------------------------------------------
+\frame {
+ 	  \frametitle{Key Concept: Invalidation in Large Language Models}
+ 	  
+ 	  \begin{itemize}
+ 	  	\item LLMs generate human-like text but produce \textbf{invalidations} (false/misleading statements). Traditional term ``hallucination'' is too narrow
+ 	  	\item \textbf{Invalidation} encompasses: factual errors, logical contradictions, format violations, ethical breaches
+ 	  	\item These errors propagate through interconnected communication systems
+ 	  \end{itemize}
+ 	  
+}
+
+%-------------------------------------------------
+\frame {
+ 	  \frametitle{Key questions: }
+ 	  
+ 	  \begin{itemize}
+ 	  	\item How to characterize mathematically a discursive network?
+ 	  	\vspace{0.5cm}
+ 	  	\item How do invalidations propagate in a discursve network?
+ 	  	\vspace{0.5cm}
+ 	  	\item Are there mathematically-driven strategies to minimize presence of invalidations int he final state of a discursive exchange?		
+ 	  \end{itemize}
+ 	  
+}
+
+
+%%-------------------------------------------------
+\section{Framework}
+\stepcounter{subsection}
+%-------------------------------------------------
+\frame {
+ 	  \frametitle{Discursive Networks}
+ 	  
+ 	  \textbf{Definition:} A discursive network is a structure $N = (S, P, I, C, A, B, U, G)$ where:
+ 	  
+ 	  \begin{itemize}
+ 	  	\item $S$ = set of statements 
+ 	  	\item $P$ = persuasion functions
+ 	  	\item $I$ = invalidation mechanisms
+ 	  	\item $C$ = communications between actors
+ 	  	\item $A$ = set of actors (humans, LLMs)
+ 	  	\item $B$ = beliefs
+ 	  	\item $U$ = update rules
+ 	  	\item $G$ = goal functions
+ 	  \end{itemize}
+ 	  
+ 	  \vspace{0.3cm}
+ 	  
+ 	  \textbf{Key insight:} (i) The medium (LLM) acts on the message, not just transmits it. (ii) To communicate is to err: \textipa{[spi:k @ b2g]}
+}
+%-------------------------------------------------
+\frame {
+ 	  \frametitle{Invalidation Floor Theorem}
+ 	  Given:
+ 	  \begin{itemize}
+		\item  $\mathrm{KL}(Q \parallel P_{\theta})$: Kullback-Leibler divergence from the reference distribution $Q$ to the model distribution $P_{\theta}$.
+ 	  	\item $Q$ = training distribution
+ 	  	\item $P_{\theta}$ = trained model distribution
+ 	  	\item $S$ = set of all invalidations
+ 	  	\item $q = Q(S)$ = fraction of invalid content in training
+ 	  \end{itemize}
+ 	  
+ 	  \textbf{Lemma:} If $P_{\theta} \ll Q$ and $\mathrm{KL}(Q \parallel P_{\theta}) < \infty$, then
+ 	  $$P_{\theta}(S) \geq q \exp\left(-\frac{\mathrm{KL}(Q \parallel P_{\theta})}{q}\right)$$
+ 	  
+ 	  
+ 	  \vspace{0.3cm}
+ 	  
+ 	  \textbf{Consequence:} Zero invalidation probability is impossible for finite-loss models
+}
+
+%-------------------------------------------------
+\frame {
+      \frametitle{Verification Advantage Theorem}
+      Given:
+      \begin{itemize}
+        \item $(L_g, Y_g)$,  $(L_v, Y_v)$: joint random variables: length and content
+        \item $P_g^{(n)}$,  $P_v^{(n)}$: cond. dist. $P(Y_g|L_g=n)$ \& $P(Y_v|L_v=n)$
+        \item $\pi_g(n)$, $\pi_v(n)$: length distributions $P(L_g=n)$ \& $P(L_v=n)$
+      \end{itemize}
+     
+      \textbf{Theorem:} The entropy difference decomposes as:
+	 
+	  \begin{align}
+		H(L_g, Y_g) - H(L_v, Y_v) = &  H(L_g) - H(L_v) + \sum_{n} \pi_g(n)H(Y_g|L_g = n) \nonumber \\
+		& - \sum_{n} \pi_v(n)H(Y_v|L_v = n) \nonumber	  
+	  \end{align}
+      
+      \vspace{0.2cm}
+      
+      \textbf{Consequence:} Detection rates $d$ can systematically exceed fabrication rates $\lambda$
+}
+
+
+%-------------------------------------------------
+\frame {
+      \frametitle{Verification Advantage: Intuition}
+      
+      \textbf{Core Insight:} It's easier to spot a mistake than to avoid making one.
+      
+      \vspace{0.3cm}
+      
+      \textbf{The Decomposition:}
+      \begin{itemize}
+        \item Total uncertainty = Length uncertainty + Content uncertainty
+        \item Applies identically to generation and verification tasks
+        \item But the \emph{magnitudes} differ dramatically in practice
+      \end{itemize}
+      
+      \vspace{0.3cm}
+      
+      \textbf{Empirical Asymmetry:}
+      \begin{itemize}
+        \item \textbf{Generation}: Probability spread across thousands of valid phrasings
+        \item \textbf{Verification}: $>$90\% of probability mass on 2--3 tokens (Yes/No)
+      \end{itemize}
+      
+      \vspace{0.2cm}
+      
+      $\Rightarrow$ Verification operates in a \emph{low-entropy regime} where reliable outputs are easier to produce.
+}
+
+%-------------------------------------------------
+\frame {
+      \frametitle{Verification Advantage: Implications}
+      
+      \textbf{Analogy: Writing vs.\ Proofreading}
+      \begin{itemize}
+        \item \textbf{Writing}: Vast landscape of choices $\rightarrow$ probability spread thin
+        \item \textbf{Proofreading}: Binary classifier at each checkpoint $\rightarrow$ concentrated outputs
+      \end{itemize}
+      
+      \vspace{0.3cm}
+      
+      \textbf{Why Multi-Agent Verification Works:}
+      \begin{itemize}
+        \item Agens have nonzero `invalidation floor' (errors inevitable)
+        \item But when Agent B \emph{critiques} Agent A, it operates in verification mode
+        \item Detection rate $d$ can exceed fabrication rate $\lambda$
+      \end{itemize}
+      
+      \vspace{0.3cm}
+      
+      \textbf{FOO Algorithm Consequence:}
+      \[
+        \pi_f^{(n)} = \frac{p + \lambda}{p + \lambda + q + (n-1)d}
+      \]
+      
+      Adding verifiers reduces error \emph{hyperbolically} $\rightarrow$ systematic improvement even with imperfect agents.
+}
+
+
+%-------------------------------------------------
+\frame {
+ 	  \frametitle{Verification Advantage}
+ 	  
+ 	  \textbf{Information-theoretic insight:} Verification is easier than generation
+ 	  
+ 	  \begin{itemize}
+ 	  	\item \textbf{Generation:} Explores long tail of output distribution
+ 	  	\item \textbf{Verification:} Operates in high-probability regions. Critique patterns (``One limitation is...'') are frequent in training data
+ 	  \end{itemize}
+ 	  
+ 	  \vspace{0.5cm}
+ 	  
+ 	  \textbf{Empirical evidence:}
+ 	  \begin{itemize}
+ 	  	\item Detection rates $d$ usually exceed fabrication rates $\lambda$
+ 	  \end{itemize}
+}
+
+%-------------------------------------------------
+\frame {
+ 	  \frametitle{Single Network Model}
+ 	  
+ 	  Binary state system with statements $S = \{r, f\}$ (true/false):
+ 	  
+ 	  $$\boldsymbol{\pi}(t+1) = T \boldsymbol{\pi}(t), \quad T = \begin{pmatrix}
+ 	  1-(p+\lambda) & q \\
+ 	  p+\lambda & 1-q
+ 	  \end{pmatrix}$$
+ 	  
+ 	  where:
+ 	  \begin{itemize}
+ 	  	\item $p$ = flip rate: intrinsic truth $\to$ false 
+ 	  	\item $q$ = internal self-correction rate  
+ 	  	\item $\lambda$ = fabrication (invalidation) rate
+ 	  \end{itemize}
+ 	  
+ 	  \textbf{Fixed point:}
+ 	  $$\pi_f^* = \frac{p+\lambda}{p+\lambda+q}, \quad \pi_r^* = \frac{q}{p+\lambda+q}$$
+}
+
+%-------------------------------------------------
+\frame {
+ 	  \frametitle{Cross-Network Detection Model}
+ 	  
+ 	  Two networks $N_1, N_2$ with cross-detection probability $d$:
+ 	  
+ 	  \textbf{Key dynamics:}
+ 	  \begin{itemize}
+ 	  	\item Each network generates fabrications: $X_k(t) \sim \text{Poisson}(\lambda_k T_k(t))$
+ 	  	\item Cross-detection: $Y_{jk}(t) \sim \text{Binomial}(F_k(t), d_{jk})$
+ 	  	\item Internal flips: $Z_k(t) \sim \text{Binomial}(T_k(t), p_k)$, $W_k(t) \sim \text{Binomial}(F_k(t), q_k)$
+ 	  \end{itemize}
+ 	  
+ 	  \textbf{Equilibrium false share:}
+ 	  $$\pi_{F,k}^* = \frac{\lambda_k}{d_{jk}}$$
+ 	  
+ 	  \textbf{Condition for improvement:} $\frac{\lambda}{d} < \frac{p+\lambda}{p+\lambda+q}$
+}
+
+%-------------------------------------------------
+\frame {
+ 	  \frametitle{Regime Transitions}
+ 	  
+ 	  \begin{center}
+ 	  \begin{tikzpicture}[scale=1.2]
+ 	  	% Axes
+ 	  	\draw[->] (0,0) -- (6,0) node[right] {$\lambda/d$};
+ 	  	\draw[->] (0,0) -- (0,4) node[above] {$\pi_f$};
+ 	  	
+ 	  	% Regions
+ 	  	\fill[blue!20] (0,0) rectangle (2.5,4);
+ 	  	\fill[red!20] (2.5,0) rectangle (6,4);
+ 	  	
+ 	  	% Boundary line
+ 	  	\draw[thick, dashed] (2.5,0) -- (2.5,4);
+ 	  	\node at (2.5,-0.3) {$\frac{p}{p+q}$};
+ 	  	
+ 	  	% Labels
+ 	  	\node[blue] at (1.25,3.5) {\textbf{Truth-dominant}};
+ 	  	\node[red] at (4.25,3.5) {\textbf{Error-dominant}};
+ 	  	
+ 	  	% Curve showing false share
+ 	  	\draw[thick] (0.5,3.5) to[out=-30,in=120] (2.4,1.5) to[out=-30,in=180] (5.5,0.5);
+ 	  \end{tikzpicture}
+ 	  \end{center}
+ 	  
+ 	  \textbf{Critical threshold:} When $\lambda/d < p/(p+q)$, system becomes truth-dominant
+}
+
+%-------------------------------------------------
+\frame {
+ 	  \frametitle{Flaws-of-Others (FOO) Algorithm}
+ 	  
+ 	  \textbf{Protocol:}
+ 	  \begin{enumerate}
+ 	  	\item \textbf{Broadcast:} User task sent to all agents
+ 	  	\item \textbf{Cross-examination:} Each agent critiques peers' outputs
+ 	  	\item \textbf{Harmonization:} Aggregate critiques into judgment
+ 	  	\item \textbf{Revision:} Agents revise based on feedback
+ 	  	\item Repeat until convergence
+ 	  \end{enumerate}
+ 	  
+ 	  \vspace{0.3cm}
+ 	  
+ 	  \textbf{Key features:}
+ 	  \begin{itemize}
+ 	  	\item Model-agnostic (any LLM backend)
+ 	  	\item Configurable agent ensemble
+ 	  	%\item Cryptographic integrity verification
+ 	  	\item Implements cross-detection hazard $d$
+ 	  \end{itemize}
+}
+
+%-------------------------------------------------
+\frame {
+ 	  \frametitle{Flaws-of-Others (FOO) Algorithm}
+ 	  
+	  \begin{center}
+		\includegraphics[width=0.43\linewidth]{figures/FOO.png}
+	  \end{center}
+	  
+}
+
+
+
+%%-------------------------------------------------
+\section{Results}
+\stepcounter{subsection}
+%%-------------------------------------------------
+%\section{FOO Algorithm}
+%\stepcounter{subsection}
+%-------------------------------------------------
+% \frame {
+%  	  \frametitle{Integrity Verification}
+ 	  
+%  	  \textbf{Problem:} How to ensure authentic agent contributions?
+ 	  
+%  	  \textbf{Solution:} Blockchain-based interaction logging
+ 	  
+%  	  \begin{itemize}
+%  	  	\item Each message gets cryptographic hash
+%  	  	\item Chain links prevent post-hoc tampering  
+%  	  	\item Tamper detection: ``LOG TAMPERED. TRUST HAS BEEN BREACHED''
+%  	  	\item Prevents \textbf{epithesis} (claiming credit without contribution)
+%  	  \end{itemize}
+ 	  
+%  	  \vspace{0.3cm}
+ 	  
+%  	  \textbf{Hash chain:} $h_b = H(h_c \parallel h_b(\text{prev}) \parallel \sigma)$
+ 	  
+%  	  where $h_c$ = content hash, $\sigma$ = global salt
+% }
+
+%%-------------------------------------------------
+%\section{Computations}
+%\stepcounter{subsection}
+%-------------------------------------------------
+\frame {
+ 	  \frametitle{Parameter Calibration}
+ 	  
+ 	  \begin{table}[h]
+ 	  \centering
+ 	  \begin{tabular}{lll}
+ 	  \toprule
+ 	  Parameter & Value & Source/Justification \\
+ 	  \midrule
+ 	  $p$ & 0.02 & Truth$\to$false slip rate \\
+ 	  $q$ & 0.05 & Self-correction (AUROC $\approx$ 0.55) \\
+ 	  $\lambda$ & 0.055 & Medical error studies (26-61\%) \\
+ 	  $d$ & 0.19 & Cross-detection threshold \\
+ 	  \bottomrule
+ 	  \end{tabular}
+ 	  \end{table}
+ 	  
+ 	  \textbf{Single network prediction:} $\pi_f = 0.60$ (error-dominant)
+ 	  
+ 	  \textbf{Dual network prediction:} $\pi_f = 0.29$ (truth-dominant)
+ 	  
+ 	  \textbf{51\% relative reduction} in false statements through cross-detection
+}
+
+%-------------------------------------------------
+\frame {
+ 	  \frametitle{Simulation Results}
+ 	  
+ 	  \begin{center}
+	  \hspace*{-0.22in}
+ 	  \includegraphics[width=1.1\textwidth]{simulation_comparison.png}
+ 	  \end{center}
+ 	   \footnotesize
+ 	  \textbf{Monte Carlo validation:}
+ 	  \begin{itemize}
+ 	  	\item Single network: $\hat{\pi}_f = 0.597 \pm 0.018$ 
+ 	  	\item Dual network: $\hat{\pi}_f = 0.287 \pm 0.015$ 
+ 	  \end{itemize}
+}
+
+%-------------------------------------------------
+\frame {
+ 	  \frametitle{Agent Requirements}
+ 	  
+ 	  \textbf{Theorem:} To achieve false share $\leq \varepsilon$, need at least:
+ 	  
+ 	  $$n_{\min} = \left\lceil 1 + \frac{(p+\lambda)\left(\frac{1}{\varepsilon}-1\right) - q}{d} \right\rceil$$
+ 	  
+ 	  agents with cross-detection rate $d$.
+ 	  
+ 	  \vspace{0.5cm}
+ 	  
+ 	  \textbf{Example:} For 5\% error rate with parameters
+ 	  \begin{itemize}
+ 	  	\item $p = 0.02$, $q = 0.05$, $\lambda = 0.055$, $d = 0.19$
+ 	  	\item Need $n_{\min} = 9$ mutually detecting agents
+ 	  \end{itemize}
+ 	  
+ 	  \textbf{Scaling:} Linear growth in $1/\varepsilon$ makes high reliability tractable
+}
+
+%-------------------------------------------------
+\frame {
+ 	  \frametitle{Agent Requirements}
+ 	  
+	  \begin{center}
+		\includegraphics[width=0.7\linewidth]{figures/FOO_Agent_Count.png}
+	  \end{center}
+
+ 	  \textbf{Example:} For 5\% error rate with parameters
+ 	  \begin{itemize}
+ 	  	\item $p = 0.02$, $q = 0.05$, $\lambda = 0.055$, $d = 0.19$
+ 	  	\item Need $n_{\min} = 9$ mutually detecting agents
+ 	  \end{itemize}	  
+}
+
+
+%%-------------------------------------------------
+\section{Ethics}
+\stepcounter{subsection}
+%-------------------------------------------------
+\frame {
+ 	  \frametitle{Ethical Concerns}
+ 	  
+ 	  \textbf{Epithesis:} Claiming authorship without genuine contribution
+ 	  
+ 	  \textbf{Energy costs:} $O(N^2 \log N)$ computational complexity
+ 	  
+ 	  \textbf{Epistemic diversity:} Risk of homogenization through consensus
+ 	  
+ 	  \textbf{Privacy:} Cross-agent visibility increases attack surface
+ 	  
+ 	  \vspace{0.5cm}
+ 	  
+ 	  \textbf{Mitigation strategies:}
+ 	  \begin{itemize}
+ 	  	\item Cryptographic integrity verification
+ 	  	\item Governance frameworks for fair access
+ 	  	\item Diversity-preserving consensus mechanisms
+ 	  	\item Privacy-preserving critique protocols
+ 	  \end{itemize}
+}
+
+%-------------------------------------------------
+\frame {
+ 	  \frametitle{Cultural Implications}
+ 	  
+ 	  \textbf{We have entered a new cultural mode:}
+ 	  
+ 	  \begin{itemize}
+ 	  	\item Writing is now \textbf{co-constructed} with machines
+ 	  	\item Authorship becomes \textbf{distributed} across agents
+ 	  	\item Traditional metrics (originality, citations) need updating
+ 	  	\item The medium itself \textbf{acts on the message}
+ 	  \end{itemize}
+ 	  
+ 	  \vspace{0.5cm}
+ 	  
+ 	  \textbf{Future research directions:}
+ 	  \begin{enumerate}
+ 	  	\item Cultural assimilation and ethical frameworks
+ 	  	\item Redesign of quality metrics for co-creative medium
+ 	  	\item Governance of distributed agency
+ 	  \end{enumerate}
+}
+
+%%-------------------------------------------------
+\section{Conclusions}
+\stepcounter{subsection}
+%-------------------------------------------------
+\frame {
+ 	\frametitle{We are learning a new medium}
+
+	It took millenia to learn the old medium (cfr. McLluhan's ``\textit{the medium is the message},'' 1964). In discursive networks, \textbf{the medium acts on the message}.
+
+	\vspace{0.5cm}
+	
+	\begin{columns}[T] % top alignment
+	\begin{column}{0.5\textwidth}
+		\includegraphics[width=1.1\linewidth]{figures/ScriptumContinua.jpg}
+		{\tiny
+		Scriptum Continua. MediaWiki. Public domain.  Accessed on June, 2025 \href{https://commons.wikimedia.org/wiki/File:Vergilius_Augusteus,_Georgica_141.jpg}{Vergilius\_Augusteus,\_Georgica\_141.jpg}  }
+
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\vspace{-0.1in} 
+		\begin{itemize}
+			\item Space between words: 7th--8th century. 
+			\item Table of contents: Pliny’s Natural History (77 CE)
+			\item Punctuation: 17th century
+			\item \textit{et cetera}.
+		\end{itemize}
+	\end{column}
+	\end{columns}
+
+	\vspace{0.5cm}
+
+	We are just learning  how to interact wit LLMs. This landscape will continute to evolve for some time. Thus, consider this talk (and all current knowedge) as preliminary. 
+	
+}
+
+%-------------------------------------------------
+\frame {
+ 	  \frametitle{Main Contributions}
+ 	  
+ 	  \begin{enumerate}
+ 	  	\item \textbf{Mathematical framework} for invalidation dynamics
+ 	  	\item \textbf{Impossibility result}: Zero error rate unattainable
+ 	  	\item \textbf{Cross-detection advantage}: External validation reduces errors
+ 	  	\item \textbf{Verification Advantage Theorem}: Detection inherently easier than generation
+ 	  	\item \textbf{Scaling laws}: Linear growth in agent requirements
+ 	  	\item \textbf{Practical algorithm}: FOO with integrity verification
+ 	  \end{enumerate}
+ 	  
+ 	  \vspace{0.5cm}
+ 	  
+ 	  \textbf{Key insight:} Reliability comes not from perfecting single models, but from connecting imperfect ones into networks with mutual accountability.
+}
+
+%-------------------------------------------------
+\frame {
+ 	  \frametitle{Future Work}
+ 	  
+ 	  \textbf{Theoretical extensions:}
+ 	  \begin{itemize}
+ 	  	\item Heterogeneous agent capabilities
+ 	  	\item Time-varying detection rates
+ 	  	\item Network topology effects
+ 	  	\item Multi-scale invalidation dynamics
+ 	  \end{itemize}
+ 	  
+ 	  \textbf{Empirical validation:}
+ 	  \begin{itemize}
+ 	  	\item Direct parameter measurement in controlled experiments
+ 	  	\item Live A/B testing of FOO algorithm
+ 	  	\item Cross-domain application studies
+ 	  \end{itemize}
+ 	  
+ 	  \textbf{Applications:} Scientific writing, fact-checking, collaborative AI systems
+}
+
+%-------------------------------------------------
+\frame {
+	\frametitle{}	  
+
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=0.5\linewidth]{QR_biomathematicus.png}
+	\end{figure}
+	\begin{center}
+		\textbf{Thanks for your attention!} \\ \vspace{0.1in}		
+		Juan B Gutiérrez\\ \vspace{0.1in}		
+		\url{juan.gutierrez3@utsa.edu}
+\end{center}
+}
+
+
+\end{document}
