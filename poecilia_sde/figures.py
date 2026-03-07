@@ -143,8 +143,8 @@ def fig03_sigmoid_gamma():
     fig, axes = plt.subplots(1, 2, figsize=(10, 4), sharey=True)
     for ax, v_val, title in zip(axes,
                                  [params.v_slow, params.v_fast],
-                                 ['(a) $v = 0.02$ (slow) — Extinction',
-                                  '(b) $v = 0.20$ (fast) — Coexistence']):
+                                 ['(a) $v = 0.02$ (slow) - Extinction',
+                                  '(b) $v = 0.20$ (fast) - Coexistence']):
         t, y = _solve_dimensional_det(params, v=v_val)
         ax.plot(t, y[0], color=COLORS['f_pop'], label='$\\tilde{f}$')
         ax.plot(t, y[1], color=COLORS['m_pop'], label='$\\tilde{m}$')

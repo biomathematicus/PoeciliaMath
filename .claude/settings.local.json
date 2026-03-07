@@ -5,7 +5,11 @@
       "Bash(python:*)",
       "Bash(set:*)",
       "Bash(tasklist:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(python3:*)",
+      "Bash(py -3 -c:*)",
+      "Bash(py -3:*)",
+      "Bash(grep:*)"
     ]
   }
 }
