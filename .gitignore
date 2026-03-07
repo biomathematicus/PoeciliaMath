@@ -13,6 +13,7 @@ nul
 *.cb
 *.cb2
 .*.lb
+# references/
 
 ## Intermediate documents:
 *.dvi
