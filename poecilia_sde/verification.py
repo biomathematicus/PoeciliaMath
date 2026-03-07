@@ -101,14 +101,17 @@ def V3_bordered_hessian():
 
     det_H = sp.simplify(H_bar.det())
 
+    beta_sym = sp.Symbol('beta', positive=True)
+    expected = beta_sym**2
+    check = sp.simplify(det_H - expected) == 0
     result = {
         'bordered_hessian_det': str(det_H),
-        'det_equals_1': bool(sp.simplify(det_H - 1) == 0),
-        'status': 'PASS' if sp.simplify(det_H - 1) == 0 else 'CORRECTED',
+        'det_equals_beta_squared': check,
+        'status': 'PASS' if check else 'FAIL',
         'actual_value': str(det_H)
     }
     print(f"  V3: |H_bar| = {det_H}")
-    print(f"      Equals 1: {result['det_equals_1']}")
+    print(f"      Equals beta^2: {result['det_equals_beta_squared']}")
     print(f"      Status: {result['status']}")
     return result
 
