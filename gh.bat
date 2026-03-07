@@ -60,10 +60,7 @@ echo !HASH! %DATE% %TIME%> !VERSIONFILE!
 
 rem ---- Update % GITCOMMIT: line in the .tex file (if it exists) ----
 if exist !TEXFILE! (
-    powershell -NoProfile -Command ^
-        "(Get-Content '!TEXFILE!') ^
-         -replace 'GITCOMMIT:.*', 'GITCOMMIT: !HASH!' ^
-         | Set-Content '!TEXFILE!'"
+    powershell -NoProfile -Command "(Get-Content '!TEXFILE!') -replace 'GITCOMMIT:.*', 'GITCOMMIT: !HASH!' | Set-Content '!TEXFILE!'"
     echo [gh] Updated GITCOMMIT in !TEXFILE!
 ) else (
     echo [gh] WARNING: !TEXFILE! not found -- GITCOMMIT line not updated.
