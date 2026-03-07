@@ -93,11 +93,13 @@ echo.
 echo   Before evaluating any inputs or producing outputs, search
 echo   project knowledge for "GITCOMMIT !WORKHASH!" and confirm
 echo   that the search returns a result containing that exact string.
-echo   If the search returns an older hash or nothing, the project
-echo   knowledge base has not yet re-indexed -- wait ~5 minutes and
-echo   run  gh  (pull-only) to get a fresh prompt before proceeding.
 echo.
 echo   Current commit: !WORKHASH!
 echo =================================================================
 echo.
+echo   If the search returns an older hash or nothing, the project
+echo   knowledge base has not yet re-indexed -- wait ~5 minutes and
+echo   run  gh  (pull-only) to get a fresh prompt before proceeding.
+echo.
+
 goto :EOF
