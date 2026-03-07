@@ -88,60 +88,203 @@ The remainder of this paper is organized as follows.  Section~2 presents the bio
 %% =====================================================================
 \section{Biological Model}
 %% =====================================================================
+
 %---------------------------------------------------------------
 \subsection{Mechanistic Derivation of the Mathematical Models}
 %---------------------------------------------------------------
-  The construction of a Trojan Y Chromosome mathematical model uses the principle of mass action. This framework is based upon the interaction of gametes within a population of mating individuals, and provides a means to derive the equations used in the Trojan Y Chromosome ordinary differential equation model.
+
+The dimensional model is constructed from first principles using the
+mass-action framework~\citep{Buckingham1914}, in which birth events arise
+from encounters between individuals and the rate of each encounter type is
+proportional to the product of the interacting population sizes.  The
+derivation proceeds from four simplifying assumptions.
+
+\begin{enumerate}
+  \item \textbf{Common vital rates.}  All individuals, regardless of
+    genotype, share a single per-capita birth coefficient $\tilde{\beta}$
+    (proportional to offspring viability) and a single per-capita death
+    coefficient $\tilde{\delta}$ (mortality from predation, disease, and
+    senescence).
+
+  \item \textbf{Sperm limitation.}  Sperm is the limiting resource in the
+    mating pool.  A bisexual male allocates his total mating effort across
+    all female encounters; the discrimination factor $\gamma \in (0,1]$
+    defines the fraction of that effort directed toward unisexual females
+    $\tilde{p}$.  The complementary fraction $(1-\gamma)$ is directed
+    toward bisexual females $\tilde{f}$.  Consequently, the effective
+    number of bisexual females competing for male mating effort is
+    $\tilde{f} - \gamma\tilde{p}$: the total bisexual female population
+    minus the portion of unisexuals that divert male attention.
+
+  \item \textbf{Pedigree-determined offspring sex.}  From the mating
+    pedigrees (Figure~\ref{fig:pedigrees}): (a)~a bisexual male--bisexual
+    female encounter produces a fraction $a$ of female offspring and a
+    fraction $(1-a)$ of male offspring; (b)~a bisexual male--unisexual
+    female encounter produces only unisexual female offspring via
+    gynogenesis, with no paternal genetic contribution to the progeny.
+
+  \item \textbf{Logistic density dependence.}  All populations share the
+    carrying capacity $\tilde{K}$, entering through the logistic factor
+    $\tilde{L} = 1 - (\tilde{f}+\tilde{m}+\tilde{p})/\tilde{K}$, which
+    limits total population growth as the system approaches its
+    environmental ceiling.
+\end{enumerate}
+
+\noindent\textbf{Birth terms.}
+Applying mass action to each mating type and invoking Assumptions 2--4,
+the birth contribution to each population per unit time is:
+%
+\begin{align}
+  \text{bisexual females born:}   &\quad
+    a\,\tilde{\beta}\,\tilde{L}\,\tilde{m}\,(\tilde{f}-\gamma\tilde{p}),
+    \label{eq:birth_f} \\[4pt]
+  \text{bisexual males born:}     &\quad
+    (1-a)\,\tilde{\beta}\,\tilde{L}\,\tilde{m}\,(\tilde{f}-\gamma\tilde{p}),
+    \label{eq:birth_m} \\[4pt]
+  \text{unisexual females born:}  &\quad
+    \gamma\,\tilde{\beta}\,\tilde{L}\,\tilde{m}\,\tilde{p}.
+    \label{eq:birth_p}
+\end{align}
+%
+Equations~\eqref{eq:birth_f} and~\eqref{eq:birth_m} share the encounter
+pool $(\tilde{f}-\gamma\tilde{p})$ because both bisexual sexes arise
+exclusively from bisexual matings.  Equation~\eqref{eq:birth_p} has its
+own encounter pool $\tilde{m}\tilde{p}$, scaled by $\gamma$, because every
+sperm-triggered gynogenetic event between a male and a $P.~formosa$ female
+produces only $P.~formosa$ offspring.
+
+\noindent\textbf{Death terms.}
+Each population declines at per-capita rate $\tilde{\delta}$, giving death
+contributions $-\tilde{\delta}\tilde{f}$, $-\tilde{\delta}\tilde{m}$, and
+$-\tilde{\delta}\tilde{p}$ respectively.
+
+\noindent\textbf{The discrimination factor $\gamma$ and its dependence on
+population context.}  In full generality, $\gamma$ is a function of two
+population-level quantities: the parasite population size $\tilde{p}$ and
+the male-to-female ratio $\rho = \tilde{m}/(\tilde{f}+\tilde{p})$.
+The dependence on $\tilde{p}$ captures the well-documented
+population-dependent preference of host males for conspecific females: when
+$\tilde{p}$ is small, males encounter few unisexuals and mate
+indiscriminately ($\gamma \approx \gamma_o$); when $\tilde{p}$ is large,
+males strongly avoid unisexuals ($\gamma \approx \gamma_\infty$)
+\citep{Balsano1989}.  The dependence on $\rho$ reflects a second
+behavioral mechanism: \citet{Riesch2008} report, following field sampling
+across five Texas sites throughout the breeding season, that males become
+less discriminating as they become proportionally rare relative to the
+total female pool---a pattern consistent with earlier observations in the
+bark beetle \textit{Ips acuminatus}~\citep{Loyning1996}.  Mechanistically,
+a male facing a high per-capita encounter load bears a greater cost of
+rejecting any female, which erodes the discrimination threshold.
+
+The present analysis adopts the biologically motivated reduction
+$\gamma = \gamma(\tilde{p})$, treating the male-to-female ratio as a
+source of model uncertainty rather than an explicitly parameterized
+feedback.  This reduction is justified on two grounds.  First, the
+Riesch data are observational rather than experimental: the seasonal
+decline in sperm acquisition is confounded with late-season reproductive
+physiology and cannot, from available data alone, be used to calibrate an
+independent $\rho$-response function.  Second, and importantly, the
+Riesch field data show that discrimination against $P.~formosa$ persists
+even when males are exceedingly rare late in the season, indicating that
+the $\tilde{p}$-dependent mechanism is the dominant effect and the
+$\rho$-dependent modulation is secondary.  The consequences of
+incorporating the full $\gamma(\tilde{p}, \rho)$ structure are discussed
+in Section~\ref{sec:discussion} as a testable extension of the model.
+
+\noindent\textbf{The dimensional system.}
+Combining birth and death contributions from
+Equations~\eqref{eq:birth_f}--\eqref{eq:birth_p} yields the
+dimensional system:
+%
+\begin{align}
+  \frac{d\tilde{f}}{dt} &=
+    a\,\tilde{\beta}\,\tilde{L}\,\tilde{m}
+    \!\left(\tilde{f}-\gamma\tilde{p}\right)
+    - \tilde{\delta}\,\tilde{f},
+    \label{eq:dim_f}\\[4pt]
+  \frac{d\tilde{m}}{dt} &=
+    (1-a)\,\tilde{\beta}\,\tilde{L}\,\tilde{m}
+    \!\left(\tilde{f}-\gamma\tilde{p}\right)
+    - \tilde{\delta}\,\tilde{m},
+    \label{eq:dim_m}\\[4pt]
+  \frac{d\tilde{p}}{dt} &=
+    \gamma\,\tilde{\beta}\,\tilde{L}\,\tilde{m}\,\tilde{p}
+    - \tilde{\delta}\,\tilde{p},
+    \label{eq:dim_p}\\[4pt]
+  \tilde{L} &= 1 - \frac{\tilde{f}+\tilde{m}+\tilde{p}}{\tilde{K}},
+    \notag
+\end{align}
+%
+where tildes denote dimensional quantities throughout.  The system is
+non-dimensionalized by the rescaling
+%
+\begin{equation}\label{eq:nondim}
+  u_i = \frac{\tilde{u}_i}{\tilde{K}}, \qquad
+  \tau  = \tilde{\delta}\,t, \qquad
+  \beta = \frac{\tilde{\beta}\,\tilde{K}}{\tilde{\delta}},
+\end{equation}
+%
+following Buckingham's $\Pi$ theorem~\citep{Buckingham1914}, which
+reduces the four independent dimensional parameters
+$(\tilde{\beta},\tilde{\delta},\tilde{K},a)$ to the single composite
+$\beta = \tilde{\beta}\tilde{K}/\tilde{\delta}$.  Setting $\tilde{\delta}=1$
+by the rescaling of time, the non-dimensional system is presented in full
+in the following subsection.
+
+% %---------------------------------------------------------------
+% \subsection{Mechanistic Derivation of the Mathematical Models}
+% %---------------------------------------------------------------
+%   The construction of a Trojan Y Chromosome mathematical model uses the principle of mass action. This framework is based upon the interaction of gametes within a population of mating individuals, and provides a means to derive the equations used in the Trojan Y Chromosome ordinary differential equation model.
   
-Consider the population as a mixture of fish with different genotypes, each contributing their gametes to a common mating pool. The progeny arising from this common mating pool at each generation could be calculated provided that  (i) the fraction of each parental genotype in the population is known, and (ii) the distribution of different progeny genotypes is known for each of the possible mating pairs in the population. In this approach, the population is considered as a collection of different Punnet Squares, each representing a mating.  By knowing the frequency that each parent occurs within each Punnet Square, we can calculate the distribution of progeny genotypes for the common mating pool. We can then apply this distribution to the new births that are expected at each generation giving us the exact number of new fish (births) expected for each genotype. 
+% Consider the population as a mixture of fish with different genotypes, each contributing their gametes to a common mating pool. The progeny arising from this common mating pool at each generation could be calculated provided that  (i) the fraction of each parental genotype in the population is known, and (ii) the distribution of different progeny genotypes is known for each of the possible mating pairs in the population. In this approach, the population is considered as a collection of different Punnet Squares, each representing a mating.  By knowing the frequency that each parent occurs within each Punnet Square, we can calculate the distribution of progeny genotypes for the common mating pool. We can then apply this distribution to the new births that are expected at each generation giving us the exact number of new fish (births) expected for each genotype. 
 
-The initial population consists of only males ($m$) and females ($f$) (two genotypes XY and XX, and one possible mating pair), and with even sex ratios, none of the sexes can have a population greater than half the carrying capacity $K$, i.e. $f \leq K/2$, and $m \leq K/2$ for all times. The number of females in the next generation is:
-\begin{align*}\label{eq:f1}
-Population_{t+\Delta t} & = Population_{t} + Logistic * Mating - Death  \\
-f_{t+\Delta t} & = f_t + L(f,m) M(f,m) \Delta t - \delta f_t \Delta t,
-\end{align*}
-where $L(f,m)$ is a density-dependent logistic term such that $L(f,m) = 0$ when $f = K/2$ and $m = K/2$; $L(f,m) \approx 1$ when $f$ and $m$ are at their minimum values. Then,
-\[
-L(f,m) = \left(K - f_t - m_t \right) \frac{1}{K} = \left( 1 - \frac{f_t+m_t}{K} \right). 
-\] 
-$M(f,m)$ is a mating function that determines the number of new individuals for each genotype at each time step
-\[
-M(f,m) = BirthRate * Population * ProgenyProbability *FemaleParentProbability * MaleParentProbability
-\] 	
+% The initial population consists of only males ($m$) and females ($f$) (two genotypes XY and XX, and one possible mating pair), and with even sex ratios, none of the sexes can have a population greater than half the carrying capacity $K$, i.e. $f \leq K/2$, and $m \leq K/2$ for all times. The number of females in the next generation is:
+% \begin{align*}\label{eq:f1}
+% Population_{t+\Delta t} & = Population_{t} + Logistic * Mating - Death  \\
+% f_{t+\Delta t} & = f_t + L(f,m) M(f,m) \Delta t - \delta f_t \Delta t,
+% \end{align*}
+% where $L(f,m)$ is a density-dependent logistic term such that $L(f,m) = 0$ when $f = K/2$ and $m = K/2$; $L(f,m) \approx 1$ when $f$ and $m$ are at their minimum values. Then,
+% \[
+% L(f,m) = \left(K - f_t - m_t \right) \frac{1}{K} = \left( 1 - \frac{f_t+m_t}{K} \right). 
+% \] 
+% $M(f,m)$ is a mating function that determines the number of new individuals for each genotype at each time step
+% \[
+% M(f,m) = BirthRate * Population * ProgenyProbability *FemaleParentProbability * MaleParentProbability
+% \] 	
 
-In the TYC system there are two types of females ($f$ and $r$) and two types of males ($m$ and $s$). The new $f$ individuals arise only from the matings involving $f$ and $m$ and comprise one half of the progeny. The fraction of the total females contributing to the gamete pool that are $f$  ($FemaleParentProbability$) and the fraction of total males contributing to the gamete pool that are $m$ ($MaleParentProbablitity$) are 
-\[
-\frac{f_t}{f_t+r_t} \mbox{ and }  \frac{m_t}{m_t+s_t}
-\]
-respectively. If $P$ represents total population, and $\omega$ is a birth rate, the mating function for $f$ in the TYC system is
-\[
-M(f_t,m_t,s_t,r_t) =  \omega P  \frac{1}{2}\frac{f_t}{f_t+r_t}  \frac{m_t}{m_t+s_t}, 
-%M(f,m) & = \omega P \frac{f_t}{f_t} \frac{m_t}{m_t}. 
-\]
-and the TYC logistic term becomes
-\begin{align*}
-L(f_t,m_t,r_t,s_t) = & \left(K - f_t - m_t - s_t - r_t \right) \frac{1}{K} \\ 
-                    =  & \left( 1 - \frac{f_t+m_t+s_t+r_t}{K} \right). 
-\end{align*} 
+% In the TYC system there are two types of females ($f$ and $r$) and two types of males ($m$ and $s$). The new $f$ individuals arise only from the matings involving $f$ and $m$ and comprise one half of the progeny. The fraction of the total females contributing to the gamete pool that are $f$  ($FemaleParentProbability$) and the fraction of total males contributing to the gamete pool that are $m$ ($MaleParentProbablitity$) are 
+% \[
+% \frac{f_t}{f_t+r_t} \mbox{ and }  \frac{m_t}{m_t+s_t}
+% \]
+% respectively. If $P$ represents total population, and $\omega$ is a birth rate, the mating function for $f$ in the TYC system is
+% \[
+% M(f_t,m_t,s_t,r_t) =  \omega P  \frac{1}{2}\frac{f_t}{f_t+r_t}  \frac{m_t}{m_t+s_t}, 
+% %M(f,m) & = \omega P \frac{f_t}{f_t} \frac{m_t}{m_t}. 
+% \]
+% and the TYC logistic term becomes
+% \begin{align*}
+% L(f_t,m_t,r_t,s_t) = & \left(K - f_t - m_t - s_t - r_t \right) \frac{1}{K} \\ 
+%                     =  & \left( 1 - \frac{f_t+m_t+s_t+r_t}{K} \right). 
+% \end{align*} 
 
-The number of $f$ in the next generation is given by 
-\begin{align*}
-f_{t+\Delta t} = & f_t + \omega P \left( \frac{1}{2}\frac{f_t}{f_t+r_t}  \frac{m_t}{m_t+s_t} \right) L \Delta t- \delta f_t \Delta t.
-\end{align*} 
-The term $f_t+r_t$ in the denominator represents the total number of females. Let $\alpha$ be the percentage of females in the population; then, $f_t+r_t = \alpha P$, $m_t+s_t = (1- \alpha) P$ and 
-\begin{align*}
-f_{t+\Delta t} = & f_t +  \frac{\omega P}{\alpha P (1-\alpha)P} \frac{1}{2}f_t m_t L \Delta t - \delta f_t \Delta t\\ 								 
-                = & f_t + \frac{\omega}{\alpha (1-\alpha)P} \frac{1}{2} f_t m_t L \Delta t - \delta f_t \Delta t	
-\end{align*} 
-We can use two asymptotic estimates: (i) the \textit{a priori} estimate $f \rightarrow 0$ as $t \rightarrow  \infty$ if enough $r$ are added to the population, (ii) the steady state for $r$ is $\mu/\delta$, and (iii) the fundamental assumption is that the population is kept at the carrying capacity, therefore $P \approx K$, to determine that $\alpha \rightarrow  \frac{\mu/\delta}{K}$, which is a constant. Then, let
-\[
-\beta = \frac{\omega}{\alpha (1-\alpha)K} = \frac{\omega}{\frac{\mu/\delta}{K} \left( 1 - \frac{\mu/\delta}{K} \right) K} = \frac{\omega \delta}{\mu\left( 1 - \frac{\mu}{ \delta K} \right) } 
-\]
-Taking the limit as $\Delta t \rightarrow 0$, 
-\begin{align*}
-\lim_{\Delta t \rightarrow 0} \frac{f_{t+\Delta t} - f_t}{\Delta t} = \frac{df}{dt} = \frac{1}{2} \beta f m L - \delta f_t,
-\end{align*}
-which is the same as Equation \ref{eq:fTYC} in the TYC model. The equations for the other genotypes in the TYC and DC models are produced in the same way. 
+% The number of $f$ in the next generation is given by 
+% \begin{align*}
+% f_{t+\Delta t} = & f_t + \omega P \left( \frac{1}{2}\frac{f_t}{f_t+r_t}  \frac{m_t}{m_t+s_t} \right) L \Delta t- \delta f_t \Delta t.
+% \end{align*} 
+% The term $f_t+r_t$ in the denominator represents the total number of females. Let $\alpha$ be the percentage of females in the population; then, $f_t+r_t = \alpha P$, $m_t+s_t = (1- \alpha) P$ and 
+% \begin{align*}
+% f_{t+\Delta t} = & f_t +  \frac{\omega P}{\alpha P (1-\alpha)P} \frac{1}{2}f_t m_t L \Delta t - \delta f_t \Delta t\\ 								 
+%                 = & f_t + \frac{\omega}{\alpha (1-\alpha)P} \frac{1}{2} f_t m_t L \Delta t - \delta f_t \Delta t	
+% \end{align*} 
+% We can use two asymptotic estimates: (i) the \textit{a priori} estimate $f \rightarrow 0$ as $t \rightarrow  \infty$ if enough $r$ are added to the population, (ii) the steady state for $r$ is $\mu/\delta$, and (iii) the fundamental assumption is that the population is kept at the carrying capacity, therefore $P \approx K$, to determine that $\alpha \rightarrow  \frac{\mu/\delta}{K}$, which is a constant. Then, let
+% \[
+% \beta = \frac{\omega}{\alpha (1-\alpha)K} = \frac{\omega}{\frac{\mu/\delta}{K} \left( 1 - \frac{\mu/\delta}{K} \right) K} = \frac{\omega \delta}{\mu\left( 1 - \frac{\mu}{ \delta K} \right) } 
+% \]
+% Taking the limit as $\Delta t \rightarrow 0$, 
+% \begin{align*}
+% \lim_{\Delta t \rightarrow 0} \frac{f_{t+\Delta t} - f_t}{\Delta t} = \frac{df}{dt} = \frac{1}{2} \beta f m L - \delta f_t,
+% \end{align*}
+% which is the same as Equation \ref{eq:fTYC} in the TYC model. The equations for the other genotypes in the TYC and DC models are produced in the same way. 
 
 
 %---------------------------------------------------------------
