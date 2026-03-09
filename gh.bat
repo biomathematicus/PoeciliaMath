@@ -14,7 +14,7 @@ rem  Claude searches for that string in the project knowledge base.
 rem ================================================================
 
 rem set TEXFILE=GITCOMMIT.txt
-set VERSIONFILE=VERSION
+set VERSIONFILE=VERSION.txt
 
 rem ================================================================
 rem  PULL-ONLY MODE  (no arguments)
