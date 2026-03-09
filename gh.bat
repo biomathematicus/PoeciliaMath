@@ -88,7 +88,7 @@ rem ================================================================
 :PRINT_PROMPT
 echo.
 echo =================================================================
-echo  CLAUDE SESSION VERIFICATION PROMPT  (copy the block below)
+echo          CONFIGURATION MANAGEMENT ACROSS BOUNDARIES
 echo =================================================================
 echo.
 echo   Before evaluating any inputs or producing outputs, search
