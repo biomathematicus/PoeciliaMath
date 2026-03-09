@@ -1,7 +1,8 @@
-# Poecilia formosa RODE/SDE Comparison Codebase
+# The Sperm Parasite Paradox — Poecilia Stochastic Modeling Codebase
 
 Reproducible Python codebase for comparing stochastic formulations of the
-*P. formosa* Trojan X Chromosome (TXC) population dynamics model.
+Poecilia host--parasite population dynamics model (host females, host males,
+parasite females *P. formosa*).
 
 ## Five Formulations
 
@@ -19,19 +20,19 @@ python run_all.py
 ```
 
 This runs symbolic verification (Phase 1), sigma calibration (Phase 2),
-and generates all 10 figures (Phase 3) into `figures/`.
+and generates all figures (Phase 3) into `figures/`.
 
 ## File Structure
 
 | File | Role |
 |------|------|
 | `params.py` | Parameter dataclasses |
-| `deterministic.py` | Core ODE right-hand side |
+| `deterministic.py` | Core ODE RHS: host females, host males, parasite females |
 | `rode.py` | RODE solver (piecewise-constant noise + solve_ivp) |
 | `sde_ito.py` | Ito Euler-Maruyama (common + independent) |
 | `sde_stratonovich.py` | Stratonovich Heun method (common + independent) |
 | `moments.py` | Closed moment equation ODE system |
 | `stability.py` | RODE threshold + SDE Lyapunov/Monte Carlo |
 | `verification.py` | SymPy tasks V1-V8 |
-| `figures.py` | All 10 figure functions |
+| `figures.py` | All figure functions (fig00--fig09) |
 | `run_all.py` | Master entry point |

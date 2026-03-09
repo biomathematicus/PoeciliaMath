@@ -1,6 +1,7 @@
 """
-RODE: Random ODE solver for TXC dimensional system.
-Uses scipy solve_ivp (RK45). eta_i(t) are piecewise-constant random variables.
+RODE (Random ODE) solver for the Poecilia host--parasite system.
+Noise enters as piecewise-constant parametric perturbations resampled
+at each time step, applied to the non-dimensional death rate.
 """
 import numpy as np
 from scipy.integrate import solve_ivp
@@ -8,8 +9,10 @@ from scipy.integrate import solve_ivp
 
 def txc_rode_rhs_dimensional(t, u, params, eta_f_t, eta_m_t, eta_p_t, v_use=None):
     """
-    Dimensional RODE RHS. eta values are time-varying scalars.
-    u = [f_tilde, m_tilde, p_tilde]
+    Dimensional RODE RHS for the Poecilia host--parasite system.
+    u = [f_tilde, m_tilde, p_tilde]:
+      f_tilde: host females, m_tilde: host males, p_tilde: parasite females
+    eta values are time-varying scalars (piecewise-constant noise).
     v_use: discrimination speed; if None, uses params.v_fast.
     """
     f, m, p = u

@@ -1,8 +1,8 @@
 """
-Stability boundary computation.
-
-RODE: Algebraic threshold eta_f + eta_m + eta_p < 3 (from Lemma, v1.0 spec).
-SDE:  Two approaches:
+Stability analysis for the Poecilia host--parasite system.
+Includes: RODE dissipative threshold, SDE scalar Lyapunov exponents
+(Ito and Stratonovich), Monte Carlo extinction probability estimation,
+and stability boundary search.
   1. Analytical: top Lyapunov exponent (where tractable -- scalar subsystem)
   2. Empirical: Monte Carlo extinction probability as function of sigma.
      Stability boundary = sigma at which P(extinction by T) = 0.5.

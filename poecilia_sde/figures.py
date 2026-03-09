@@ -1,6 +1,17 @@
 """
-All 10 publication-quality figure functions for the TXC manuscript.
-Each function saves both PDF and PNG at 300 dpi.
+Publication-quality figure functions for the Poecilia host--parasite manuscript.
+Each function saves both PDF and PNG at 300 dpi to figures/.
+
+Fig 00: Extinction ODE dynamics (no noise, slow discrimination)
+Fig 01: Sigmoid gamma discrimination curves
+Fig 02: Constant gamma -- deterministic trajectories
+Fig 03: Sigmoid gamma -- slow vs fast discrimination
+Fig 04: RODE stochasticity -- dissipative vs threshold-exceeding
+Fig 05: Single trajectory comparison -- all 5 formulations
+Fig 06: Ensemble statistics -- mean +/- 95% CI
+Fig 07: Moment equations vs Monte Carlo
+Fig 08: Stability boundary -- RODE threshold vs SDE analog
+Fig 09: Noise structure sensitivity -- 2x2 panel
 """
 import numpy as np
 import matplotlib
@@ -21,7 +32,7 @@ from stability import (lyapunov_ito_scalar, lyapunov_stratonovich_scalar,
                        monte_carlo_extinction_probability, find_stability_boundary,
                        rode_dissipative_threshold_sigma_equivalent)
 
-# ---------- Color palette ----------
+# Color palette: f_pop=host females, m_pop=host males, p_pop=parasite females
 COLORS = {
     'deterministic': '#1a1a1a',
     'rode':          '#2d2d2d',
@@ -45,7 +56,7 @@ def _save(fig, num, name):
 
 
 def _solve_dimensional_det(params, gamma_val=None, v=None, t_end=200):
-    """Solve deterministic dimensional system."""
+    """Solve deterministic dimensional system for the host--parasite model."""
     def rhs(t, u):
         f, m, p = u
         f = max(f, 0.0); m = max(m, 0.0); p = max(p, 0.0)
@@ -68,6 +79,55 @@ def _solve_dimensional_det(params, gamma_val=None, v=None, t_end=200):
     result = solve_ivp(rhs, t_span, u0, t_eval=t_eval, method='RK45',
                        rtol=1e-10, atol=1e-12)
     return result.t, result.y
+
+
+# ===========================================================================
+# Figure 0: Pure ODE extinction dynamics
+# ===========================================================================
+def fig00_extinction_ode():
+    """
+    Fig 00: Pure ODE extinction dynamics (no noise, slow discrimination).
+    Shows host females (f), host males (m), and parasite females (p)
+    all decaying to zero under slow male discrimination speed v=6 (nondim).
+    Non-dimensional time axis.
+    """
+    from params import BaseParams
+    from deterministic import txc_rhs
+
+    # Use slow discrimination: v=6 nondim (= 0.02 * 300 dim)
+    params = BaseParams()
+    params.v = 6.0  # slow: leads to extinction
+
+    t_end = 20.0   # non-dimensional time (= 200 days dimensional)
+    t_eval = np.linspace(0, t_end, 5000)
+    u0 = [params.f0, params.m0, params.p0]
+
+    sol = solve_ivp(
+        lambda t, u: txc_rhs(t, u, params),
+        (0, t_end), u0, t_eval=t_eval,
+        method='RK45', rtol=1e-10, atol=1e-12
+    )
+
+    # Convert to dimensional-scale for readability (multiply by K=300)
+    K = 300.0
+    f_dim = sol.y[0] * K
+    m_dim = sol.y[1] * K
+    p_dim = sol.y[2] * K
+
+    fig, ax = plt.subplots(figsize=(7, 4))
+    ax.plot(sol.t, f_dim, color=COLORS['f_pop'], lw=2, label='Host females ($f$)')
+    ax.plot(sol.t, m_dim, color=COLORS['m_pop'], lw=2, label='Host males ($m$)')
+    ax.plot(sol.t, p_dim, color=COLORS['p_pop'], lw=2, label='Parasite females ($p$)')
+
+    ax.set_xlabel(r'Non-dimensional time $\tau = \tilde{\delta}\,t$', fontsize=12)
+    ax.set_ylabel('Population (individuals)', fontsize=12)
+    ax.set_title('Extinction under slow discrimination ($v=6$, no noise)', fontsize=12)
+    ax.legend(fontsize=11)
+    ax.set_xlim(0, t_end)
+    ax.set_ylim(bottom=0)
+    ax.grid(True, alpha=0.3)
+
+    _save(fig, 0, 'extinction_ode')
 
 
 # ===========================================================================
@@ -218,7 +278,7 @@ def fig05_single_trajectory_comparison(sigma_cal=None):
     t_str_c, sol_str_c = heun_common(sde_params, seed=seed)
     t_str_i, sol_str_i = heun_independent(sde_params, seed=seed)
 
-    pop_labels = ['$f$ (bisexual females)', '$m$ (males)', '$p$ (unisexual females)']
+    pop_labels = ['$f$ (host females)', '$m$ (host males)', '$p$ (parasite females)']
     fig, axes = plt.subplots(3, 1, figsize=(10, 10), sharex=True)
 
     for row, (pop_label, pop_idx) in enumerate(zip(pop_labels, range(3))):
@@ -313,98 +373,10 @@ def fig06_ensemble_statistics(sigma_cal=None):
 
 
 # ===========================================================================
-# Figure 7: Ito vs Stratonovich divergence
+# Figure 7: Moment equations vs Monte Carlo
 # ===========================================================================
-def fig07_ito_stratonovich_divergence(sigma_cal=None):
-    """Fig 7: Ito vs Stratonovich mean divergence over time (3x2 grid)."""
-    sde_params = SDEParams()
-    sde_params.dt = 0.01
-    if sigma_cal:
-        sde_params = sde_params.with_sigma(
-            sigma_cal.get('sigma_f_calibrated', 0.1),
-            sigma_cal.get('sigma_m_calibrated', 0.1),
-            sigma_cal.get('sigma_p_calibrated', 0.15))
-
-    # Deterministic solution
-    det_params = BaseParams()
-    t_det = np.linspace(0, sde_params.t_end, 2000)
-    det_result = solve_ivp(lambda t, u: txc_rhs(t, u, det_params),
-                           (0, sde_params.t_end),
-                           [det_params.f0, det_params.m0, det_params.p0],
-                           t_eval=t_det, method='RK45', rtol=1e-10)
-
-    # Moment equation solutions
-    t_mom_ic, means_ic, _, _ = solve_moments(moment_rhs_ito_common, sde_params)
-    t_mom_sc, means_sc, _, _ = solve_moments(moment_rhs_stratonovich_common, sde_params)
-    t_mom_ii, means_ii, _, _ = solve_moments(moment_rhs_ito_independent, sde_params)
-    t_mom_si, means_si, _, _ = solve_moments(moment_rhs_stratonovich_independent, sde_params)
-
-    # MC ensembles
-    n_mc = 200
-    print("    Running Ito/common ensemble...")
-    t_ic, ens_ic = monte_carlo_ensemble(euler_maruyama_common, sde_params, n_paths=n_mc, seed=42)
-    print("    Running Strat/common ensemble...")
-    t_sc, ens_sc = monte_carlo_ensemble(heun_common, sde_params, n_paths=n_mc, seed=42)
-    print("    Running Ito/indep ensemble...")
-    t_ii, ens_ii = monte_carlo_ensemble(euler_maruyama_independent, sde_params, n_paths=n_mc, seed=42)
-    print("    Running Strat/indep ensemble...")
-    t_si, ens_si = monte_carlo_ensemble(heun_independent, sde_params, n_paths=n_mc, seed=42)
-
-    mean_ic, _, _ = ensemble_statistics(ens_ic)
-    mean_sc, _, _ = ensemble_statistics(ens_sc)
-    mean_ii, _, _ = ensemble_statistics(ens_ii)
-    mean_si, _, _ = ensemble_statistics(ens_si)
-
-    pop_labels = ['$E[f]$', '$E[m]$', '$E[p]$']
-    fig, axes = plt.subplots(3, 2, figsize=(12, 10), sharex=True)
-
-    step_mc = max(1, len(t_ic) // 1000)
-    for row in range(3):
-        # Common noise (left)
-        ax = axes[row, 0]
-        ax.plot(det_result.t, det_result.y[row], COLORS['deterministic'],
-                ls='--', label='Deterministic', linewidth=1)
-        ax.plot(t_ic[::step_mc], mean_ic[row, ::step_mc],
-                COLORS['ito_common'], label='Ito MC', linewidth=1)
-        ax.plot(t_sc[::step_mc], mean_sc[row, ::step_mc],
-                COLORS['strat_common'], label='Strat MC', linewidth=1)
-        ax.plot(t_mom_ic, means_ic[row], COLORS['ito_common'],
-                ls='--', label='Ito moment', linewidth=0.8, alpha=0.7)
-        ax.plot(t_mom_sc, means_sc[row], COLORS['strat_common'],
-                ls='--', label='Strat moment', linewidth=0.8, alpha=0.7)
-        ax.set_ylabel(pop_labels[row])
-        if row == 0:
-            ax.set_title('Common Noise')
-            ax.legend(fontsize=6, ncol=3)
-
-        # Independent noise (right)
-        ax = axes[row, 1]
-        ax.plot(det_result.t, det_result.y[row], COLORS['deterministic'],
-                ls='--', label='Deterministic', linewidth=1)
-        ax.plot(t_ii[::step_mc], mean_ii[row, ::step_mc],
-                COLORS['ito_indep'], label='Ito MC', linewidth=1)
-        ax.plot(t_si[::step_mc], mean_si[row, ::step_mc],
-                COLORS['strat_indep'], label='Strat MC', linewidth=1)
-        ax.plot(t_mom_ii, means_ii[row], COLORS['ito_indep'],
-                ls='--', label='Ito moment', linewidth=0.8, alpha=0.7)
-        ax.plot(t_mom_si, means_si[row], COLORS['strat_indep'],
-                ls='--', label='Strat moment', linewidth=0.8, alpha=0.7)
-        if row == 0:
-            ax.set_title('Independent Noise')
-            ax.legend(fontsize=6, ncol=3)
-
-    axes[-1, 0].set_xlabel('Time $t$')
-    axes[-1, 1].set_xlabel('Time $t$')
-    fig.suptitle('Ito vs Stratonovich Mean Divergence', fontsize=12)
-    fig.tight_layout()
-    _save(fig, 7, 'ito_stratonovich_divergence')
-
-
-# ===========================================================================
-# Figure 8: Moment equations vs Monte Carlo
-# ===========================================================================
-def fig08_moment_vs_montecarlo(sigma_cal=None):
-    """Fig 8: Moment equations vs Monte Carlo: mean and variance."""
+def fig07_moment_vs_montecarlo(sigma_cal=None):
+    """Fig 7: Moment equations vs Monte Carlo: mean and variance."""
     sde_params = SDEParams()
     sde_params.dt = 0.01
     if sigma_cal:
@@ -472,14 +444,14 @@ def fig08_moment_vs_montecarlo(sigma_cal=None):
 
     fig.suptitle('Moment Equations vs Monte Carlo', fontsize=12)
     fig.tight_layout()
-    _save(fig, 8, 'moment_vs_montecarlo')
+    _save(fig, 7, 'moment_vs_montecarlo')
 
 
 # ===========================================================================
-# Figure 9: Stability boundary
+# Figure 8: Stability boundary
 # ===========================================================================
-def fig09_stability_boundary():
-    """Fig 9: Stability boundary: RODE threshold vs SDE analog."""
+def fig08_stability_boundary():
+    """Fig 8: Stability boundary: RODE threshold vs SDE analog."""
     sde_params = SDEParams()
     sde_params.dt = 0.005
     sde_params.t_end = 10.0  # non-dimensional T/2 for stability assessment
@@ -539,14 +511,14 @@ def fig09_stability_boundary():
     ax.legend(fontsize=7, loc='lower right')
     ax.set_title('Stability Boundary: RODE Threshold vs SDE Analog')
     fig.tight_layout()
-    _save(fig, 9, 'stability_boundary')
+    _save(fig, 8, 'stability_boundary')
 
 
 # ===========================================================================
-# Figure 10: Noise structure sensitivity
+# Figure 9: Noise structure sensitivity
 # ===========================================================================
-def fig10_noise_structure_sensitivity():
-    """Fig 10: Noise structure sensitivity: 2x2 panel."""
+def fig09_noise_structure_sensitivity():
+    """Fig 9: Noise structure sensitivity: 2x2 panel."""
     sde_params = SDEParams()
     sde_params.dt = 0.01
     sde_params = sde_params.with_sigma(0.3, 0.3, 0.3 * 1.5)
@@ -584,4 +556,4 @@ def fig10_noise_structure_sensitivity():
     axes[1, 0].set_ylabel('Population')
     fig.suptitle('Noise Structure Sensitivity ($\\sigma = 0.3$)', fontsize=12)
     fig.tight_layout()
-    _save(fig, 10, 'noise_structure_sensitivity')
+    _save(fig, 9, 'noise_structure_sensitivity')

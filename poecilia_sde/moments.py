@@ -1,6 +1,7 @@
 """
-Closed moment equations for the TXC Ito and Stratonovich SDE systems.
-Mean-field closure: E[u_i * u_j] ~ E[u_i] * E[u_j].
+Closed moment equations (mean-field closure) for the Poecilia
+host--parasite SDE system. Provides ODE system for ensemble means
+and second-order moments under Ito and Stratonovich formulations.
 
 Under mean-field closure:
 - Ito means: identical to deterministic ODE (noise does not shift the mean)

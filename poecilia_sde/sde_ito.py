@@ -1,12 +1,7 @@
 """
-Ito SDE solver for TXC non-dimensional system.
-Implements Euler-Maruyama for both noise structures.
-
-Common noise:  dU = mu(U)dt + sigma_i * U_i * dW      (single W)
-Independent:   dU = mu(U)dt + sigma_i * U_i * dW_i    (separate W per population)
-
-Note on positivity: Euler-Maruyama does not guarantee non-negativity.
-Apply reflection: U_i = max(U_i, 0) after each step. Document this.
+Ito SDE solver (Euler-Maruyama) for the Poecilia host--parasite system.
+Two noise structures: common environmental noise and independent
+multiplicative noise (separate Wiener processes per population).
 """
 import numpy as np
 from deterministic import txc_rhs
@@ -36,7 +31,7 @@ def euler_maruyama_common(params, t_eval=None, seed=None):
         diffusion = sigma * u * dW           # common: same dW for all
 
         u = u + drift * dt_i + diffusion
-        u = np.maximum(u, 0.0)              # reflection boundary
+        u = np.maximum(u, 0.0)              # nonnegative clipping (post-step projection onto nonneg orthant)
         sol[:, i + 1] = u
 
     return t_arr, sol

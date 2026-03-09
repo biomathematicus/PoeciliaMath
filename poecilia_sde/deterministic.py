@@ -1,5 +1,9 @@
 """
-Core deterministic RHS for the TXC system (non-dimensional).
+Core deterministic RHS for the Poecilia host--parasite system (non-dimensional).
+State vector u = [f, m, p]:
+  f = host females (P. latipinna / P. mexicana)
+  m = host males
+  p = parasite females (P. formosa)
 All stochastic modules import this.
 """
 import numpy as np
@@ -13,9 +17,11 @@ def gamma_sigmoid(p, gamma_o, gamma_inf, v, r):
 
 def txc_rhs(t, u, params, gamma_val=None):
     """
-    Deterministic RHS of non-dimensional TXC system.
-    u = [f, m, p]
-    gamma_val: if provided, use this value; otherwise compute sigmoid from params.
+    Deterministic RHS of the non-dimensional host--parasite system (Poecilia).
+    State: u = [f, m, p]
+      f: host females, m: host males, p: parasite females (P. formosa)
+    gamma_val: per-encounter acceptance probability for parasite females.
+      If None, computed from sigmoid discrimination function using params.
     Returns du/dt as numpy array.
     """
     f, m, p = u

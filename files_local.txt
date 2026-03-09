@@ -1,0 +1,95 @@
+﻿Directory tree for: C:\Dropbox\!JBGResearch\!!!PoeciliaMath
+
+├── figures
+├── poecilia_sde
+│   ├── __pycache__
+│   │   ├── deterministic.cpython-311.pyc
+│   │   ├── figures.cpython-311.pyc
+│   │   ├── moments.cpython-311.pyc
+│   │   ├── params.cpython-311.pyc
+│   │   ├── rode.cpython-311.pyc
+│   │   ├── sde_ito.cpython-311.pyc
+│   │   ├── sde_stratonovich.cpython-311.pyc
+│   │   ├── stability.cpython-311.pyc
+│   │   └── verification.cpython-311.pyc
+│   ├── figures
+│   │   ├── fig01_gamma_curves.pdf
+│   │   ├── fig01_gamma_curves.png
+│   │   ├── fig02_constant_gamma.pdf
+│   │   ├── fig02_constant_gamma.png
+│   │   ├── fig03_sigmoid_gamma.pdf
+│   │   ├── fig03_sigmoid_gamma.png
+│   │   ├── fig04_rode_stochasticity.pdf
+│   │   ├── fig04_rode_stochasticity.png
+│   │   ├── fig05_single_trajectory_comparison.pdf
+│   │   ├── fig05_single_trajectory_comparison.png
+│   │   ├── fig06_ensemble_means_only.pdf
+│   │   ├── fig06_ensemble_means_only.png
+│   │   ├── fig06_ensemble_statistics.pdf
+│   │   ├── fig06_ensemble_statistics.png
+│   │   ├── fig07_ito_stratonovich_divergence.pdf
+│   │   ├── fig07_ito_stratonovich_divergence.png
+│   │   ├── fig07_moment_vs_montecarlo.pdf
+│   │   ├── fig07_moment_vs_montecarlo.png
+│   │   ├── fig08_moment_vs_montecarlo.pdf
+│   │   ├── fig08_moment_vs_montecarlo.png
+│   │   ├── fig08_stability_boundary.pdf
+│   │   ├── fig08_stability_boundary.png
+│   │   ├── fig09_noise_structure_sensitivity.pdf
+│   │   ├── fig09_noise_structure_sensitivity.png
+│   │   ├── fig09_stability_boundary.pdf
+│   │   ├── fig09_stability_boundary.png
+│   │   ├── fig10_noise_structure_sensitivity.pdf
+│   │   └── fig10_noise_structure_sensitivity.png
+│   ├── deterministic.py
+│   ├── figures.py
+│   ├── moments.py
+│   ├── params.py
+│   ├── README.md
+│   ├── requirements.txt
+│   ├── rode.py
+│   ├── run_all.py
+│   ├── sde_ito.py
+│   ├── sde_stratonovich.py
+│   ├── stability.py
+│   ├── verification.py
+│   └── verification_results.json
+├── references
+│   ├── 1-s2.0-S0022519304001791-main.pdf
+│   ├── eScholarship UC item 4h62641p.pdf
+│   ├── Oikos - 2009 - Heubel - How to go extinct by mating too much population consequences of male mate choice and efficiency in.pdf
+│   ├── rsbl20080019.pdf
+│   ├── rspb20071199.pdf
+│   └── XUPQDYR5QNVLLQE3_266_1857.pdf
+├── slides
+│   └── 2026_JMM.tex
+├── SPECS
+│   ├── AGENT_SPEC_Poecilia_SPECS2.md
+│   ├── AGENT_SPEC_Poecilia_SPECS3.md
+│   ├── AGENT_SPEC_Poecilia_v2.md
+│   ├── poecilia_detailed_review_report.md
+│   ├── poecilia_review_report.md
+│   ├── SPECS4_Nondim_Redundancy_Fix.md
+│   ├── SPECS5_Review_Response.md
+│   ├── SPECS6_Detailed_Review_Response.md
+│   └── SPECS7_Residual_Fixes.md
+├── .gitignore
+├── 5A_OtherCases.tex
+├── files_local.py
+├── files_local.txt
+├── gh.bat
+├── JBGInvasiveSpecies.bib
+├── POECILIA.bat
+├── poecilia_manuscript.aux
+├── poecilia_manuscript.bbl
+├── poecilia_manuscript.blg
+├── poecilia_manuscript.fdb_latexmk
+├── poecilia_manuscript.fls
+├── poecilia_manuscript.log
+├── poecilia_manuscript.out
+├── poecilia_manuscript.pdf
+├── poecilia_manuscript.synctex.gz
+├── poecilia_manuscript.tex
+├── poecilia_references.bib
+├── verification_results.json
+└── VERSION

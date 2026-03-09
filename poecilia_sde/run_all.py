@@ -1,7 +1,6 @@
 """
-Master script: runs all phases and generates all figures.
-Usage: python run_all.py
-Output: figures/ directory with all 10 figures as PDF + PNG
+Master entry point for the Poecilia host--parasite manuscript figures.
+Runs: symbolic verification, sigma calibration, all figures (fig00--fig09).
 """
 import os
 import sys
@@ -34,6 +33,9 @@ def main():
     print("\n=== Phase 3: Generating Figures ===")
     import figures
 
+    print("\n--- Figure 0: Extinction ODE ---")
+    figures.fig00_extinction_ode()
+
     print("\n--- Figure 1: Gamma curves ---")
     figures.fig01_gamma_curves()
 
@@ -52,17 +54,14 @@ def main():
     print("\n--- Figure 6: Ensemble statistics ---")
     figures.fig06_ensemble_statistics(sigma_cal)
 
-    print("\n--- Figure 7: Ito-Stratonovich divergence ---")
-    figures.fig07_ito_stratonovich_divergence(sigma_cal)
+    print("\n--- Figure 7: Moment vs Monte Carlo ---")
+    figures.fig07_moment_vs_montecarlo(sigma_cal)
 
-    print("\n--- Figure 8: Moment vs Monte Carlo ---")
-    figures.fig08_moment_vs_montecarlo(sigma_cal)
+    print("\n--- Figure 8: Stability boundary ---")
+    figures.fig08_stability_boundary()
 
-    print("\n--- Figure 9: Stability boundary ---")
-    figures.fig09_stability_boundary()
-
-    print("\n--- Figure 10: Noise structure sensitivity ---")
-    figures.fig10_noise_structure_sensitivity()
+    print("\n--- Figure 9: Noise structure sensitivity ---")
+    figures.fig09_noise_structure_sensitivity()
 
     print("\n=== Done. All figures saved to figures/ ===")
 

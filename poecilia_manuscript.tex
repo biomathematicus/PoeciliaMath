@@ -1,4 +1,3 @@
-% GITCOMMIT: 37e4b23
 \documentclass[12pt]{article}
 \usepackage{t1enc} % as usual
 \usepackage[T1]{fontenc}
@@ -38,7 +37,7 @@
   captionpos=b,
 }
 
-\title{Noise Can Save a Sperm Parasite: \\Stochastic Stabilization in Gynogenetic Complexes}
+\title{The Sperm Parasite Paradox: \\Stochastic Stabilization in Gynogenetic Complexes}
 \author{Juan B. Gutiérrez\textsuperscript{1}}
 \date{
   \textsuperscript{1}University of Texas at San Antonio, San Antonio, Texas, USA\\
@@ -53,9 +52,9 @@
 %% ABSTRACT
 %% =====================================================================
 \begin{abstract}
-The Amazon molly (\textit{Poecilia formosa}) is a gynogenetic species that reproduces by sperm parasitism: females require sperm from males of a bisexual host species to initiate embryo development, but the paternal genome is not incorporated into offspring.  This creates a gynogenetic system in which unisexual females drive the host population toward feminization and potential extinction.  The puzzle of continued coexistence between \textit{P.~formosa} and its bisexual hosts has motivated mathematical models incorporating population-dependent male mate discrimination and environmental stochasticity.
+The Amazon molly (\textit{Poecilia formosa}) is a gynogenetic species that reproduces by sperm parasitism: females require sperm from males of a host species to initiate embryo development, but the paternal genome is not incorporated into offspring.  This creates a gynogenetic system in which parasite females drive the host population toward feminization and potential extinction.  The puzzle of continued coexistence between \textit{P.~formosa} and its hosts has motivated mathematical models incorporating population-dependent male mate discrimination and environmental stochasticity.
 
-We present a three-population model (bisexual females~$f$, males~$m$, unisexual females~$p$) with logistic growth and a sigmoid discrimination function, analyzed under three stochastic frameworks: (i)~a Random ODE (RODE) with piecewise-constant parametric noise, (ii)~an It\^{o} stochastic differential equation (SDE) with multiplicative geometric noise, and (iii)~a Stratonovich SDE with the same noise structure but different stochastic calculus convention.  Each SDE formulation is studied under two noise structures---common environmental noise (single Wiener process) and independent multiplicative noise (per-population Wiener processes)---yielding five formulations in total.
+We present a three-population model (host females~$f$, males~$m$, parasite females~$p$) with logistic growth and a sigmoid discrimination function, analyzed under three stochastic frameworks: (i)~a Random ODE (RODE) with piecewise-constant parametric noise, (ii)~an It\^{o} stochastic differential equation (SDE) with multiplicative geometric noise, and (iii)~a Stratonovich SDE with the same noise structure but different stochastic calculus convention.  Each SDE formulation is studied under two noise structures---common environmental noise (single Wiener process) and independent multiplicative noise (per-population Wiener processes)---yielding five formulations in total.
 
 Our key results are: (a)~the speed of male mate discrimination governs the extinction/coexistence outcome across all five formulations, confirming the robustness of this ecological finding; (b)~the RODE boundary dissipativity condition ($\eta_f + \eta_m + \eta_p
 < 3$) characterises phase-space contraction at the population ceiling and
@@ -68,16 +67,16 @@ has no exact SDE analog---the Stratonovich scalar Lyapunov exponent is noise-amp
 \section{Introduction}
 %% =====================================================================
 % Paragraph 1 --- The ecological paradox
-How can a sperm parasite coexist with its host when simple ecological logic predicts the parasite should drive the host to extinction, thereby destroying its own sperm supply and collapsing the entire system?  The logic of collapse is straightforward: each mating between a male and a parasitic female produces only parasitic offspring, so the growing parasite population diverts an increasing fraction of male mating effort away from conspecific females.  Fewer bisexual matings produce fewer males in the next generation, which reduces the sperm supply available to all females---parasite and host alike.  In the absence of any counteracting mechanism, the positive feedback loop drives the bisexual population to local extinction, after which the parasite, deprived of sperm, collapses as well.  Yet field data flatly contradict this prediction of inevitable collapse.  The gynogenetic fish \textit{Poecilia formosa} (the Amazon molly) has coexisted with its bisexual host species \textit{P.~mexicana} and \textit{P.~latipinna} across a wide range of habitats in southeastern Texas and northeastern Mexico for an evolutionary period estimated at more than 100{,}000 years~\citep{Avise1991}.  Understanding how this coexistence is maintained, despite the relentless demographic pressure toward feminization, is one of the central puzzles in the ecology of unisexual vertebrates.
+How can a sperm parasite coexist with its host when simple ecological logic predicts the parasite should drive the host to extinction, thereby destroying its own sperm supply and collapsing the entire system?  The logic of collapse is straightforward: each mating between a male and a parasitic female produces only parasitic offspring, so the growing parasite population diverts an increasing fraction of male mating effort away from conspecific females.  Fewer host matings produce fewer males in the next generation, which reduces the sperm supply available to all females---parasite and host alike.  In the absence of any counteracting mechanism, the positive feedback loop drives the host population to local extinction, after which the parasite, deprived of sperm, collapses as well.  Yet field data flatly contradict this prediction of inevitable collapse.  The gynogenetic fish \textit{Poecilia formosa} (the Amazon molly) has coexisted with its host species \textit{P.~mexicana} and \textit{P.~latipinna} across a wide range of habitats in southeastern Texas and northeastern Mexico for an evolutionary period estimated at more than 100{,}000 years~\citep{Avise1991}.  Understanding how this coexistence is maintained, despite the relentless demographic pressure toward feminization, is one of the central puzzles in the ecology of gynogenetic vertebrates.
 
 % Paragraph 2 --- The biology of P. formosa
-Unisexual reproduction has been documented in plants, invertebrates, and more than fifty vertebrate species.  Two mechanisms sustain all-female populations: parthenogenesis, in which embryo development occurs without fertilization, and gynogenesis, in which sperm from a male donor of a different species is necessary to initiate embryo development but the paternal genetic material is excluded from the offspring.  Species that reproduce by gynogenesis are termed \textit{sperm parasites}, and the sperm-donating species is the \textit{sperm host}~\citep{Kokko2008}.  The first gynogenetic vertebrate, \textit{P.~formosa}, was discovered by Hubbs and Hubbs in 1932~\citep{Hubbs1932}.  Molecular confirmation via mitochondrial DNA established that \textit{P.~mexicana} is the recent female parent of \textit{P.~formosa}~\citep{Avise1991}.  Field data from the Soto La Marina drainage in northeastern Mexico, gathered at 20 locations between 1970 and 1978, show a wide range of variation in the proportion of unisexuals relative to the total population from year to year, even at the same location~\citep{Balsano1989}.  The habitat varies from shallow water flowing over gravel with intermittent pools to turbid water flowing over a silty bottom; during the dry season only disconnected pools remain, and during the rainy season these pools reconnect.  This environmental oscillation between isolation and connectivity imposes stochastic variation with clear alternation between deleterious and additive effects on the population.  It is worth noting that \textit{P.~formosa} is mostly diploid; triploid XXY offspring can occur, but the Y chromosome remains silent and does not influence population dynamics~\citep{Balsano1989}.
+All-female reproduction has been documented in plants, invertebrates, and more than fifty vertebrate species.  Two mechanisms sustain all-female populations: parthenogenesis, in which embryo development occurs without fertilization, and gynogenesis, in which sperm from a male donor of a different species is necessary to initiate embryo development but the paternal genetic material is excluded from the offspring.  Species that reproduce by gynogenesis are termed \textit{sperm parasites}, and the sperm-donating species is the \textit{sperm host}~\citep{Kokko2008}.  The first gynogenetic vertebrate, \textit{P.~formosa}, was discovered by Hubbs and Hubbs in 1932~\citep{Hubbs1932}.  Molecular confirmation via mitochondrial DNA established that \textit{P.~mexicana} is the recent female parent of \textit{P.~formosa}~\citep{Avise1991}.  Field data from the Soto La Marina drainage in northeastern Mexico, gathered at 20 locations between 1970 and 1978, show a wide range of variation in the proportion of parasite females relative to the total population from year to year, even at the same location~\citep{Balsano1989}.  The habitat varies from shallow water flowing over gravel with intermittent pools to turbid water flowing over a silty bottom; during the dry season only disconnected pools remain, and during the rainy season these pools reconnect.  This environmental oscillation between isolation and connectivity imposes stochastic variation with clear alternation between deleterious and additive effects on the population.  It is worth noting that \textit{P.~formosa} is mostly diploid; triploid XXY offspring can occur, but the Y chromosome remains silent and does not influence population dynamics~\citep{Balsano1989}.
 
 % Paragraph 3 --- Prior mathematical models and their gaps
-Several mathematical models have addressed gynogenetic population dynamics.  \citet{Kiester1981} created a generic sperm-dependent gynogenesis model applicable to a wide range of species and showed that a sexual discrimination factor is necessary to sustain the population; however, their model considers neither population-dependent discrimination dynamics nor the three-population structure specific to poeciliids.  \citet{Schley2004} developed a two-species model incorporating competition with Allee effects and showed that purely ecological factors can sustain coexisting populations, but their model does not include parasitism.  \citet{Peck1999} created a simulation model demonstrating that asexual takeover is likely in structured environments and concluded that migration and spatial fragmentation are important factors for sustaining bisexual populations, but did not address discrimination behavior.  \citet{Kokko2008} showed that spatial dynamics plays an important role in continued coexistence of gynogenetic complexes, though their model does not capture discrimination speed as a control variable.  \citet{Heubel2009} demonstrated that male mating efficiency and a sexual discrimination factor can stabilize a gynogenetic species complex, but used a fixed discrimination level rather than a population-dependent function.  None of these models account for two attributes observed in poeciliid field data: (i)~the high variability of unisexual proportions across locations and years, and (ii)~the role of the speed of male mate discrimination as a determinant of coexistence versus extinction.
+Several mathematical models have addressed gynogenetic population dynamics.  \citet{Kiester1981} created a generic sperm-dependent gynogenesis model applicable to a wide range of species and showed that a sexual discrimination factor is necessary to sustain the population; however, their model considers neither population-dependent discrimination dynamics nor the three-population structure specific to poeciliids.  \citet{Schley2004} developed a two-species model incorporating competition with Allee effects and showed that purely ecological factors can sustain coexisting populations, but their model does not include parasitism.  \citet{Peck1999} created a simulation model demonstrating that asexual takeover is likely in structured environments and concluded that migration and spatial fragmentation are important factors for sustaining host populations, but did not address discrimination behavior.  \citet{Kokko2008} showed that spatial dynamics plays an important role in continued coexistence of host--parasite complexes, though their model does not capture discrimination speed as a control variable.  \citet{Heubel2009} demonstrated that male mating efficiency and a sexual discrimination factor can stabilize a gynogenetic species complex, but used a fixed discrimination level rather than a population-dependent function.  None of these models account for two attributes observed in poeciliid field data: (i)~the high variability of parasite female proportions across locations and years, and (ii)~the role of the speed of male mate discrimination as a determinant of coexistence versus extinction.
 
 % Paragraph 4 --- Male discrimination behavior
-Male mate discrimination is one of the principal mechanisms proposed to explain coexistence between unisexuals and bisexuals~\citep{Kokko2008, Balsano1989, Kiester1981, Heubel2009}.  Males of the host species show a population-dependent selective preference for conspecific females: when the unisexual population is low, males mate with parasites at a frequency comparable to mating between bisexuals, but when the unisexual population is high, males strongly favor conspecific females~\citep{Riesch2008}.  Two explanations for this behavior exist in the literature.  The first is ``foreignness'': males are more willing to mate with unfamiliar females, so that when unisexuals are rare they are perceived as novel, but when unisexuals become common they lose this advantage~\citep{Balsano1989}.  The second is dominance hierarchies: dominant males show a marked preference for conspecific females, whereas small, subordinate males mate indiscriminately with both conspecifics and unisexuals~\citep{Balsano1989}.  Field observations indicate that bisexual poeciliids account for less than 20\% males in natural populations~\citep{Balsano1989, Snelson1980}, suggesting that the proportion of females in bisexual progeny is approximately $a \approx 0.8$.  The present model captures population-dependent discrimination through a sigmoid function $\gamma(p)$ that transitions smoothly from no heterospecific discrimination to strong conspecific preference as the parasite population grows.
+Male mate discrimination is one of the principal mechanisms proposed to explain coexistence between parasite females and host individuals~\citep{Kokko2008, Balsano1989, Kiester1981, Heubel2009}.  Males of the host species show a population-dependent selective preference for conspecific females: when the parasite population is low, males mate with parasites at a frequency comparable to host matings, but when the parasite population is high, males strongly favor conspecific females~\citep{Riesch2008}.  Two explanations for this behavior exist in the literature.  The first is ``foreignness'': males are more willing to mate with unfamiliar females, so that when parasite females are rare they are perceived as novel, but when parasite females become common they lose this advantage~\citep{Balsano1989}.  The second is dominance hierarchies: dominant males show a marked preference for conspecific females, whereas small, subordinate males mate indiscriminately with both conspecifics and parasite females~\citep{Balsano1989}.  Field observations indicate that host poeciliids account for less than 20\% males in natural populations~\citep{Balsano1989, Snelson1980}, suggesting that the proportion of females in host progeny is approximately $a \approx 0.8$.  The present model captures population-dependent discrimination through a sigmoid function $\gamma(p)$ that transitions smoothly from no heterospecific discrimination to strong conspecific preference as the parasite population grows.
 
 % Paragraph 5 --- Stochastic modeling choice and contribution
 The present study introduces three stochastic frameworks for the gynogenetic three-population model---a Random ODE (RODE) with piecewise-constant parametric noise, an It\^{o} SDE with multiplicative geometric noise, and a Stratonovich SDE with the same noise structure---and studies each SDE under two noise architectures: common environmental noise (a single Wiener process shared by all populations) and independent multiplicative noise (separate Wiener processes for each population), yielding five formulations in total.  The comparison matters because different biological interpretations of noise lead to different mathematical properties: RODE paths are smooth between resampling events, while SDE paths are nowhere differentiable; the It\^{o} integral evaluates the integrand at the left endpoint, while the Stratonovich integral uses the midpoint, producing different drift terms for multiplicative noise.  These are not merely technical distinctions---they carry biological consequences for stability predictions and extinction probability estimates.  The Wong-Zakai theorem establishes that when environmental forcing has finite correlation time, as is the case for seasonal flooding in the \textit{P.~formosa} habitat, the Stratonovich interpretation is the correct mathematical limit of smooth noise approximations~\citep{Oksendal2003}.  The choice of stochastic framework is therefore not a matter of convention but a modeling decision with quantitative implications.
@@ -93,73 +92,110 @@ The remainder of this paper is organized as follows.  Section~2 presents the bio
 %% =====================================================================
 
 %---------------------------------------------------------------
-\subsection{Mechanistic Derivation of the Mathematical Models}
+\subsection{Mechanistic Derivation}
 %---------------------------------------------------------------
 
-The dimensional model is constructed from first principles using the
-mass-action framework~\citep{Buckingham:1914}, in which birth events arise
-from encounters between individuals and the rate of each encounter type is
-proportional to the product of the interacting population sizes.  The
-derivation proceeds from four simplifying assumptions.
+The model is constructed from first principles using a two-step
+mass-action argument. The population state is described by three
+variables: host females $\tilde{f}$, host males $\tilde{m}$, and parasite
+females $\tilde{p}$, all with units of individuals. Parasite females
+(\textit{P.~formosa}) require sperm from host males (\textit{P.~latipinna}
+or \textit{P.~mexicana}) to initiate embryogenesis; the paternal genome
+is excluded from all offspring.
+
+\noindent\textbf{Step 1: Per-encounter acceptance probability.}
+In a well-mixed population, encounters between individuals occur at
+rates proportional to the product of their abundances (mass action):
+\begin{align*}
+  \text{host male -- host female encounters:}   &\quad \alpha\,\tilde{m}\,\tilde{f}, \\
+  \text{host male -- parasite female encounters:} &\quad \alpha\,\tilde{m}\,\tilde{p}.
+\end{align*}
+Upon each host-female encounter, the male accepts and mates; no
+discrimination occurs within the host species.  Upon each parasite
+encounter, the male accepts with probability $\gamma \in (0,1]$ and
+rejects with probability $1-\gamma$.  The factor $\gamma$ therefore
+has a precise biological meaning: it is the \emph{per-encounter
+acceptance probability} for parasite females, representing the outcome
+of male behavioral mate choice.  This interpretation is supported by
+field data: \citet{Riesch2008} found that under natural conditions
+only approximately 10\% of parasite females carried sperm, versus 74\%
+of host females, confirming that discrimination operates at the
+per-encounter level and not through sperm exhaustion.
+
+The resulting effective mating rates are:
+\begin{align*}
+  \text{effective host-female matings:}   &\quad \alpha\,\tilde{m}\,\tilde{f}, \\
+  \text{effective parasite-female matings:} &\quad \gamma\,\alpha\,\tilde{m}\,\tilde{p}.
+\end{align*}
+At this stage the two encounter pools are independent; parasites compete
+with host females only through shared carrying capacity.
+
+\noindent\textbf{Step 2: Finite male mating capacity.}
+Field observations establish that each male has a finite number of
+mating events per unit time~\citep{Balsano1989}.  When a male accepts a
+parasite encounter, that mating slot is consumed and is simultaneously
+unavailable for a host female: accepted parasite matings displace
+host-female matings in a 1:1 ratio.  The net effective host-female
+mating rate therefore becomes:
+\[
+  \alpha\,\tilde{m}\,\tilde{f} - \gamma\,\alpha\,\tilde{m}\,\tilde{p}
+  = \alpha\,\tilde{m}\!\left(\tilde{f} - \gamma\tilde{p}\right).
+\]
+The term $\tilde{f} - \gamma\tilde{p}$ is thus a \emph{theorem} of
+Steps~1 and~2, not an additional assumption.
+
+\begin{remark}
+The 1:1 displacement coefficient is a simplifying assumption: Riesch
+et al.~\citeyearpar{Riesch2008} report that when males do accept
+parasite encounters they transfer substantially less sperm (median
+66{,}667 vs.\ 783{,}333 sperm units for host females).  This suggests
+a displacement coefficient $c < 1$ may be more realistic, giving
+$\tilde{m}(\tilde{f} - c\gamma\tilde{p})$.  The current model adopts
+$c = 1$ as the parsimonious baseline; calibrating $c$ from sperm-count
+field data is a natural extension.
+\end{remark}
+
+\noindent\textbf{Biological assumptions.}
+The derivation rests on four simplifying assumptions.
 
 \begin{enumerate}
-  \item \textbf{Common vital rates.}  All individuals, regardless of
-    genotype, share a single per-capita birth coefficient $\tilde{\beta}$
-    (proportional to offspring viability) and a single per-capita death
-    coefficient $\tilde{\delta}$ (mortality from predation, disease, and
-    senescence).
+  \item \textbf{Common vital rates.}  All individuals share a single
+    per-capita birth coefficient $\tilde{\beta}$ and a single per-capita
+    death coefficient $\tilde{\delta}$.
 
-  \item \textbf{Sperm limitation.}  Sperm is the limiting resource in the
-    mating pool.  A bisexual male allocates his total mating effort across
-    all female encounters; the discrimination factor $\gamma \in (0,1]$
-    defines the fraction of that effort directed toward unisexual females
-    $\tilde{p}$.  The complementary fraction $(1-\gamma)$ is directed
-    toward bisexual females $\tilde{f}$.  Consequently, the effective
-    number of bisexual females competing for male mating effort is
-    $\tilde{f} - \gamma\tilde{p}$: the total bisexual female population
-    minus the portion of unisexuals that divert male attention.
+  \item \textbf{Per-encounter acceptance (Step~1).}  The discrimination
+    factor $\gamma \in (0,1]$ is the per-encounter probability that a
+    host male accepts a parasite female.
 
-  \item \textbf{Pedigree-determined offspring sex.}  From the mating
-    pedigrees: (a)~a bisexual male--bisexual
-    female encounter produces a fraction $a$ of female offspring and a
-    fraction $(1-a)$ of male offspring; (b)~a bisexual male--unisexual
-    female encounter produces only unisexual female offspring via
-    gynogenesis, with no paternal genetic contribution to the progeny.
+  \item \textbf{Pedigree-determined offspring sex.}  A host male--host
+    female mating produces fraction $a$ female offspring and $(1-a)$
+    male offspring.  A host male--parasite female mating produces only
+    parasite female offspring (gynogenesis; no paternal contribution).
 
-  \item \textbf{Logistic density dependence.}  All populations share the
-    carrying capacity $\tilde{K}$, entering through the logistic factor
-    $\tilde{L} = 1 - (\tilde{f}+\tilde{m}+\tilde{p})/\tilde{K}$, which
-    limits total population growth as the system approaches its
-    environmental ceiling.
+  \item \textbf{Logistic density dependence.}  All populations share
+    carrying capacity $\tilde{K}$, entering through
+    $\tilde{L} = 1 - (\tilde{f}+\tilde{m}+\tilde{p})/\tilde{K}$.
 \end{enumerate}
 
-\noindent\textbf{Birth terms.}
-Applying mass action to each mating type and invoking Assumptions 2--4,
-the birth contribution to each population per unit time is:
+\noindent\textbf{Birth and death terms.}
+Applying Assumptions 1--4 and the two-step argument, the birth
+contribution to each population per unit time is:
 %
 \begin{align}
-  \text{bisexual females born:}   &\quad
+  \text{host females born:}   &\quad
     a\,\tilde{\beta}\,\tilde{L}\,\tilde{m}\,(\tilde{f}-\gamma\tilde{p}),
     \label{eq:birth_f} \\[4pt]
-  \text{bisexual males born:}     &\quad
+  \text{host males born:}     &\quad
     (1-a)\,\tilde{\beta}\,\tilde{L}\,\tilde{m}\,(\tilde{f}-\gamma\tilde{p}),
     \label{eq:birth_m} \\[4pt]
-  \text{unisexual females born:}  &\quad
+  \text{parasite females born:}  &\quad
     \gamma\,\tilde{\beta}\,\tilde{L}\,\tilde{m}\,\tilde{p}.
     \label{eq:birth_p}
 \end{align}
 %
-Equations~\eqref{eq:birth_f} and~\eqref{eq:birth_m} share the encounter
-pool $(\tilde{f}-\gamma\tilde{p})$ because both bisexual sexes arise
-exclusively from bisexual matings.  Equation~\eqref{eq:birth_p} has its
-own encounter pool $\tilde{m}\tilde{p}$, scaled by $\gamma$, because every
-sperm-triggered gynogenetic event between a male and a $P.~formosa$ female
-produces only $P.~formosa$ offspring.
-
-\noindent\textbf{Death terms.}
-Each population declines at per-capita rate $\tilde{\delta}$, giving death
-contributions $-\tilde{\delta}\tilde{f}$, $-\tilde{\delta}\tilde{m}$, and
-$-\tilde{\delta}\tilde{p}$ respectively.
+Each population declines at per-capita rate $\tilde{\delta}$, giving
+death contributions $-\tilde{\delta}\tilde{f}$,
+$-\tilde{\delta}\tilde{m}$, and $-\tilde{\delta}\tilde{p}$.
 
 \noindent\textbf{The discrimination factor $\gamma$ and its dependence on
 population context.}  In full generality, $\gamma$ is a function of two
@@ -167,9 +203,9 @@ population-level quantities: the parasite population size $\tilde{p}$ and
 the male-to-female ratio $\rho = \tilde{m}/(\tilde{f}+\tilde{p})$.
 The dependence on $\tilde{p}$ captures the well-documented
 population-dependent preference of host males for conspecific females: when
-$\tilde{p}$ is small, males encounter few unisexuals and mate
+$\tilde{p}$ is small, males encounter few parasite females and mate
 indiscriminately ($\gamma \approx \gamma_o$); when $\tilde{p}$ is large,
-males strongly avoid unisexuals ($\gamma \approx \gamma_\infty$)
+males strongly avoid parasite females ($\gamma \approx \gamma_\infty$)
 \citep{Balsano1989}.  The dependence on $\rho$ reflects a second
 behavioral mechanism: \citet{Riesch2008} report, following field sampling
 across five Texas sites throughout the breeding season, that males become
@@ -224,62 +260,6 @@ equation in Section~\ref{sec:stochastic}; the deterministic skeleton
 above is analysed first to establish the equilibrium structure.
 The system is non-dimensionalized in Section~\ref{sec:nondim}.
 
-% %---------------------------------------------------------------
-% \subsection{Mechanistic Derivation of the Mathematical Models}
-% %---------------------------------------------------------------
-%   The construction of a Trojan Y Chromosome mathematical model uses the principle of mass action. This framework is based upon the interaction of gametes within a population of mating individuals, and provides a means to derive the equations used in the Trojan Y Chromosome ordinary differential equation model.
-  
-% Consider the population as a mixture of fish with different genotypes, each contributing their gametes to a common mating pool. The progeny arising from this common mating pool at each generation could be calculated provided that  (i) the fraction of each parental genotype in the population is known, and (ii) the distribution of different progeny genotypes is known for each of the possible mating pairs in the population. In this approach, the population is considered as a collection of different Punnet Squares, each representing a mating.  By knowing the frequency that each parent occurs within each Punnet Square, we can calculate the distribution of progeny genotypes for the common mating pool. We can then apply this distribution to the new births that are expected at each generation giving us the exact number of new fish (births) expected for each genotype. 
-
-% The initial population consists of only males ($m$) and females ($f$) (two genotypes XY and XX, and one possible mating pair), and with even sex ratios, none of the sexes can have a population greater than half the carrying capacity $K$, i.e. $f \leq K/2$, and $m \leq K/2$ for all times. The number of females in the next generation is:
-% \begin{align*}\label{eq:f1}
-% Population_{t+\Delta t} & = Population_{t} + Logistic * Mating - Death  \\
-% f_{t+\Delta t} & = f_t + L(f,m) M(f,m) \Delta t - \delta f_t \Delta t,
-% \end{align*}
-% where $L(f,m)$ is a density-dependent logistic term such that $L(f,m) = 0$ when $f = K/2$ and $m = K/2$; $L(f,m) \approx 1$ when $f$ and $m$ are at their minimum values. Then,
-% \[
-% L(f,m) = \left(K - f_t - m_t \right) \frac{1}{K} = \left( 1 - \frac{f_t+m_t}{K} \right). 
-% \] 
-% $M(f,m)$ is a mating function that determines the number of new individuals for each genotype at each time step
-% \[
-% M(f,m) = BirthRate * Population * ProgenyProbability *FemaleParentProbability * MaleParentProbability
-% \] 	
-
-% In the TYC system there are two types of females ($f$ and $r$) and two types of males ($m$ and $s$). The new $f$ individuals arise only from the matings involving $f$ and $m$ and comprise one half of the progeny. The fraction of the total females contributing to the gamete pool that are $f$  ($FemaleParentProbability$) and the fraction of total males contributing to the gamete pool that are $m$ ($MaleParentProbablitity$) are 
-% \[
-% \frac{f_t}{f_t+r_t} \mbox{ and }  \frac{m_t}{m_t+s_t}
-% \]
-% respectively. If $P$ represents total population, and $\omega$ is a birth rate, the mating function for $f$ in the TYC system is
-% \[
-% M(f_t,m_t,s_t,r_t) =  \omega P  \frac{1}{2}\frac{f_t}{f_t+r_t}  \frac{m_t}{m_t+s_t}, 
-% %M(f,m) & = \omega P \frac{f_t}{f_t} \frac{m_t}{m_t}. 
-% \]
-% and the TYC logistic term becomes
-% \begin{align*}
-% L(f_t,m_t,r_t,s_t) = & \left(K - f_t - m_t - s_t - r_t \right) \frac{1}{K} \\ 
-%                     =  & \left( 1 - \frac{f_t+m_t+s_t+r_t}{K} \right). 
-% \end{align*} 
-
-% The number of $f$ in the next generation is given by 
-% \begin{align*}
-% f_{t+\Delta t} = & f_t + \omega P \left( \frac{1}{2}\frac{f_t}{f_t+r_t}  \frac{m_t}{m_t+s_t} \right) L \Delta t- \delta f_t \Delta t.
-% \end{align*} 
-% The term $f_t+r_t$ in the denominator represents the total number of females. Let $\alpha$ be the percentage of females in the population; then, $f_t+r_t = \alpha P$, $m_t+s_t = (1- \alpha) P$ and 
-% \begin{align*}
-% f_{t+\Delta t} = & f_t +  \frac{\omega P}{\alpha P (1-\alpha)P} \frac{1}{2}f_t m_t L \Delta t - \delta f_t \Delta t\\ 								 
-%                 = & f_t + \frac{\omega}{\alpha (1-\alpha)P} \frac{1}{2} f_t m_t L \Delta t - \delta f_t \Delta t	
-% \end{align*} 
-% We can use two asymptotic estimates: (i) the \textit{a priori} estimate $f \rightarrow 0$ as $t \rightarrow  \infty$ if enough $r$ are added to the population, (ii) the steady state for $r$ is $\mu/\delta$, and (iii) the fundamental assumption is that the population is kept at the carrying capacity, therefore $P \approx K$, to determine that $\alpha \rightarrow  \frac{\mu/\delta}{K}$, which is a constant. Then, let
-% \[
-% \beta = \frac{\omega}{\alpha (1-\alpha)K} = \frac{\omega}{\frac{\mu/\delta}{K} \left( 1 - \frac{\mu/\delta}{K} \right) K} = \frac{\omega \delta}{\mu\left( 1 - \frac{\mu}{ \delta K} \right) } 
-% \]
-% Taking the limit as $\Delta t \rightarrow 0$, 
-% \begin{align*}
-% \lim_{\Delta t \rightarrow 0} \frac{f_{t+\Delta t} - f_t}{\Delta t} = \frac{df}{dt} = \frac{1}{2} \beta f m L - \delta f_t,
-% \end{align*}
-% which is the same as Equation \ref{eq:fTYC} in the TYC model. The equations for the other genotypes in the TYC and DC models are produced in the same way. 
-
-
 %---------------------------------------------------------------
 \subsection{Deterministic Core}\label{sec:deterministic}
 %---------------------------------------------------------------
@@ -287,24 +267,75 @@ The system is non-dimensionalized in Section~\ref{sec:nondim}.
 The dimensional system derived in the preceding subsection,
 Equations~\eqref{eq:dim_f}--\eqref{eq:dim_p}, is analysed here in the
 deterministic limit $\tilde{\eta}_i \equiv 0$ and with $\gamma =
-\text{constant}$.  The steady state satisfies
-$\dot{\mathbf{u}}(\mathbf{u}_0) = \mathbf{0}$.  Solving the resulting
-algebraic system yields the unique equilibrium discrimination factor:
-\begin{equation}\label{eq:GammaSS}
-  \gamma_{eq} = \frac{a f^*}{a p^* + f^*}.
-\end{equation}
-With the parameter values $a = 0.8$, $f^* = 100$, and
-$p^* = 10$, this gives $\gamma_{eq} = 80/108 \approx 0.74$.
-Three qualitative regimes exist: when $\gamma < \gamma_{eq}$, unisexuals
-go extinct; when $\gamma = \gamma_{eq}$, coexistence obtains; when
-$\gamma > \gamma_{eq}$, bisexuals go extinct followed by unisexuals.
+\text{constant}$.  The equilibrium structure and extinction conditions
+are developed in Section~\ref{sec:extinction}.
 
 When $\gamma p > f$, the term $f - \gamma p$ becomes negative,
 representing a net diversion of male mating effort so complete that it
-exceeds the available bisexual female population; in this regime the model
-predicts net decline of the bisexual population from competition for male
+exceeds the available host female population; in this regime the model
+predicts net decline of the host population from competition for male
 attention alone.  The numerical implementation clips populations to
 nonnegative values at each step to maintain biological feasibility.
+
+
+%---------------------------------------------------------------
+\subsection{Extinction and Coexistence Conditions}\label{sec:extinction}
+%---------------------------------------------------------------
+
+In the absence of noise ($\eta_i \equiv 0$) and with $\gamma = \text{constant}$,
+the system \eqref{eq:PoeciliaF}--\eqref{eq:PoeciliaP} admits three
+qualitatively distinct long-term outcomes determined by the value of $\gamma$
+relative to an equilibrium threshold $\gamma_{eq}$.
+
+At a coexistence steady state $\mathbf{u}^* = (f^*, m^*, p^*)$ with all
+three populations positive, setting $\dot{p} = 0$ in
+Equation~\eqref{eq:PoeciliaP} and $\dot{f}/\dot{m} = a/(1-a)$ (from
+Equations~\eqref{eq:PoeciliaF}--\eqref{eq:PoeciliaM}) yields the unique
+equilibrium discrimination factor:
+\begin{equation}\label{eq:GammaSS}
+  \gamma_{eq} = \frac{a\,f^*}{a\,p^* + f^*}.
+\end{equation}
+With the biologically motivated values $a = 0.8$, $f^* = 100/K$,
+$p^* = 10/K$ this gives $\gamma_{eq} = 80/108 \approx 0.74$.
+
+Three regimes follow directly:
+
+\begin{itemize}
+  \item $\gamma < \gamma_{eq}$: male discrimination against parasite
+    females is insufficient to protect the host population. The parasite
+    female population grows unchecked, diverting increasing male mating
+    effort from host females. The host population declines, reducing
+    sperm availability to all females. The positive feedback drives all
+    three populations to extinction.
+
+  \item $\gamma = \gamma_{eq}$: the discrimination level exactly balances
+    parasite growth, and coexistence is possible at the steady state
+    $\mathbf{u}^*$.
+
+  \item $\gamma > \gamma_{eq}$: parasite females are strongly rejected by
+    host males. Parasite females go extinct first; the host population
+    recovers toward its two-population (host female -- host male) equilibrium.
+\end{itemize}
+
+The extinction regime $\gamma < \gamma_{eq}$ is illustrated numerically
+in Figure~\ref{fig:extinction}, which integrates
+Equations~\eqref{eq:PoeciliaF}--\eqref{eq:PoeciliaP} in non-dimensional
+time with slow discrimination speed $v = 6$ (corresponding to dimensional
+$v_{\mathrm{dim}} = 0.02$) and $\eta_i \equiv 0$.  All three populations
+decay to zero: the parasite initially grows, drawing down host male
+abundance, which in turn starves both host females and eventually
+parasite females of reproductive opportunity.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{poecilia_sde/figures/fig00_extinction_ode.png}
+  \caption{Extinction dynamics under slow male discrimination
+    ($v = 6$, non-dimensional; $\eta_i \equiv 0$).  Host females
+    (green), host males (blue), and parasite females (red) all
+    decay to zero. Non-dimensional time $\tau = \tilde{\delta}\,t$;
+    $\tau = 20$ corresponds to 200 days.  Parameters: Table~\ref{tab:parameters}.}
+  \label{fig:extinction}
+\end{figure}
 
 
 %---------------------------------------------------------------
@@ -333,7 +364,7 @@ The simplified case $\gamma = $ constant is unrealistic.  A population-dependent
 \begin{equation}\label{eq:DiscriminationFactor}
   \gamma(p) = \frac{\gamma_o - \gamma_\infty}{1+e^{vp-r}} + \gamma_\infty,
 \end{equation}
-where $\gamma_o = 1$ is the initial discrimination (no preference), $\gamma_\infty = 0.2$ is the asymptotic discrimination (20\% mating with unisexuals), $v > 0$ is the speed of male mate discrimination, and $r = 5$ shifts the sigmoid.  The asymptotic value $\gamma_\infty = 0.2$ corresponds to the range of parameters reported by \citet{Riesch2008} and \citet{Balsano1989}; it is used to illustrate the behavior of the system and should not be considered an intrinsic fixed property.  Figure~\ref{fig:gamma_curves} shows curves for three discrimination speeds.  The parameter $v$ plays a pivotal role: slow discrimination ($v = 0.02$) leads to extinction, while fast discrimination ($v = 0.20$) leads to coexistence.
+where $\gamma_o = 1$ is the initial discrimination (no preference), $\gamma_\infty = 0.2$ is the asymptotic discrimination (20\% mating with parasite females), $v > 0$ is the speed of male mate discrimination, and $r = 5$ shifts the sigmoid.  The asymptotic value $\gamma_\infty = 0.2$ corresponds to the range of parameters reported by \citet{Riesch2008} and \citet{Balsano1989}; it is used to illustrate the behavior of the system and should not be considered an intrinsic fixed property.  Figure~\ref{fig:gamma_curves} shows curves for three discrimination speeds.  The parameter $v$ plays a pivotal role: slow discrimination ($v = 0.02$) leads to extinction, while fast discrimination ($v = 0.20$) leads to coexistence.
 
 \begin{figure}[htbp]
   \centering
@@ -348,6 +379,12 @@ where $\gamma_o = 1$ is the initial discrimination (no preference), $\gamma_\inf
 %% =====================================================================
 \section{Stochastic Formulations}\label{sec:stochastic}
 %% =====================================================================
+
+The deterministic skeleton derived in Section~\ref{sec:deterministic}
+is now extended to three stochastic formulations, each encoding a
+different assumption about how environmental variability enters the
+host--parasite dynamics.
+
 %---------------------------------------------------------------
 \subsection{Random ODE (RODE) Formulation}
 %---------------------------------------------------------------
@@ -356,7 +393,19 @@ The RODE formulation models environmental stochasticity through piecewise-consta
 
 This is a \emph{Random ODE}, not an SDE in the It\^{o}/Stratonovich sense: between resampling events, the system is a standard ODE, and classical Runge-Kutta methods (specifically, the Dormand-Prince RK45 pair via \texttt{solve\_ivp}) are appropriate solvers.  The RODE formulation produces bounded noise variance on each interval, in contrast to the unbounded diffusion of SDEs.
 
-Experimental data on fish association in populations containing \textit{P.~formosa} show that bisexual females associate preferentially in small groups of their own kind, and dominant males direct approximately one third of their activity toward females with preference for conspecifics~\citep{Balsano1989}.  These spatial clustering patterns create a population-dependent bias in exposure to environmental perturbations: bisexual populations cluster more tightly and are less exposed to stochastic effects than \textit{P.~formosa}.  To reflect this, the noise amplitudes are structured as $\tilde{\eta}_f = \tilde{\eta}_m = (2/3)\tilde{\eta}$ and $\tilde{\eta}_p = \tilde{\eta}$.
+Experimental data on fish association in populations containing
+\textit{P.~formosa} show that host females associate preferentially
+in small groups of their own kind, and dominant males direct
+approximately one third of their activity toward females with
+preference for conspecifics~\citep{Balsano1989}.  These spatial
+clustering patterns create a population-dependent bias in exposure
+to environmental perturbations: host populations cluster more tightly
+and are therefore less exposed to stochastic environmental effects
+than parasite females.  To reflect this, the noise amplitudes are
+structured as $\tilde{\eta}_f = \tilde{\eta}_m = (2/3)\tilde{\eta}$
+and $\tilde{\eta}_p = \tilde{\eta}$: the parasite female population
+bears the full environmental noise load, while host populations bear
+two-thirds of it.
 
 \begin{remark}
 The uniform distribution $\tilde\eta_i(t)\sim\mathrm{Uniform}[0,\tilde\eta_{\max}]$
@@ -478,6 +527,20 @@ The correction term $+\tfrac{1}{2}\sigma_i^2 \tilde{u}_i$ is positive for all $\
 
 \begin{remark}[Noise-induced growth bias]
 Under mean-field closure, It\^{o} noise does not shift ensemble means---the additional stochastic integral has zero expectation.  Stratonovich noise shifts means upward by $+\tfrac{1}{2}\sigma_i^2 \mathbb{E}[\tilde{u}_i]$, which acts as an effective noise-induced birth rate increment.  This is the key qualitative difference between the two calculi for the gynogenetic system.
+In the host--parasite context, this bias is ecologically meaningful:
+under Stratonovich noise, environmental stochasticity provides an
+effective growth bonus to all three populations, and the \emph{relative}
+bonus is largest for whichever population is currently smallest---a
+mechanism that can delay or prevent extinction independently of the
+deterministic discrimination dynamics.
+For the host--parasite system, Proposition~\ref{prop:strat_means}
+implies that under Stratonovich noise the parasite female population
+receives an effective growth increment of $+\tfrac{1}{2}\sigma_p^2 P$
+per unit time.  Since $\sigma_p > \sigma_f = \sigma_m$ by calibration
+(Table~\ref{tab:calibration}), this increment is largest for the
+parasite population, providing a noise-mediated growth advantage that
+partially offsets the deterministic suppression from male discrimination.
+This is the mechanism by which noise can save the sperm parasite.
 \end{remark}
 
 
@@ -485,6 +548,10 @@ Under mean-field closure, It\^{o} noise does not shift ensemble means---the addi
 \subsection{RODE-to-SDE Correspondence and Calibration}
 %---------------------------------------------------------------
 The RODE and SDE formulations are not related by a simple parameter substitution.  The RODE produces bounded noise on each interval (uniform on $[0, \tilde{\eta}_{\max}]$), while SDE variance grows as $\sigma^2 \mathbb{E}[\tilde{u}^2] t$.  Consequently, direct parameter comparison is impossible, which is itself a finding that motivates the Monte Carlo stability comparison in Section~5.
+This incommensurability is itself a finding: it means that conclusions
+about extinction probability in the host--parasite complex depend
+quantitatively on the choice of stochastic framework, even when all
+formulations share the same deterministic skeleton.
 
 To enable visual comparison, we employ an empirical calibration procedure:
 \begin{enumerate}
@@ -503,7 +570,15 @@ To enable visual comparison, we employ an empirical calibration procedure:
 \subsection{RODE: Boundary Dissipativity Lemma}
 %---------------------------------------------------------------
 
-The following result characterizes the dissipative behavior of the RODE system at the population ceiling.  It applies specifically to the RODE formulation---a pathwise, Liouville-based phase-space contraction argument---and does not extend directly to It\^{o} or Stratonovich SDEs.
+The following result characterizes the dissipative behavior of the RODE system at the population ceiling.
+It applies specifically to the RODE formulation---a pathwise,
+Liouville-based phase-space contraction argument---and does not
+extend directly to It\^{o} or Stratonovich SDEs.  Ecologically,
+the lemma identifies the noise regime in which the host--parasite
+complex is self-correcting at the carrying capacity: when the sum
+of noise amplitudes exceeds the dissipative threshold, environmental
+fluctuations can push populations through the ceiling and generate
+persistent excursions rather than bounded oscillations.
 
 \begin{lemma}[RODE Boundary Dissipativity Lemma]\label{lem:DissipativePoecilia}
 On the population ceiling $f+m+p=1$, the non-dimensional RODE system satisfies
@@ -689,11 +764,11 @@ Under common noise, $f$ and $p$ fluctuate coherently, which can reduce the effec
 \subsection{Scalar Stability: Lyapunov Exponent Analysis}
 %---------------------------------------------------------------
 
-To understand how noise affects extinction, we focus on the $p$-subsystem as the driver of dynamics.  When $p$ is small and approaching zero, the logistic factor $L$ approaches $1 - f_\infty - m_\infty > 0$ (where $f_\infty$ and $m_\infty$ are the quasi-steady-state bisexual populations), and the mating term $m$ is approximately constant at its quasi-steady value.  In this regime, the $p$-equation is well approximated by geometric Brownian motion:
+To understand how noise affects extinction, we focus on the $p$-subsystem as the driver of dynamics.  When $p$ is small and approaching zero, the logistic factor $L$ approaches $1 - f_\infty - m_\infty > 0$ (where $f_\infty$ and $m_\infty$ are the quasi-steady-state host populations), and the mating term $m$ is approximately constant at its quasi-steady value.  In this regime, the $p$-equation is well approximated by geometric Brownian motion:
 \begin{equation}
   dp = (\beta_{\text{eff}} - \delta)p\,dt + \sigma_p p\,dW,
 \end{equation}
-where $\beta_{\text{eff}} = \gamma\beta L_0 m_0$ is an effective birth rate parameter that depends on the discrimination level and the bisexual quasi-steady state.
+where $\beta_{\text{eff}} = \gamma\beta L_0 m_0$ is an effective birth rate parameter that depends on the discrimination level and the host quasi-steady state.
 
 \begin{proposition}[It\^{o} scalar Lyapunov exponent]\label{prop:lyap_ito}
 For the scalar It\^{o} geometric SDE, the top Lyapunov exponent is
@@ -760,7 +835,7 @@ We wish to show that the RODE and SDE stability measures are fundamentally diffe
 
 The RODE dissipative threshold measures phase-space contraction at the population ceiling.  By Liouville's theorem, the volume of an infinitesimal region in phase space evolves as $dV/dt = (\nabla \cdot \mathbf{F})V$.  The Boundary Dissipativity Lemma (Lemma~\ref{lem:DissipativePoecilia}) establishes that $\nabla \cdot \mathbf{F} < 0$ on the face $f+m+p=1$ when $\eta_f + \eta_m + \eta_p < 3$.  This is a boundary property of the vector field at the carrying capacity: trajectories reaching the population ceiling are pushed inward.
 
-The It\^{o} Lyapunov exponent measures the linearized growth rate of $\ln p$ near the extinction boundary.  It is a local property of the $p$-subsystem, evaluated under the approximation that the bisexual populations are at quasi-steady state.  The exponent $\lambda_{\text{It\^{o}}} = \beta_{\text{eff}} - \delta - \tfrac{1}{2}\sigma_p^2$ determines whether the parasite population grows or decays exponentially in the neighborhood of $p = 0$.
+The It\^{o} Lyapunov exponent measures the linearized growth rate of $\ln p$ near the extinction boundary.  It is a local property of the $p$-subsystem, evaluated under the approximation that the host populations are at quasi-steady state.  The exponent $\lambda_{\text{It\^{o}}} = \beta_{\text{eff}} - \delta - \tfrac{1}{2}\sigma_p^2$ determines whether the parasite population grows or decays exponentially in the neighborhood of $p = 0$.
 
 For the default parameter set ($\beta = 300$, $\delta = 1$, $a = 0.8$, $\gamma_\infty = 0.2$), the RODE dissipative threshold corresponds to $\tilde{\eta}_{\max} = 9\tilde{\delta}/7 \approx 0.129$ (dimensional), while the It\^{o} Lyapunov exponent becomes negative when $\sigma_p > \sqrt{2(\beta_{\text{eff}} - \delta)}$, a condition that depends on the quasi-steady-state values of $L_0$ and $m_0$.  Monte Carlo simulation (Section~5, Figure~\ref{fig:stability_boundary}) shows that the Ito/independent boundary lies at $\sigma \approx 0.86$ and the Ito/common boundary at $\sigma \approx 1.12$, values that bear no direct relationship to the RODE threshold.
 
@@ -793,9 +868,9 @@ All numerical results use the parameter values in Table~\ref{tab:parameters} wit
     Sigmoid shift & $r$ & 5 & --- \\
     Slow discrimination & $v_{\text{slow}}$ & 0.02 & Extinction case \\
     Fast discrimination & $v_{\text{fast}}$ & 0.20 & Coexistence case \\
-    Initial bisexual females & $\tilde{f}_0$ & 100 & --- \\
+    Initial host females & $\tilde{f}_0$ & 100 & --- \\
     Initial males & $\tilde{m}_0$ & 100 & --- \\
-    Initial unisexual females & $\tilde{p}_0$ & 10 & --- \\
+    Initial parasite females & $\tilde{p}_0$ & 10 & --- \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -805,12 +880,12 @@ All numerical results use the parameter values in Table~\ref{tab:parameters} wit
 \subsection{RODE Results}
 %---------------------------------------------------------------
 
-Figure~\ref{fig:constant_gamma} shows the deterministic dynamics under constant $\gamma$ for three cases: $\gamma < \gamma_{eq}$ (unisexual extinction), $\gamma = \gamma_{eq}$ (coexistence), and $\gamma > \gamma_{eq}$ (bisexual then unisexual extinction).  Figure~\ref{fig:sigmoid_gamma} shows that when $\gamma$ is a sigmoid function of $p$, the speed of discrimination controls the outcome: slow discrimination ($v = 0.02$) leads to extinction, while fast discrimination ($v = 0.20$) leads to coexistence.
+Figure~\ref{fig:constant_gamma} shows the deterministic dynamics under constant $\gamma$ for three cases: $\gamma < \gamma_{eq}$ (parasite extinction), $\gamma = \gamma_{eq}$ (coexistence), and $\gamma > \gamma_{eq}$ (host then parasite extinction).  Figure~\ref{fig:sigmoid_gamma} shows that when $\gamma$ is a sigmoid function of $p$, the speed of discrimination controls the outcome: slow discrimination ($v = 0.02$) leads to extinction, while fast discrimination ($v = 0.20$) leads to coexistence.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{poecilia_sde/figures/fig02_constant_gamma.png}
-  \caption{Constant $\gamma$ deterministic dynamics ($a = 0.8$).  (a)~$\gamma = 0.50 < \gamma_{eq}$: unisexual extinction.  (b)~$\gamma = 0.74 = \gamma_{eq}$: coexistence.  (c)~$\gamma = 0.90 > \gamma_{eq}$: bisexual then unisexual extinction.}
+  \caption{Constant $\gamma$ deterministic dynamics ($a = 0.8$).  (a)~$\gamma = 0.50 < \gamma_{eq}$: parasite extinction.  (b)~$\gamma = 0.74 = \gamma_{eq}$: coexistence.  (c)~$\gamma = 0.90 > \gamma_{eq}$: host then parasite extinction.}
   \label{fig:constant_gamma}
 \end{figure}
 
@@ -867,7 +942,7 @@ Figure~\ref{fig:moment_vs_mc} compares the diffusion-approximated moment equatio
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.85\textwidth]{poecilia_sde/figures/fig08_moment_vs_montecarlo.png}
+  \includegraphics[width=0.85\textwidth]{poecilia_sde/figures/fig07_moment_vs_montecarlo.png}
   \caption{Moment equations (dashed) vs Monte Carlo (solid) for $f$ and $p$ populations.  Top: means.  Bottom: variances.  Text boxes show relative error at $t_{\text{end}}$.}
   \label{fig:moment_vs_mc}
 \end{figure}
@@ -881,7 +956,7 @@ Figure~\ref{fig:stability_boundary} is the paper's key quantitative comparison. 
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.7\textwidth]{poecilia_sde/figures/fig09_stability_boundary.png}
+  \includegraphics[width=0.7\textwidth]{poecilia_sde/figures/fig08_stability_boundary.png}
   \caption{Stability boundary comparison.  Extinction probability vs noise amplitude $\sigma$.  RODE threshold (dotted): $\tilde{\eta}_{\max} = 9\tilde{\delta}/7$.  Dashed horizontal: $P(\text{extinction}) = 0.5$.}
   \label{fig:stability_boundary}
 \end{figure}
@@ -895,7 +970,7 @@ Figure~\ref{fig:noise_sensitivity} compares common vs independent noise at exagg
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.85\textwidth]{poecilia_sde/figures/fig10_noise_structure_sensitivity.png}
+  \includegraphics[width=0.85\textwidth]{poecilia_sde/figures/fig09_noise_structure_sensitivity.png}
   \caption{Noise structure sensitivity ($\sigma = 0.3$).  Common noise (left column) produces correlated $f$-$p$ fluctuations; independent noise (right) does not.}
   \label{fig:noise_sensitivity}
 \end{figure}
@@ -907,16 +982,16 @@ Figure~\ref{fig:noise_sensitivity} compares common vs independent noise at exagg
 \section{Discussion}\label{sec:discussion}
 %% =====================================================================
 % Speed of discrimination is the master variable
-The finding that the speed of male mate discrimination ($v$) governs extinction versus coexistence is robust across all five stochastic formulations tested in this study.  This parameter represents the rate at which males of the host species shift from indiscriminate mating (equal probability of mating with conspecific and parasitic females) to strong conspecific preference as the parasite population grows.  Biologically, the speed of discrimination could arise through several mechanisms: it may be a learned behavior, in which males exposed to increasing numbers of unisexual females develop discrimination through experience during their lifetime; it may be an evolved trait, in which populations with faster discrimination have been selected over evolutionary time because they are more likely to persist; or it may be a developmental response, in which environmental cues during maturation calibrate the discrimination response.  The mathematical result is unambiguous: below some critical speed the system converges to extinction regardless of initial conditions, and above this critical speed coexistence is the attractor.  This finding connects directly to field observations that some populations of \textit{P.~mexicana} coexist stably with \textit{P.~formosa} while others in nearby locations do not~\citep{Balsano1989}.  The variation in discrimination speed across field populations could be driven by several factors: local population density (higher densities may promote faster learning), prior exposure history (populations with longer coexistence histories may have evolved faster discrimination), resource availability (well-fed males may be more selective), and temperature (warmer water may accelerate learning rates).  The fact that this result is formulation-robust---it holds identically for the RODE, for both It\^{o} variants, and for both Stratonovich variants---means that the conclusion is unlikely to be an artifact of modeling choices.  Any reasonable stochastic framework applied to this system will identify discrimination speed as the master variable controlling the coexistence outcome.  This result encompasses and extends previous findings on the role of male mate discrimination~\citep{Kokko2008, Balsano1989, Kiester1981, Heubel2009}.  \citet{Heubel2009} showed that male mating efficiency matters for gynogenetic complexes; the present work sharpens this finding by demonstrating that it is the \emph{shape} of the discrimination function---specifically, the steepness of the sigmoid transition---rather than merely its asymptotic value that determines the ecological outcome.
+The finding that the speed of male mate discrimination ($v$) governs extinction versus coexistence is robust across all five stochastic formulations tested in this study.  This parameter represents the rate at which males of the host species shift from indiscriminate mating (equal probability of mating with conspecific and parasitic females) to strong conspecific preference as the parasite population grows.  Biologically, the speed of discrimination could arise through several mechanisms: it may be a learned behavior, in which males exposed to increasing numbers of parasite females develop discrimination through experience during their lifetime; it may be an evolved trait, in which populations with faster discrimination have been selected over evolutionary time because they are more likely to persist; or it may be a developmental response, in which environmental cues during maturation calibrate the discrimination response.  The mathematical result is unambiguous: below some critical speed the system converges to extinction regardless of initial conditions, and above this critical speed coexistence is the attractor.  This finding connects directly to field observations that some populations of \textit{P.~mexicana} coexist stably with \textit{P.~formosa} while others in nearby locations do not~\citep{Balsano1989}.  The variation in discrimination speed across field populations could be driven by several factors: local population density (higher densities may promote faster learning), prior exposure history (populations with longer coexistence histories may have evolved faster discrimination), resource availability (well-fed males may be more selective), and temperature (warmer water may accelerate learning rates).  The fact that this result is formulation-robust---it holds identically for the RODE, for both It\^{o} variants, and for both Stratonovich variants---means that the conclusion is unlikely to be an artifact of modeling choices.  Any reasonable stochastic framework applied to this system will identify discrimination speed as the master variable controlling the coexistence outcome.  This result encompasses and extends previous findings on the role of male mate discrimination~\citep{Kokko2008, Balsano1989, Kiester1981, Heubel2009}.  \citet{Heubel2009} showed that male mating efficiency matters for host--parasite complexes; the present work sharpens this finding by demonstrating that it is the \emph{shape} of the discrimination function---specifically, the steepness of the sigmoid transition---rather than merely its asymptotic value that determines the ecological outcome.
 
 % Noise structure and formulation-dependence
 The It\^{o} and Stratonovich formulations make qualitatively different predictions about the role of noise in stabilizing or destabilizing the gynogenetic system.  In the It\^{o} framework, the Lyapunov exponent decreases by $\sigma^2/2$ with increasing noise amplitude, meaning that sufficiently intense noise can push a marginally unstable system toward extinction of the parasite---noise promotes stability of the host.  In the Stratonovich framework, the scalar Lyapunov exponent is independent of noise amplitude, and the noise-induced growth bias in the mean equations ($+\tfrac{1}{2}\sigma_i^2 F_i$) actually opposes extinction by providing an effective additional birth rate.  Which interpretation is biologically correct?  The Wong-Zakai theorem provides theoretical guidance: when the environmental signal driving population fluctuations has finite correlation time, the Stratonovich interpretation is the correct mathematical limit.  For \textit{P.~formosa} in the Soto La Marina drainage, the habitat connectivity fluctuations---pools connecting and disconnecting across the dry and wet seasons---have a correlation time on the order of weeks to months, far from the infinitesimally short correlation required for It\^{o} noise to be the natural limit.  This favors the Stratonovich interpretation, though for environmental drivers with longer correlation times an explicit random-environment (RODE-type) model may be more appropriate.  True demographic noise in birth--death count models typically scales as $\sqrt{u_i}$ in the diffusion-approximation literature; the independent multiplicative ($\sigma_i u_i$) scaling used here is appropriate for independent environmental variation in per-capita rates rather than individual birth--death events.  The implication is sobering for conservation: if Stratonovich is the correct physical model, then noise-induced stabilization of the host is not available as a mechanism, and the only stabilizing force is discrimination speed.  Environmental noise of the Stratonovich type does not shift the stability boundary, so increasing environmental variability (e.g., through climate change) would not be expected to alter the extinction/coexistence outcome.  The RODE dissipative threshold provides yet a third perspective.  The threshold $\eta_f + \eta_m + \eta_p = 3$ is based on phase-space contraction at the population ceiling---a boundary property of the vector field---rather than the linearized growth rate of a single population component near zero.  The RODE and SDE stability concepts therefore disagree fundamentally on where the boundary lies.  This disagreement is not a modeling failure: it reveals that ``stability'' is not a single concept, and different stability measures---boundary phase-space contraction, linearized growth rates, ensemble extinction probabilities---give genuinely different answers for the same biological system.  This multiplicity of stability concepts has practical implications for any ecological modeling effort that uses stochastic differential equations or random ODEs: researchers must explicitly state which stability criterion they are using and justify why that criterion is biologically relevant.
 
 % Field data and model validation
-The Balsano et al.\ (1989) field data from the Soto La Marina drainage provide the primary empirical benchmark for the model~\citep{Balsano1989}.  Across 20 locations sampled over eight years (1970--1978), the proportion of unisexuals varied from near zero to near unity, with no consistent spatial pattern and high year-to-year fluctuation even at the same site.  The ensemble variance produced by the threshold-exceeding RODE case, and by the high-$\sigma$ It\^{o} SDE case, is qualitatively consistent with this level of variability: the model produces trajectories in which the unisexual fraction swings widely, driven by the alternation between dissipative and threshold-exceeding stochastic states.  However, the model in its current form makes no prediction about which locations will be in which regime---such a prediction would require spatially resolved data on discrimination speed and habitat connectivity, which are not yet available for the Soto La Marina system.  The Travis personal communication provides an important qualitative validation (J.~Travis, personal communication): a research tank containing a stable \textit{P.~mexicana} population was accidentally contaminated with \textit{P.~formosa}, and the entire population collapsed within a year.  This observation is consistent with the model's prediction that in the absence of sufficient stochasticity (a controlled laboratory tank has minimal environmental noise), the parasitic takeover is rapid and irreversible once the parasite population exceeds the discrimination threshold.  The model has several limitations that must be acknowledged.  It does not include spatial structure; \citet{Kokko2008} demonstrated that spatial dynamics plays an important role in long-term coexistence by allowing local extinction and recolonization through a metapopulation mechanism.  The absence of spatial fragmentation is particularly relevant for the Soto La Marina system, where the seasonal cycle of pool connectivity and disconnection creates a natural spatial structure that could buffer against local extinction.  The model does not include predation, which could differentially affect the conspicuous \textit{P.~formosa} relative to the more cryptic host species, nor does it include parasite load or disease, which could further modulate population fitness in species-specific ways.  It assumes logistic growth with a single carrying capacity shared by all three populations, whereas in reality the three population types may have different resource requirements, microhabitat preferences, and competitive abilities.  Finally, the mean-field closure approximation yields acceptable accuracy for ensemble means (typically less than 10\% relative error) but underestimates variance dynamics, particularly near the extinction boundary where population distributions become highly non-Gaussian and skewed.  A Fokker-Planck analysis of the full probability density evolution would be needed to address this limitation rigorously.
+The Balsano et al.\ (1989) field data from the Soto La Marina drainage provide the primary empirical benchmark for the model~\citep{Balsano1989}.  Across 20 locations sampled over eight years (1970--1978), the proportion of parasite females varied from near zero to near unity, with no consistent spatial pattern and high year-to-year fluctuation even at the same site.  The ensemble variance produced by the threshold-exceeding RODE case, and by the high-$\sigma$ It\^{o} SDE case, is qualitatively consistent with this level of variability: the model produces trajectories in which the parasite fraction swings widely, driven by the alternation between dissipative and threshold-exceeding stochastic states.  However, the model in its current form makes no prediction about which locations will be in which regime---such a prediction would require spatially resolved data on discrimination speed and habitat connectivity, which are not yet available for the Soto La Marina system.  The Travis personal communication provides an important qualitative validation (J.~Travis, personal communication): a research tank containing a stable \textit{P.~mexicana} population was accidentally contaminated with \textit{P.~formosa}, and the entire population collapsed within a year.  This observation is consistent with the model's prediction that in the absence of sufficient stochasticity (a controlled laboratory tank has minimal environmental noise), the parasitic takeover is rapid and irreversible once the parasite population exceeds the discrimination threshold.  The model has several limitations that must be acknowledged.  It does not include spatial structure; \citet{Kokko2008} demonstrated that spatial dynamics plays an important role in long-term coexistence by allowing local extinction and recolonization through a metapopulation mechanism.  The absence of spatial fragmentation is particularly relevant for the Soto La Marina system, where the seasonal cycle of pool connectivity and disconnection creates a natural spatial structure that could buffer against local extinction.  The model does not include predation, which could differentially affect the conspicuous \textit{P.~formosa} relative to the more cryptic host species, nor does it include parasite load or disease, which could further modulate population fitness in species-specific ways.  It assumes logistic growth with a single carrying capacity shared by all three populations, whereas in reality the three population types may have different resource requirements, microhabitat preferences, and competitive abilities.  Finally, the mean-field closure approximation yields acceptable accuracy for ensemble means (typically less than 10\% relative error) but underestimates variance dynamics, particularly near the extinction boundary where population distributions become highly non-Gaussian and skewed.  A Fokker-Planck analysis of the full probability density evolution would be needed to address this limitation rigorously.
 
 % Implications for the gynogenetic eradication strategy
-The analysis of the gynogenetic system provides practical insights for population management strategies based on sex-ratio manipulation.  If sperm parasites can be controlled by manipulating the discrimination speed or the noise environment, several intervention strategies become conceivable.  First, the model predicts that increasing the discrimination speed past the critical threshold should shift the system from the extinction basin to the coexistence basin.  This is a testable prediction: in aquarium experiments, populations of host males that have been pre-exposed to unisexual females (and thus have had the opportunity to develop discrimination) should show higher coexistence rates than na\"ive populations.  Second, manipulating habitat connectivity to reduce effective population size would increase the effective noise experienced by the population.  Under the It\^{o} interpretation, this would shift the stability boundary and could promote host survival; under the Stratonovich interpretation, it would have no effect on the extinction/coexistence boundary.  Mesocosm experiments comparing connected and fragmented habitat configurations could in principle distinguish between these predictions.  Third, the model shows that stochasticity alone, without sufficient discrimination speed, is insufficient for coexistence in any framework: even threshold-exceeding stochasticity cannot indefinitely prevent extinction if discrimination is too slow.  This narrows the intervention target: discrimination speed is the essential variable, and environmental manipulation is at best a complementary tool.  The sex-biased eradication strategy---in which sex-reversed individuals are introduced to drive an invasive population toward extinction by skewing the sex ratio---relies on the same dynamical mechanisms studied here.  The present results predict that target populations with slow mate discrimination are most vulnerable to such a strategy, that environments with high-amplitude (threshold-exceeding) stochasticity could stabilize coexistence and thereby undermine eradication efforts, and that the choice of stochastic framework affects quantitative predictions of the critical noise threshold but not the qualitative feasibility assessment.  These findings provide a quantitative foundation for experimental design in both conservation biology and invasive species management.
+The analysis of the gynogenetic system provides practical insights for population management strategies based on sex-ratio manipulation.  If sperm parasites can be controlled by manipulating the discrimination speed or the noise environment, several intervention strategies become conceivable.  First, the model predicts that increasing the discrimination speed past the critical threshold should shift the system from the extinction basin to the coexistence basin.  This is a testable prediction: in aquarium experiments, populations of host males that have been pre-exposed to parasite females (and thus have had the opportunity to develop discrimination) should show higher coexistence rates than na\"ive populations.  Second, manipulating habitat connectivity to reduce effective population size would increase the effective noise experienced by the population.  Under the It\^{o} interpretation, this would shift the stability boundary and could promote host survival; under the Stratonovich interpretation, it would have no effect on the extinction/coexistence boundary.  Mesocosm experiments comparing connected and fragmented habitat configurations could in principle distinguish between these predictions.  Third, the model shows that stochasticity alone, without sufficient discrimination speed, is insufficient for coexistence in any framework: even threshold-exceeding stochasticity cannot indefinitely prevent extinction if discrimination is too slow.  This narrows the intervention target: discrimination speed is the essential variable, and environmental manipulation is at best a complementary tool.  The sex-biased eradication strategy---in which sex-reversed individuals are introduced to drive an invasive population toward extinction by skewing the sex ratio---relies on the same dynamical mechanisms studied here.  The present results predict that target populations with slow mate discrimination are most vulnerable to such a strategy, that environments with high-amplitude (threshold-exceeding) stochasticity could stabilize coexistence and thereby undermine eradication efforts, and that the choice of stochastic framework affects quantitative predictions of the critical noise threshold but not the qualitative feasibility assessment.  These findings provide a quantitative foundation for experimental design in both conservation biology and invasive species management.
 
 
 %% =====================================================================
@@ -1028,19 +1103,29 @@ All SDE results were verified by comparing ensembles with $\Delta t$ and $\Delta
 %% TABLES 2 AND 3
 %% =====================================================================
 
-\begin{table}[htbp]
-  \centering
-  \caption{Calibrated $\sigma$ values matching RODE threshold-exceeding variance at $T/2$.  RODE ensemble: $n = 200$ paths, $\tilde{\eta}_{\max} = 0.25$, $v = 0.02$.  SDE calibration: binary search on $\sigma$ using $n = 100$ It\^{o}/common paths.  The calibration targets the It\^{o}/common-noise variant; the same $\sigma$ tuple is then used for the remaining three SDE variants to hold noise amplitude constant across formulations.}
-  \label{tab:calibration}
-  \begin{tabular}{lcccc}
-    \toprule
-    SDE Formulation & $\sigma_f$ & $\sigma_m$ & $\sigma_p$ & Target Std$[f(T/2)]$ \\
-    \midrule
-    SDE variants (calibrated against It\^{o}/common; same $\sigma$ applied to other variants for cross-formulation comparison) & 0.256 & 0.256 & 0.384 & 0.031 \\
-    \midrule
-    \multicolumn{5}{l}{RODE reference: Std$[\tilde{f}(T/2)] = 9.30$ (dimensional), Mean$[\tilde{f}(T/2)] = 46.7$} \\
-    \bottomrule
-  \end{tabular}
+\begin{table}[ht]
+\centering
+\caption{Calibrated $\sigma$ values matching RODE threshold-exceeding
+variance at $T/2$. RODE ensemble: $n=200$ paths, $\tilde\eta_{\max}=0.25$,
+$v=0.02$. SDE calibration: binary search on $\sigma$ using $n=100$
+It\^{o}/common paths.  The calibration targets the It\^{o}/common-noise
+variant; the same $\sigma$ tuple is then applied to the remaining three
+SDE variants to hold noise amplitude constant across formulations.}
+\label{tab:calibration}
+\begin{tabular}{lcc}
+\hline
+SDE Formulation & $\sigma_f = \sigma_m$ & $\sigma_p$ \\
+\hline
+It\^{o} / common          & 0.256 & 0.384 \\
+It\^{o} / independent     & 0.256 & 0.384 \\
+Stratonovich / common      & 0.256 & 0.384 \\
+Stratonovich / independent & 0.256 & 0.384 \\
+\hline
+\multicolumn{3}{l}{\footnotesize RODE reference:
+  $\mathrm{Std}[\tilde{f}(T/2)] = 9.30$ (dimensional),
+  $\mathrm{Mean}[\tilde{f}(T/2)] = 46.7$} \\
+\hline
+\end{tabular}
 \end{table}
 
 \begin{table}[htbp]

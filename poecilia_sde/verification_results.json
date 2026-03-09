@@ -14,8 +14,8 @@
   },
   "V3": {
     "bordered_hessian_det": "beta**2",
-    "det_equals_1": false,
-    "status": "CORRECTED",
+    "det_equals_beta_squared": true,
+    "status": "PASS",
     "actual_value": "beta**2"
   },
   "V4": {

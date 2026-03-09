@@ -1,6 +1,7 @@
 """
-Stratonovich SDE solver for TXC non-dimensional system.
-Implements Heun method (explicit 2-stage predictor-corrector).
+Stratonovich SDE solver (Heun method) for the Poecilia host--parasite system.
+Two noise structures: common environmental noise and independent
+multiplicative noise (separate Wiener processes per population).
 
 Heun for Stratonovich:
   U_bar = U_n + g(U_n)*sqrt(dt)*xi     (predictor)

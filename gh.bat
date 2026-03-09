@@ -13,7 +13,7 @@ rem  poecilia_manuscript.tex and VERSION -- not the stamp commit hash.
 rem  Claude searches for that string in the project knowledge base.
 rem ================================================================
 
-set TEXFILE=poecilia_manuscript.tex
+rem set TEXFILE=GITCOMMIT.txt
 set VERSIONFILE=VERSION
 
 rem ================================================================
@@ -61,15 +61,16 @@ rem ---- Write VERSION ----
 echo !WORKHASH! %DATE% %TIME%> !VERSIONFILE!
 
 rem ---- Update % GITCOMMIT: line in the .tex file ----
-if exist !TEXFILE! (
-    powershell -NoProfile -Command "(Get-Content '!TEXFILE!') -replace 'GITCOMMIT:.*', 'GITCOMMIT: !WORKHASH!' | Set-Content '!TEXFILE!'"
-    echo [gh] Updated GITCOMMIT in !TEXFILE!
-) else (
-    echo [gh] WARNING: !TEXFILE! not found -- GITCOMMIT line not updated.
-)
+rem if exist !TEXFILE! (
+rem     powershell -NoProfile -Command "(Get-Content '!TEXFILE!') -replace 'GITCOMMIT:.*', 'GITCOMMIT: !WORKHASH!' | Set-Content '!TEXFILE!'"
+rem     echo [gh] Updated GITCOMMIT in !TEXFILE!
+rem ) else (
+rem     echo [gh] WARNING: !TEXFILE! not found -- GITCOMMIT line not updated.
+rem )
 
 rem ---- Stage and commit stamp files ----
-git add !VERSIONFILE! !TEXFILE!
+rem git add !VERSIONFILE! !TEXFILE!
+git add !VERSIONFILE! 
 git diff --cached --quiet
 if errorlevel 1 (
     git commit -m "Auto: version stamp !WORKHASH!"

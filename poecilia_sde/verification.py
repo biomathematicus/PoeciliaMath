@@ -1,6 +1,7 @@
 """
-Symbolic verification tasks V1-V8 using SymPy.
-Run before any LaTeX or figure code.
+Symbolic verification tasks (V1--V8) for the Poecilia host--parasite
+system using SymPy. Verifies Ito--Stratonovich conversion, moment
+equations, and Lyapunov exponent expressions.
 """
 import sympy as sp
 import numpy as np
